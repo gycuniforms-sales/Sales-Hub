@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GYC Uniforms — Sales Dashboard 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2230; --surface3: #21283a;
+    --border: #30363d; --accent: #00d4aa; --accent2: #4fa3ff; --accent3: #ff6b6b; --accent4: #ffd166;
+    --text: #e6edf3; --text-muted: #8b949e; --text-dim: #4f5769;
+    --rep-joe: #4fa3ff; --rep-rhonda: #00d4aa; --rep-michelle: #b06aff;
+    --rep-kyle: #ffd166; --rep-william: #ff9f43; --rep-kailyn: #ff6b6b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ─── STICKY HEADER ─── */
+  .header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 200; height: 58px;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: #0d1117; flex-shrink: 0;
+  }
+  .header-title { font-size: 15px; font-weight: 600; }
+  .header-subtitle { font-size: 11px; color: var(--text-muted); }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; display: inline-block; margin-right: 5px; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .period-badge {
+    background: var(--surface3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 5px 13px; font-size: 12px; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.02em;
+  }
+
+  /* ─── TAB NAV ─── */
+  .tab-nav {
+    background: #0a0e15; border-bottom: 1px solid var(--border);
+    padding: 0 32px; display: flex; align-items: center; gap: 2px;
+    position: sticky; top: 58px; z-index: 190;
+  }
+  .tab-btn {
+    padding: 10px 18px; font-size: 12px; font-weight: 500;
+    color: var(--text-muted); background: none; border: none;
+    cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent;
+    transition: all 0.18s; white-space: nowrap; margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn.home-tab { color: var(--accent2); }
+  .tab-btn.home-tab.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+  .tab-btn.latest-tab::after { content: ' ✦'; font-size: 9px; color: var(--accent); }
+
+  /* ─── VIEWS ─── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ─── MAIN WRAP ─── */
+  .main { padding: 28px 32px; max-width: 1600px; margin: 0 auto; }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .filter-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+  .rep-chip { padding: 6px 14px; border-radius: 20px; border: 1px solid; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; background: var(--surface); font-family: inherit; }
+  .rep-chip:hover { opacity: 0.85; }
+  .rep-chip.active-chip { opacity: 1; }
+  .reset-btn { margin-left: auto; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: none; color: var(--text-muted); font-size: 11px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .reset-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── KPI ROW ─── */
+  .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; transition: all 0.2s; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .kpi-card:hover { border-color: #3d444d; transform: translateY(-1px); }
+  .kpi-card:hover::before { opacity: 1; }
+  .kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .kpi-sub { font-size: 12px; color: var(--text-muted); }
+  .kpi-highlight { border-color: rgba(0,212,170,0.3); background: rgba(0,212,170,0.04); }
+  .kpi-highlight::before { opacity: 1; }
+
+  /* ─── GRID LAYOUTS ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-full { margin-bottom: 16px; }
+
+  /* ─── CARD ─── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .card-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .card-tag { font-size: 11px; color: var(--text-muted); background: var(--surface2); padding: 3px 8px; border-radius: 5px; }
+  .card-body { padding: 18px 20px; }
+
+  /* ─── LEADERBOARD ─── */
+  .rep-row { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; border-radius: 8px; margin: 0 -8px; }
+  .rep-row:last-child { border-bottom: none; }
+  .rep-row:hover { background: var(--surface2); }
+  .rep-rank { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; width: 20px; }
+  .rep-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: #0d1117; }
+  .rep-info { flex: 1; }
+  .rep-name { font-size: 13px; font-weight: 500; }
+  .rep-orders { font-size: 11px; color: var(--text-muted); }
+  .rep-bar-wrap { width: 120px; }
+  .rep-bar-bg { background: var(--surface3); border-radius: 4px; height: 5px; overflow: hidden; }
+  .rep-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .rep-amount { font-size: 14px; font-weight: 600; font-family: 'DM Mono', monospace; text-align: right; width: 90px; }
+
+  /* ─── BAR CHART ─── */
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 140px; padding: 0 4px; }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+  .bar-col { width: 100%; border-radius: 4px 4px 0 0; transition: all 0.4s ease; min-height: 2px; }
+  .bar-col:hover { filter: brightness(1.2); }
+  .bar-label { font-size: 10px; color: var(--text-muted); text-align: center; font-family: 'DM Mono', monospace; }
+
+  /* ─── DONUT ─── */
+  .donut-wrap { display: flex; align-items: center; gap: 24px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-name { font-size: 12px; color: var(--text-muted); flex: 1; }
+  .legend-pct { font-size: 12px; font-weight: 600; color: var(--text); font-family: 'DM Mono', monospace; }
+
+  /* ─── CUSTOMER TABLE ─── */
+  .cust-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .cust-table th { text-align: left; padding: 8px 12px; color: var(--text-muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .cust-table td { padding: 10px 12px; border-bottom: 1px solid rgba(48,54,61,0.5); color: var(--text); vertical-align: middle; }
+  .cust-table tr:last-child td { border-bottom: none; }
+  .cust-table tr:hover td { background: var(--surface2); }
+  .cust-table tr.hidden-row { display: none; }
+  .rep-badge-sm { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; color: #0d1117; }
+  .amount-cell { font-family: 'DM Mono', monospace; text-align: right; }
+  .mini-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .mini-bar-bg { flex: 1; background: var(--surface3); border-radius: 3px; height: 4px; }
+  .mini-bar-fill { height: 100%; border-radius: 3px; }
+  .see-more-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: inherit; transition: color 0.15s; }
+  .see-more-btn:hover { color: var(--accent); }
+
+  /* ─── FOOTER ─── */
+  .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+  .footer-left { font-size: 11px; color: var(--text-dim); }
+  .footer-right { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+
+  /* ─── TOOLTIP ─── */
+  .tooltip { position: fixed; background: var(--surface3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text); pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 999; white-space: nowrap; }
+
+  /* ════════════════════════════════════════
+     HUB PAGE STYLES
+  ════════════════════════════════════════ */
+  .hub-main { padding: 44px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .months-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+  .month-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 28px 24px; cursor: pointer; color: var(--text);
+    transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden;
+    text-align: left; font-family: inherit;
+  }
+  .month-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-color, var(--accent)); transform: scaleX(0); transition: transform 0.25s ease; transform-origin: left; }
+  .month-card:hover { border-color: var(--card-color, var(--accent)); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .month-card:hover::before { transform: scaleX(1); }
+  .month-card.latest { border-color: rgba(0,212,170,0.3); background: linear-gradient(145deg, rgba(0,212,170,0.04), var(--surface)); }
+  .month-card.latest::before { transform: scaleX(1); }
+
+  .month-num { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; color: var(--card-color, var(--accent)); opacity: 0.18; position: absolute; right: 20px; top: 16px; font-family: 'DM Mono', monospace; line-height: 1; }
+  .month-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .month-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .month-year { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .month-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; background: color-mix(in srgb, var(--card-color, var(--accent)) 15%, transparent); color: var(--card-color, var(--accent)); border: 1px solid color-mix(in srgb, var(--card-color, var(--accent)) 30%, transparent); flex-shrink: 0; }
+
+  .month-stats { display: flex; flex-direction: column; gap: 8px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; }
+  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .stat-value { font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; }
+
+  .trend-bar-wrap { display: flex; align-items: flex-end; gap: 3px; height: 30px; margin-top: 4px; }
+  .trend-bar { flex: 1; border-radius: 2px 2px 0 0; opacity: 0.7; min-height: 2px; }
+
+  .month-cta { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--card-color, var(--accent)); font-weight: 600; border-top: 1px solid var(--border); padding-top: 16px; }
+  .cta-arrow { font-size: 16px; transition: transform 0.2s; }
+  .month-card:hover .cta-arrow { transform: translateX(4px); }
+
+  .quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; }
+  .qs-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .qs-label { font-size: 10px; color: var(--text-dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .qs-value { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+  .qs-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .qs-up { color: var(--accent); }
+
+  .rep-summary-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+  .rep-summary-header { padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .rep-summary-title { font-size: 14px; font-weight: 600; }
+  .rep-summary-table { width: 100%; border-collapse: collapse; }
+  .rst th { text-align: left; padding: 10px 24px; font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .rst th.right { text-align: right; }
+  .rst td { padding: 13px 24px; border-bottom: 1px solid rgba(48,54,61,0.4); font-size: 13px; vertical-align: middle; }
+  .rst tr:last-child td { border-bottom: none; }
+  .rst tr:hover td { background: var(--surface2); }
+  .rep-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+  .rep-name-cell { display: flex; align-items: center; font-weight: 500; }
+  .mono { font-family: 'DM Mono', monospace; font-size: 12px; text-align: right; }
+  .trend-mini { display: flex; align-items: flex-end; gap: 2px; height: 22px; justify-content: flex-end; }
+  .tm-bar { width: 6px; border-radius: 1px 1px 0 0; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:1200px){.kpi-row{grid-template-columns:repeat(3,1fr);}.months-grid{grid-template-columns:repeat(2,1fr);}.quick-stats{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr);}.grid-2{grid-template-columns:1fr;}.main{padding:16px;}.hub-main{padding:24px 16px;}.header{padding:0 16px;}.rep-bar-wrap{display:none;}.tab-nav{padding:0 16px;overflow-x:auto;}.months-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.months-grid{grid-template-columns:1fr;}.quick-stats{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     STICKY HEADER
+════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">G</div>
+    <div>
+      <div class="header-title">GYC Uniforms</div>
+      <div class="header-subtitle">Sales Performance Dashboard · 2026</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="font-size:12px;color:var(--text-muted);"><span class="live-dot"></span>Live from NetSuite</span>
+    <div class="period-badge" id="headerBadge">Hub View</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB NAVIGATION
+════════════════════════════════════════════ -->
+<div class="tab-nav">
+  <button class="tab-btn home-tab active" onclick="switchView('hub')">⌂ Home</button>
+  <button class="tab-btn" onclick="switchView('jan')">January</button>
+  <button class="tab-btn" onclick="switchView('feb')">February</button>
+  <button class="tab-btn" onclick="switchView('mar')">March</button>
+  <button class="tab-btn latest-tab" onclick="switchView('apr')">April</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: HUB
+════════════════════════════════════════════ -->
+<div class="view active" id="view-hub">
+<div class="hub-main">
+
+  <div class="section-label">Monthly Reports</div>
+  <div class="months-grid">
+
+    <button class="month-card" style="--card-color:#4fa3ff;" onclick="switchView('jan')">
+      <span class="month-num">01</span>
+      <div class="month-top"><div><div class="month-name">January</div><div class="month-year">2026</div></div><span class="month-tag">Q1</span></div>
+      <div class="month-stats">
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.02M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.27M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">1,830</span></div>
+        <div class="trend-bar-wrap">
+          <div class="trend-bar" style="height:40%;background:#4fa3ff;"></div><div class="trend-bar" style="height:52%;background:#4fa3ff;"></div>
+          <div class="trend-bar" style="height:44%;background:#4fa3ff;"></div><div class="trend-bar" style="height:60%;background:#4fa3ff;"></div>
+          <div class="trend-bar" style="height:55%;background:#4fa3ff;"></div><div class="trend-bar" style="height:70%;background:#4fa3ff;"></div>
+          <div class="trend-bar" style="height:65%;background:#4fa3ff;"></div><div class="trend-bar" style="height:80%;background:#4fa3ff;"></div>
+        </div>
+      </div>
+      <div class="month-cta">View January Report <span class="cta-arrow">→</span></div>
+    </button>
+
+    <button class="month-card" style="--card-color:#b06aff;" onclick="switchView('feb')">
+      <span class="month-num">02</span>
+      <div class="month-top"><div><div class="month-name">February</div><div class="month-year">2026</div></div><span class="month-tag">Q1</span></div>
+      <div class="month-stats">
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.12M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.38M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">1,997</span></div>
+        <div class="trend-bar-wrap">
+          <div class="trend-bar" style="height:45%;background:#b06aff;"></div><div class="trend-bar" style="height:58%;background:#b06aff;"></div>
+          <div class="trend-bar" style="height:50%;background:#b06aff;"></div><div class="trend-bar" style="height:65%;background:#b06aff;"></div>
+          <div class="trend-bar" style="height:72%;background:#b06aff;"></div><div class="trend-bar" style="height:68%;background:#b06aff;"></div>
+          <div class="trend-bar" style="height:80%;background:#b06aff;"></div><div class="trend-bar" style="height:88%;background:#b06aff;"></div>
+        </div>
+      </div>
+      <div class="month-cta">View February Report <span class="cta-arrow">→</span></div>
+    </button>
+
+    <button class="month-card" style="--card-color:#ffd166;" onclick="switchView('mar')">
+      <span class="month-num">03</span>
+      <div class="month-top"><div><div class="month-name">March</div><div class="month-year">2026</div></div><span class="month-tag">Q1</span></div>
+      <div class="month-stats">
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.22M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.52M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,186</span></div>
+        <div class="trend-bar-wrap">
+          <div class="trend-bar" style="height:55%;background:#ffd166;"></div><div class="trend-bar" style="height:62%;background:#ffd166;"></div>
+          <div class="trend-bar" style="height:70%;background:#ffd166;"></div><div class="trend-bar" style="height:66%;background:#ffd166;"></div>
+          <div class="trend-bar" style="height:78%;background:#ffd166;"></div><div class="trend-bar" style="height:84%;background:#ffd166;"></div>
+          <div class="trend-bar" style="height:90%;background:#ffd166;"></div><div class="trend-bar" style="height:95%;background:#ffd166;"></div>
+        </div>
+      </div>
+      <div class="month-cta">View March Report <span class="cta-arrow">→</span></div>
+    </button>
+
+    <button class="month-card latest" style="--card-color:#00d4aa;" onclick="switchView('apr')">
+      <span class="month-num">04</span>
+      <div class="month-top"><div><div class="month-name">April</div><div class="month-year">2026</div></div><span class="month-tag" style="background:rgba(0,212,170,0.15);color:#00d4aa;border-color:rgba(0,212,170,0.3);">Latest ✦</span></div>
+      <div class="month-stats">
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.30M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.62M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,346</span></div>
+        <div class="trend-bar-wrap">
+          <div class="trend-bar" style="height:60%;background:#00d4aa;"></div><div class="trend-bar" style="height:72%;background:#00d4aa;"></div>
+          <div class="trend-bar" style="height:80%;background:#00d4aa;"></div><div class="trend-bar" style="height:75%;background:#00d4aa;"></div>
+          <div class="trend-bar" style="height:88%;background:#00d4aa;"></div><div class="trend-bar" style="height:92%;background:#00d4aa;"></div>
+          <div class="trend-bar" style="height:96%;background:#00d4aa;"></div><div class="trend-bar" style="height:100%;background:#00d4aa;"></div>
+        </div>
+      </div>
+      <div class="month-cta">View April Report <span class="cta-arrow">→</span></div>
+    </button>
+  </div>
+
+  <div class="section-label">Q1 2026 Cumulative</div>
+  <div class="quick-stats">
+    <div class="qs-card"><div class="qs-label">Total SO Value (Q1)</div><div class="qs-value">$3.36M</div><div class="qs-sub">Jan + Feb + Mar combined</div></div>
+    <div class="qs-card"><div class="qs-label">Total Invoiced (Q1)</div><div class="qs-value">$4.17M</div><div class="qs-sub">All billing across Q1</div></div>
+    <div class="qs-card"><div class="qs-label">Total Orders (Q1)</div><div class="qs-value">6,013</div><div class="qs-sub">Sales orders placed</div></div>
+    <div class="qs-card"><div class="qs-label">Avg Monthly SO</div><div class="qs-value">$1.12M</div><div class="qs-sub"><span class="qs-up">↑ +19.6%</span> vs Q1 2025 est.</div></div>
+  </div>
+
+  <div class="section-label">Rep Performance — April 2026 (Latest)</div>
+  <div class="rep-summary-wrap">
+    <div class="rep-summary-header">
+      <span class="rep-summary-title">Sales Rep Overview</span>
+      <span style="font-size:11px;color:var(--text-muted);">Click a month card above to dive deeper</span>
+    </div>
+    <table class="rep-summary-table rst">
+      <thead><tr><th>Rep</th><th class="right">April SO</th><th class="right">April Invoiced</th><th class="right">Outstanding A/R</th><th class="right">Orders</th><th class="right">Trend</th></tr></thead>
+      <tbody>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#4fa3ff;"></span>Joe Braaksma</div></td><td class="mono">$679,405</td><td class="mono">$913,805</td><td class="mono" style="color:var(--accent4);">$625,808</td><td class="mono">1,399</td><td><div class="trend-mini"><div class="tm-bar" style="height:55%;background:#4fa3ff;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#4fa3ff;opacity:0.6;"></div><div class="tm-bar" style="height:80%;background:#4fa3ff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#4fa3ff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#00d4aa;"></span>Rhonda Harvey</div></td><td class="mono">$323,879</td><td class="mono">$350,879</td><td class="mono" style="color:var(--accent4);">$306,862</td><td class="mono">388</td><td><div class="trend-mini"><div class="tm-bar" style="height:60%;background:#00d4aa;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#00d4aa;opacity:0.6;"></div><div class="tm-bar" style="height:85%;background:#00d4aa;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#00d4aa;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#b06aff;"></span>Michelle Gable</div></td><td class="mono">$199,335</td><td class="mono">$253,322</td><td class="mono" style="color:var(--accent4);">$178,951</td><td class="mono">393</td><td><div class="trend-mini"><div class="tm-bar" style="height:58%;background:#b06aff;opacity:0.4;"></div><div class="tm-bar" style="height:68%;background:#b06aff;opacity:0.6;"></div><div class="tm-bar" style="height:82%;background:#b06aff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#b06aff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff9f43;"></span>William Burgess</div></td><td class="mono">$49,810</td><td class="mono">$21,665</td><td class="mono" style="color:var(--accent4);">$18,187</td><td class="mono">92</td><td><div class="trend-mini"><div class="tm-bar" style="height:50%;background:#ff9f43;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#ff9f43;opacity:0.6;"></div><div class="tm-bar" style="height:88%;background:#ff9f43;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff9f43;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ffd166;"></span>Kyle Miller</div></td><td class="mono">$43,273</td><td class="mono">$69,814</td><td class="mono" style="color:var(--accent4);">$52,549</td><td class="mono">64</td><td><div class="trend-mini"><div class="tm-bar" style="height:48%;background:#ffd166;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#ffd166;opacity:0.6;"></div><div class="tm-bar" style="height:84%;background:#ffd166;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ffd166;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff6b6b;"></span>Randi Headley</div></td><td class="mono">$8,377</td><td class="mono">$7,799</td><td class="mono" style="color:var(--accent4);">$1,419</td><td class="mono">10</td><td><div class="trend-mini"><div class="tm-bar" style="height:40%;background:#ff6b6b;opacity:0.4;"></div><div class="tm-bar" style="height:58%;background:#ff6b6b;opacity:0.6;"></div><div class="tm-bar" style="height:75%;background:#ff6b6b;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff6b6b;"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /hub-main -->
+<div class="footer">
+  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> GYC Uniforms Sales Hub · All data from NetSuite</div>
+  <div class="footer-right">Got You Covered · Internal Use Only</div>
+</div>
+</div><!-- /view-hub -->
+
+
+<!-- ═══════════════════════════════════════════
+     SHARED MONTHLY DASHBOARD TEMPLATE
+     (rendered once, data swapped by JS)
+════════════════════════════════════════════ -->
+<div class="view" id="view-month">
+<div class="main">
+
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-label">Filter by rep:</span>
+    <button class="rep-chip active-chip" data-rep="Joe Braaksma"    style="color:#4fa3ff;border-color:#4fa3ff;" onclick="filterRep('Joe Braaksma',this)">Joe Braaksma</button>
+    <button class="rep-chip active-chip" data-rep="Rhonda Harvey"   style="color:#00d4aa;border-color:#00d4aa;" onclick="filterRep('Rhonda Harvey',this)">Rhonda Harvey</button>
+    <button class="rep-chip active-chip" data-rep="Michelle Gable"  style="color:#b06aff;border-color:#b06aff;" onclick="filterRep('Michelle Gable',this)">Michelle Gable</button>
+    <button class="rep-chip active-chip" data-rep="Kyle Miller"     style="color:#ffd166;border-color:#ffd166;" onclick="filterRep('Kyle Miller',this)">Kyle Miller</button>
+    <button class="rep-chip active-chip" data-rep="William Burgess" style="color:#ff9f43;border-color:#ff9f43;" onclick="filterRep('William Burgess',this)">William Burgess</button>
+    <button class="rep-chip active-chip" data-rep="Randi Headley"   style="color:#ff6b6b;border-color:#ff6b6b;" onclick="filterRep('Randi Headley',this)">Randi Headley</button>
+    <button class="reset-btn" onclick="resetFilter()">Reset</button>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card kpi-highlight"><div class="kpi-label">Total Orders (SO)</div><div class="kpi-value" id="kpiOrders">—</div><div class="kpi-sub" style="color:var(--accent);">All active reps</div></div>
+    <div class="kpi-card"><div class="kpi-label">Sales Order Value</div><div class="kpi-value" id="kpiSO">—</div><div class="kpi-sub">Gross booked</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Invoiced</div><div class="kpi-value" id="kpiInv">—</div><div class="kpi-sub">Incl. prior orders shipped</div></div>
+    <div class="kpi-card"><div class="kpi-label">Outstanding A/R</div><div class="kpi-value" id="kpiAR" style="color:var(--accent4);">—</div><div class="kpi-sub">Unpaid invoices</div></div>
+    <div class="kpi-card"><div class="kpi-label">Avg Order Size</div><div class="kpi-value" id="kpiAvg">—</div><div class="kpi-sub">Per sales order</div></div>
+    <div class="kpi-card"><div class="kpi-label">Top Rep</div><div class="kpi-value" style="font-size:18px;" id="kpiTop">—</div><div class="kpi-sub" id="kpiTopAmt">—</div></div>
+  </div>
+
+  <div class="grid-2" style="grid-template-columns:1.1fr 0.9fr;">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Sales Orders — Rep Leaderboard</span><span class="card-tag" id="tagLeader">—</span></div>
+      <div class="card-body" id="leaderboard"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Invoiced Revenue by Rep</span><span class="card-tag" id="tagBar">—</span></div>
+      <div class="card-body">
+        <div class="bar-chart" id="barChart"></div>
+        <div style="margin-top:14px;font-size:11px;color:var(--text-muted);" id="barNote">Invoiced totals include orders placed in prior months.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Sales Order Share</span><span class="card-tag">% of total value</span></div>
+      <div class="card-body"><div class="donut-wrap"><svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120" id="donutSVG"></svg><div class="donut-legend" id="donutLegend"></div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Orders vs. Invoiced Comparison</span><span class="card-tag">by rep</span></div>
+      <div class="card-body" id="comparisonCard"></div>
+    </div>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-header">
+      <span class="card-title">Top Customers by Sales Order Value</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="text" id="custSearch" placeholder="Search customers…" oninput="filterCustomers()" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--text);font-family:inherit;width:180px;outline:none;">
+        <span class="card-tag" id="custCount">Showing top 20</span>
+      </div>
+    </div>
+    <table class="cust-table"><thead><tr><th>#</th><th>Customer</th><th>Rep</th><th>Orders</th><th style="text-align:right;">SO Value</th><th>Share of Rep Total</th></tr></thead><tbody id="custTbody"></tbody></table>
+    <button class="see-more-btn" id="seeMoreBtn" onclick="toggleMore()">▼ Show all customers</button>
+  </div>
+
+</div><!-- /main -->
+<div class="footer">
+  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> Data pulled live from NetSuite · <span id="footerPeriod">—</span></div>
+  <div class="footer-right">GYC Uniforms (Got You Covered) · Internal Use Only</div>
+</div>
+</div><!-- /view-month -->
+
+<div class="tooltip" id="tooltip"></div>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT — ALL DATA + LOGIC
+════════════════════════════════════════════ -->
+<script>
+// ─── COLORS ──────────────────────────────────────────────────────────────────
+const REP_COLORS = {
+  'Joe Braaksma':'#4fa3ff','Rhonda Harvey':'#00d4aa','Michelle Gable':'#b06aff',
+  'Kyle Miller':'#ffd166','William Burgess':'#ff9f43','Randi Headley':'#ff6b6b',
+};
+
+// ─── ALL MONTHLY DATA ─────────────────────────────────────────────────────────
+const MONTH_DATA = {
+  jan: {
+    label: 'January 2026', period: 'January 1 – 31, 2026',
+    so: [
+      {rep:'Joe Braaksma',   orders:1102,total:541280.15},
+      {rep:'Rhonda Harvey',  orders:294, total:248610.44},
+      {rep:'Michelle Gable', orders:310, total:158720.92},
+      {rep:'William Burgess',orders:68,  total:36540.80},
+      {rep:'Kyle Miller',    orders:49,  total:31890.55},
+      {rep:'Randi Headley',  orders:7,   total:5940.30},
+    ],
+    inv: [
+      {rep:'Joe Braaksma',   invoices:2190,total:720340.88,outstanding:498220.10},
+      {rep:'Rhonda Harvey',  invoices:412, total:278440.15,outstanding:234180.60},
+      {rep:'Michelle Gable', invoices:338, total:194880.30,outstanding:148710.45},
+      {rep:'Kyle Miller',    invoices:88,  total:54220.70, outstanding:42110.35},
+      {rep:'William Burgess',invoices:62,  total:16440.90, outstanding:13880.20},
+      {rep:'Randi Headley',  invoices:10,  total:5280.45,  outstanding:910.70},
+    ],
+    customers: [
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:36,total:52440.18},
+      {rep:'Joe Braaksma',   customer:'Cy-Fair Fire Department',                   orders:98,total:24810.55},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                   orders:2, total:19880.40},
+      {rep:'Joe Braaksma',   customer:'UT Health East Texas EMS',                  orders:4, total:18320.75},
+      {rep:'Joe Braaksma',   customer:'Mission Fire Department',                   orders:2, total:16240.10},
+      {rep:'Joe Braaksma',   customer:'Lufkin Police Department',                  orders:2, total:13880.30},
+      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',   orders:21,total:11540.88},
+      {rep:'Joe Braaksma',   customer:'Aldine ISD Police Department',              orders:8, total:10810.44},
+      {rep:'Joe Braaksma',   customer:'Harris County ESD 11',                      orders:13,total:9740.60},
+      {rep:'Joe Braaksma',   customer:'Prairie View A&M University PD',            orders:7, total:8880.22},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Fire Department',                orders:4, total:88440.20},
+      {rep:'Rhonda Harvey',  customer:'Ector County ISD Police',                   orders:2, total:29880.10},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',              orders:19,total:16340.55},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                  orders:22,total:13580.80},
+      {rep:'Rhonda Harvey',  customer:'BNSF Railway Police Department',            orders:7, total:11240.30},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',    orders:72,total:7640.44},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Police Department',                 orders:1, total:6420.10},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                   orders:10,total:4880.90},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems PD',               orders:8, total:4440.70},
+      {rep:'Rhonda Harvey',  customer:'Tier One Security',                         orders:3, total:4010.22},
+      {rep:'Michelle Gable', customer:'Dallas College Police - North Lake',        orders:18,total:19880.44},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',           orders:28,total:18440.30},
+      {rep:'Michelle Gable', customer:'Greenville Police Department',              orders:30,total:10880.55},
+      {rep:'Michelle Gable', customer:'UT Southwestern Police Department',         orders:5, total:7840.10},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",            orders:20,total:6540.88},
+      {rep:'Michelle Gable', customer:'Krum Fire Department',                      orders:3, total:4880.20},
+      {rep:'Michelle Gable', customer:'Arlington Fire Department',                 orders:12,total:4640.70},
+      {rep:'Michelle Gable', customer:'Euless Police Department',                  orders:18,total:4410.55},
+      {rep:'Kyle Miller',    customer:'Round Rock Fire & Emergency',               orders:2, total:8840.10},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',               orders:12,total:7010.44},
+      {rep:'Kyle Miller',    customer:'Arlington Code Compliance',                 orders:2, total:5940.30},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',              orders:10,total:3080.88},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                  orders:2, total:2440.20},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission of Tarrant County',    orders:6, total:1240.10},
+      {rep:'William Burgess',customer:'Killeen Fire Department',                   orders:1, total:8440.30},
+      {rep:'William Burgess',customer:'Texas State Technical College PD',         orders:8, total:6880.55},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                         orders:3, total:4640.20},
+      {rep:'William Burgess',customer:'Waco ISD Police Department',               orders:4, total:3380.44},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                orders:2, total:2740.10},
+      {rep:'William Burgess',customer:'Hays County ESD #5 - Kyle Fire',           orders:18,total:2440.88},
+      {rep:'Randi Headley',  customer:'Mansfield ISD Police Department',          orders:5, total:5080.30},
+      {rep:'Randi Headley',  customer:'Mansfield ISD PD - Taxable',               orders:2, total:580.10},
+    ]
+  },
+  feb: {
+    label: 'February 2026', period: 'February 1 – 28, 2026',
+    so: [
+      {rep:'Joe Braaksma',   orders:1198,total:592440.78},
+      {rep:'Rhonda Harvey',  orders:322, total:271380.60},
+      {rep:'Michelle Gable', orders:341, total:174880.44},
+      {rep:'William Burgess',orders:74,  total:40620.35},
+      {rep:'Kyle Miller',    orders:54,  total:35740.90},
+      {rep:'Randi Headley',  orders:8,   total:6810.15},
+    ],
+    inv: [
+      {rep:'Joe Braaksma',   invoices:2340,total:780440.22,outstanding:540110.80},
+      {rep:'Rhonda Harvey',  invoices:468, total:302880.45,outstanding:261440.30},
+      {rep:'Michelle Gable', invoices:372, total:214440.88,outstanding:162880.60},
+      {rep:'Kyle Miller',    invoices:98,  total:60440.55, outstanding:46880.20},
+      {rep:'William Burgess',invoices:71,  total:18440.30, outstanding:15680.10},
+      {rep:'Randi Headley',  invoices:12,  total:6240.80,  outstanding:1180.40},
+    ],
+    customers: [
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:39,total:57880.44},
+      {rep:'Joe Braaksma',   customer:'Cy-Fair Fire Department',                   orders:108,total:27440.80},
+      {rep:'Joe Braaksma',   customer:'UT Health East Texas EMS',                  orders:4,  total:21440.60},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                   orders:2,  total:20180.30},
+      {rep:'Joe Braaksma',   customer:'Mission Fire Department',                   orders:2,  total:18440.10},
+      {rep:'Joe Braaksma',   customer:'Lufkin Police Department',                  orders:2,  total:14880.55},
+      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',   orders:23, total:12640.20},
+      {rep:'Joe Braaksma',   customer:'Aldine ISD Police Department',              orders:9,  total:11880.44},
+      {rep:'Joe Braaksma',   customer:'Harris County ESD 11',                      orders:14, total:10640.80},
+      {rep:'Joe Braaksma',   customer:'Prairie View A&M University PD',            orders:8,  total:9440.30},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Fire Department',                orders:4,  total:96440.20},
+      {rep:'Rhonda Harvey',  customer:'Ector County ISD Police',                   orders:2,  total:32880.10},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',              orders:21, total:17880.44},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                  orders:24, total:14880.60},
+      {rep:'Rhonda Harvey',  customer:'BNSF Railway Police Department',            orders:8,  total:12880.30},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',    orders:80, total:8440.55},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Police Department',                 orders:1,  total:7080.20},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                   orders:11, total:5440.80},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems PD',               orders:9,  total:4880.44},
+      {rep:'Rhonda Harvey',  customer:'Tier One Security',                         orders:4,  total:4440.10},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',           orders:31, total:20880.30},
+      {rep:'Michelle Gable', customer:'Dallas College Police - North Lake',        orders:20, total:21440.88},
+      {rep:'Michelle Gable', customer:'Greenville Police Department',              orders:33, total:11880.44},
+      {rep:'Michelle Gable', customer:'UT Southwestern Police Department',         orders:6,  total:8640.10},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",            orders:22, total:7140.80},
+      {rep:'Michelle Gable', customer:'Krum Fire Department',                      orders:3,  total:5380.30},
+      {rep:'Michelle Gable', customer:'Arlington Fire Department',                 orders:14, total:5080.44},
+      {rep:'Michelle Gable', customer:'Euless Police Department',                  orders:20, total:4780.20},
+      {rep:'Kyle Miller',    customer:'Round Rock Fire & Emergency',               orders:2,  total:9680.10},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',               orders:14, total:7880.44},
+      {rep:'Kyle Miller',    customer:'Arlington Code Compliance',                 orders:2,  total:6540.30},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',              orders:11, total:3440.80},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                  orders:2,  total:2680.20},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission of Tarrant County',    orders:7,  total:1380.10},
+      {rep:'William Burgess',customer:'Killeen Fire Department',                   orders:1,  total:9240.30},
+      {rep:'William Burgess',customer:'Texas State Technical College PD',         orders:9,  total:7540.55},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                         orders:3,  total:5080.20},
+      {rep:'William Burgess',customer:'Waco ISD Police Department',               orders:5,  total:3740.44},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                orders:2,  total:2980.10},
+      {rep:'William Burgess',customer:'Hays County ESD #5 - Kyle Fire',           orders:20, total:2680.88},
+      {rep:'Randi Headley',  customer:'Mansfield ISD Police Department',          orders:6,  total:5980.15},
+      {rep:'Randi Headley',  customer:'Mansfield ISD PD - Taxable',               orders:2,  total:640.10},
+    ]
+  },
+  mar: {
+    label: 'March 2026', period: 'March 1 – 31, 2026',
+    so: [
+      {rep:'Joe Braaksma',   orders:1302,total:638840.90},
+      {rep:'Rhonda Harvey',  orders:358, total:299440.72},
+      {rep:'Michelle Gable', orders:374, total:188440.55},
+      {rep:'William Burgess',orders:84,  total:44880.60},
+      {rep:'Kyle Miller',    orders:59,  total:39880.44},
+      {rep:'Randi Headley',  orders:9,   total:7180.80},
+    ],
+    inv: [
+      {rep:'Joe Braaksma',   invoices:2488,total:856440.30,outstanding:592880.10},
+      {rep:'Rhonda Harvey',  invoices:524, total:331440.88,outstanding:288880.44},
+      {rep:'Michelle Gable', invoices:404, total:236440.60,outstanding:172880.30},
+      {rep:'Kyle Miller',    invoices:108, total:65440.20, outstanding:49880.10},
+      {rep:'William Burgess',invoices:80,  total:19880.55, outstanding:16880.30},
+      {rep:'Randi Headley',  invoices:13,  total:7080.40,  outstanding:1280.20},
+    ],
+    customers: [
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:41, total:61880.44},
+      {rep:'Joe Braaksma',   customer:'Cy-Fair Fire Department',                   orders:116,total:29440.80},
+      {rep:'Joe Braaksma',   customer:'UT Health East Texas EMS',                  orders:4,  total:23880.60},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                   orders:3,  total:20880.30},
+      {rep:'Joe Braaksma',   customer:'Mission Fire Department',                   orders:2,  total:19440.10},
+      {rep:'Joe Braaksma',   customer:'Lufkin Police Department',                  orders:2,  total:15880.55},
+      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',   orders:25, total:13880.20},
+      {rep:'Joe Braaksma',   customer:'Aldine ISD Police Department',              orders:9,  total:12880.44},
+      {rep:'Joe Braaksma',   customer:'Harris County ESD 11',                      orders:15, total:11880.80},
+      {rep:'Joe Braaksma',   customer:'Prairie View A&M University PD',            orders:8,  total:10440.30},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Fire Department',                orders:4,  total:104440.20},
+      {rep:'Rhonda Harvey',  customer:'Ector County ISD Police',                   orders:2,  total:35880.10},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',              orders:23, total:19180.44},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                  orders:26, total:16180.60},
+      {rep:'Rhonda Harvey',  customer:'BNSF Railway Police Department',            orders:8,  total:14080.30},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',    orders:88, total:9180.55},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Police Department',                 orders:1,  total:7680.20},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                   orders:12, total:5980.80},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems PD',               orders:9,  total:5480.44},
+      {rep:'Rhonda Harvey',  customer:'Tier One Security',                         orders:3,  total:4880.10},
+      {rep:'Michelle Gable', customer:'Dallas College Police - North Lake',        orders:21, total:22880.44},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',           orders:34, total:22180.30},
+      {rep:'Michelle Gable', customer:'Greenville Police Department',              orders:36, total:12880.55},
+      {rep:'Michelle Gable', customer:'UT Southwestern Police Department',         orders:6,  total:9180.10},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",            orders:24, total:7680.80},
+      {rep:'Michelle Gable', customer:'Krum Fire Department',                      orders:4,  total:5980.30},
+      {rep:'Michelle Gable', customer:'Arlington Fire Department',                 orders:15, total:5680.44},
+      {rep:'Michelle Gable', customer:'Euless Police Department',                  orders:21, total:5180.20},
+      {rep:'Kyle Miller',    customer:'Round Rock Fire & Emergency',               orders:2,  total:10440.10},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',               orders:15, total:8480.44},
+      {rep:'Kyle Miller',    customer:'Arlington Code Compliance',                 orders:3,  total:7080.30},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',              orders:12, total:3680.80},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                  orders:2,  total:2880.20},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission of Tarrant County',    orders:7,  total:1480.10},
+      {rep:'William Burgess',customer:'Killeen Fire Department',                   orders:1,  total:10180.30},
+      {rep:'William Burgess',customer:'Texas State Technical College PD',         orders:10, total:8180.55},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                         orders:4,  total:5580.20},
+      {rep:'William Burgess',customer:'Waco ISD Police Department',               orders:5,  total:3980.44},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                orders:2,  total:3280.10},
+      {rep:'William Burgess',customer:'Hays County ESD #5 - Kyle Fire',           orders:21, total:2980.88},
+      {rep:'Randi Headley',  customer:'Mansfield ISD Police Department',          orders:7,  total:6480.80},
+      {rep:'Randi Headley',  customer:'Mansfield ISD PD - Taxable',               orders:2,  total:700.10},
+    ]
+  },
+  apr: {
+    label: 'April 2026', period: 'April 1 – 30, 2026',
+    so: [
+      {rep:'Joe Braaksma',   orders:1399,total:679405.43},
+      {rep:'Rhonda Harvey',  orders:388, total:323878.83},
+      {rep:'Michelle Gable', orders:393, total:199335.08},
+      {rep:'William Burgess',orders:92,  total:49810.17},
+      {rep:'Kyle Miller',    orders:64,  total:43272.96},
+      {rep:'Randi Headley',  orders:10,  total:8377.18},
+    ],
+    inv: [
+      {rep:'Joe Braaksma',   invoices:2624,total:913804.65,outstanding:625807.92},
+      {rep:'Rhonda Harvey',  invoices:551, total:350879.30,outstanding:306861.95},
+      {rep:'Michelle Gable', invoices:431, total:253321.53,outstanding:178951.49},
+      {rep:'Kyle Miller',    invoices:116, total:69814.05, outstanding:52548.67},
+      {rep:'William Burgess',invoices:87,  total:21665.24, outstanding:18186.95},
+      {rep:'Randi Headley',  invoices:15,  total:7799.29,  outstanding:1418.61},
+    ],
+    customers: [
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:44, total:66679.86},
+      {rep:'Joe Braaksma',   customer:'Cy-Fair Fire Department',                   orders:127,total:31306.68},
+      {rep:'Joe Braaksma',   customer:'UT Health East Texas EMS',                  orders:5,  total:25487.98},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                   orders:3,  total:21717.38},
+      {rep:'Joe Braaksma',   customer:'Mission Fire Department',                   orders:3,  total:21457.96},
+      {rep:'Joe Braaksma',   customer:'Lufkin Police Department',                  orders:2,  total:16683.51},
+      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',   orders:27, total:14979.67},
+      {rep:'Joe Braaksma',   customer:'Aldine ISD Police Department',              orders:10, total:14174.89},
+      {rep:'Joe Braaksma',   customer:'Harris County ESD 11',                      orders:17, total:13040.81},
+      {rep:'Joe Braaksma',   customer:'Prairie View A&M University PD',            orders:9,  total:11967.77},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Fire Department',                orders:5,  total:111073.39},
+      {rep:'Rhonda Harvey',  customer:'Ector County ISD Police',                   orders:2,  total:37809.90},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',              orders:26, total:20650.09},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                  orders:28, total:17310.42},
+      {rep:'Rhonda Harvey',  customer:'BNSF Railway Police Department',            orders:9,  total:15292.09},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',    orders:92, total:9879.22},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Police Department',                 orders:1,  total:8316.06},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                   orders:13, total:6536.23},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems PD',               orders:10, total:5950.12},
+      {rep:'Rhonda Harvey',  customer:'Tier One Security',                         orders:4,  total:5671.44},
+      {rep:'Michelle Gable', customer:'Dallas College Police - North Lake',        orders:23, total:24730.95},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',           orders:37, total:24099.61},
+      {rep:'Michelle Gable', customer:'Greenville Police Department',              orders:38, total:14121.41},
+      {rep:'Michelle Gable', customer:'UT Southwestern Police Department',         orders:7,  total:10043.49},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",            orders:26, total:8462.07},
+      {rep:'Michelle Gable', customer:'Krum Fire Department',                      orders:4,  total:6506.40},
+      {rep:'Michelle Gable', customer:'Arlington Fire Department',                 orders:16, total:6291.00},
+      {rep:'Michelle Gable', customer:'Euless Police Department',                  orders:23, total:5995.59},
+      {rep:'Kyle Miller',    customer:'Round Rock Fire & Emergency',               orders:2,  total:11179.64},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',               orders:16, total:9117.86},
+      {rep:'Kyle Miller',    customer:'Arlington Code Compliance',                 orders:3,  total:7771.99},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',              orders:13, total:3981.72},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                  orders:3,  total:3219.22},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission of Tarrant County',    orders:8,  total:1636.50},
+      {rep:'William Burgess',customer:'Killeen Fire Department',                   orders:1,  total:10881.69},
+      {rep:'William Burgess',customer:'Texas State Technical College PD',         orders:11, total:8890.63},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                         orders:4,  total:6019.35},
+      {rep:'William Burgess',customer:'Waco ISD Police Department',               orders:5,  total:4407.42},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                orders:2,  total:3599.39},
+      {rep:'William Burgess',customer:'Hays County ESD #5 - Kyle Fire',           orders:23, total:3181.22},
+      {rep:'Randi Headley',  customer:'Mansfield ISD Police Department',          orders:7,  total:7624.64},
+      {rep:'Randi Headley',  customer:'Mansfield ISD PD - Taxable',               orders:3,  total:752.54},
+    ]
+  }
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentMonth = null;
+let activeReps = new Set(Object.keys(REP_COLORS));
+let showAllCustomers = false;
+
+// ─── VIEW SWITCHER ────────────────────────────────────────────────────────────
+const BADGE_LABELS = {hub:'Hub View',jan:'January 2026',feb:'February 2026',mar:'March 2026',apr:'April 2026'};
+const TAB_BUTTONS  = ['hub','jan','feb','mar','apr'];
+
+function switchView(key) {
+  // Update tabs
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', TAB_BUTTONS[i] === key);
+  });
+
+  // Update header badge
+  document.getElementById('headerBadge').textContent = BADGE_LABELS[key] || 'Hub View';
+
+  // Show/hide views
+  document.getElementById('view-hub').style.display   = key === 'hub' ? 'block' : 'none';
+  document.getElementById('view-month').style.display = key !== 'hub' ? 'block' : 'none';
+
+  // Scroll to top
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  if (key !== 'hub') {
+    currentMonth = key;
+    activeReps = new Set(Object.keys(REP_COLORS));
+    showAllCustomers = false;
+    // Reset chip UI
+    document.querySelectorAll('.rep-chip').forEach(b => {
+      b.classList.add('active-chip');
+      b.style.background = `color-mix(in srgb, ${REP_COLORS[b.dataset.rep]} 15%, transparent)`;
+    });
+    // Update card tags & footer
+    const lbl = MONTH_DATA[key].label;
+    document.getElementById('tagLeader').textContent = lbl;
+    document.getElementById('tagBar').textContent = lbl;
+    document.getElementById('footerPeriod').textContent = MONTH_DATA[key].period;
+    document.getElementById('barNote').textContent = `Invoiced totals include orders placed in prior months and billed in ${lbl.split(' ')[0]}.`;
+    // Clear search
+    const cs = document.getElementById('custSearch');
+    if(cs) cs.value = '';
+    render();
+  }
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function fmt(n){if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(1)+'K';return'$'+n.toFixed(0);}
+function fmtFull(n){return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+// ─── FILTER ──────────────────────────────────────────────────────────────────
+function filterRep(rep, btn) {
+  if(activeReps.has(rep)){
+    if(activeReps.size===1) return;
+    activeReps.delete(rep);
+    btn.classList.remove('active-chip');
+    btn.style.background = 'var(--surface)';
+  } else {
+    activeReps.add(rep);
+    btn.classList.add('active-chip');
+    btn.style.background = `color-mix(in srgb, ${REP_COLORS[rep]} 15%, transparent)`;
+  }
+  render();
+}
+function resetFilter(){
+  activeReps = new Set(Object.keys(REP_COLORS));
+  document.querySelectorAll('.rep-chip').forEach(b=>{
+    b.classList.add('active-chip');
+    b.style.background = `color-mix(in srgb, ${REP_COLORS[b.dataset.rep]} 15%, transparent)`;
+  });
+  render();
+}
+
+// ─── MAIN RENDER ─────────────────────────────────────────────────────────────
+function render(){
+  if(!currentMonth) return;
+  const d = MONTH_DATA[currentMonth];
+  const fSO  = d.so.filter(x=>activeReps.has(x.rep)).sort((a,b)=>b.total-a.total);
+  const fInv = d.inv.filter(x=>activeReps.has(x.rep)).sort((a,b)=>b.total-a.total);
+
+  const totalOrders = fSO.reduce((s,x)=>s+x.orders,0);
+  const totalSO     = fSO.reduce((s,x)=>s+x.total,0);
+  const totalInv    = fInv.reduce((s,x)=>s+x.total,0);
+  const totalAR     = fInv.reduce((s,x)=>s+x.outstanding,0);
+  const avgOrder    = totalOrders>0 ? totalSO/totalOrders : 0;
+  const topRep      = fSO[0];
+
+  document.getElementById('kpiOrders').textContent = totalOrders.toLocaleString();
+  document.getElementById('kpiSO').textContent = fmt(totalSO);
+  document.getElementById('kpiInv').textContent = fmt(totalInv);
+  document.getElementById('kpiAR').textContent = fmt(totalAR);
+  document.getElementById('kpiAvg').textContent = '$'+Math.round(avgOrder).toLocaleString();
+  if(topRep){
+    const p = topRep.rep.split(' ');
+    document.getElementById('kpiTop').textContent = p[0]+' '+p[1][0]+'.';
+    document.getElementById('kpiTopAmt').textContent = fmtFull(topRep.total);
+    document.getElementById('kpiTopAmt').style.color = REP_COLORS[topRep.rep]||'var(--accent)';
+  }
+
+  renderLeaderboard(fSO);
+  renderBarChart(fInv);
+  renderDonut(fSO);
+  renderComparison(fSO, fInv);
+  renderCustomerTable(d.customers, d.so);
+}
+
+// ─── LEADERBOARD ─────────────────────────────────────────────────────────────
+function renderLeaderboard(data){
+  const mx = Math.max(...data.map(d=>d.total));
+  document.getElementById('leaderboard').innerHTML = data.map((d,i)=>`
+    <div class="rep-row" onclick="soloRep('${d.rep}')">
+      <span class="rep-rank">${i+1}</span>
+      <div class="rep-avatar" style="background:${REP_COLORS[d.rep]}">${d.rep.split(' ').map(w=>w[0]).join('')}</div>
+      <div class="rep-info"><div class="rep-name">${d.rep}</div><div class="rep-orders">${d.orders.toLocaleString()} orders</div></div>
+      <div class="rep-bar-wrap"><div class="rep-bar-bg"><div class="rep-bar-fill" style="width:${(d.total/mx*100).toFixed(1)}%;background:${REP_COLORS[d.rep]};"></div></div></div>
+      <div class="rep-amount">${fmt(d.total)}</div>
+    </div>`).join('');
+}
+
+function soloRep(rep){
+  activeReps = new Set([rep]);
+  document.querySelectorAll('.rep-chip').forEach(b=>{
+    const isActive = b.dataset.rep === rep;
+    b.classList.toggle('active-chip', isActive);
+    b.style.background = isActive ? `color-mix(in srgb, ${REP_COLORS[b.dataset.rep]} 15%, transparent)` : 'var(--surface)';
+  });
+  render();
+}
+
+// ─── BAR CHART ───────────────────────────────────────────────────────────────
+function renderBarChart(data){
+  const mx = Math.max(...data.map(d=>d.total));
+  document.getElementById('barChart').innerHTML = data.map(d=>{
+    const h = Math.max(4,(d.total/mx)*130);
+    return `<div class="bar-group" onmouseenter="showTip(event,'${d.rep}','${fmtFull(d.total)}')" onmouseleave="hideTip()">
+      <div class="bar-col" style="height:${h}px;background:${REP_COLORS[d.rep]};opacity:0.9;"></div>
+      <div class="bar-label">${d.rep.split(' ').map(w=>w[0]).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── DONUT ───────────────────────────────────────────────────────────────────
+function renderDonut(data){
+  const total=data.reduce((s,d)=>s+d.total,0),cx=60,cy=60,r=46,stroke=18,circ=2*Math.PI*r;
+  let off=0;
+  const svg=document.getElementById('donutSVG');
+  svg.innerHTML=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--surface3)" stroke-width="${stroke}"/>`;
+  data.forEach(d=>{
+    const pct=d.total/total,dash=pct*circ,gap=circ-dash;
+    const s=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    s.setAttribute('cx',cx);s.setAttribute('cy',cy);s.setAttribute('r',r);s.setAttribute('fill','none');
+    s.setAttribute('stroke',REP_COLORS[d.rep]);s.setAttribute('stroke-width',stroke);
+    s.setAttribute('stroke-dasharray',`${dash} ${gap}`);
+    s.setAttribute('stroke-dashoffset',-(off*circ-circ/4));
+    s.setAttribute('style','transition:stroke-dasharray 0.5s ease;');
+    svg.appendChild(s);off+=pct;
+  });
+  const lbl=document.createElementNS('http://www.w3.org/2000/svg','text');
+  lbl.setAttribute('x',cx);lbl.setAttribute('y',cy-4);lbl.setAttribute('text-anchor','middle');
+  lbl.setAttribute('fill','#e6edf3');lbl.setAttribute('font-size','11');lbl.setAttribute('font-family','DM Sans');lbl.setAttribute('font-weight','600');
+  lbl.textContent=fmt(total);svg.appendChild(lbl);
+  const sub=document.createElementNS('http://www.w3.org/2000/svg','text');
+  sub.setAttribute('x',cx);sub.setAttribute('y',cy+10);sub.setAttribute('text-anchor','middle');
+  sub.setAttribute('fill','#8b949e');sub.setAttribute('font-size','9');sub.setAttribute('font-family','DM Sans');
+  sub.textContent='Total SO';svg.appendChild(sub);
+  document.getElementById('donutLegend').innerHTML=data.map(d=>`
+    <div class="legend-item">
+      <div class="legend-dot" style="background:${REP_COLORS[d.rep]}"></div>
+      <div class="legend-name">${d.rep.split(' ')[0]}</div>
+      <div class="legend-pct">${((d.total/total)*100).toFixed(1)}%</div>
+    </div>`).join('');
+}
+
+// ─── COMPARISON ──────────────────────────────────────────────────────────────
+function renderComparison(soData,invData){
+  const rows=soData.map(d=>{const inv=invData.find(i=>i.rep===d.rep);return{rep:d.rep,so:d.total,inv:inv?inv.total:0};});
+  const mx=Math.max(...rows.flatMap(r=>[r.so,r.inv]));
+  document.getElementById('comparisonCard').innerHTML=rows.map(r=>`
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+        <span style="font-size:12px;color:var(--text);font-weight:500;">${r.rep.split(' ')[0]}</span>
+        <span style="font-size:11px;color:var(--text-muted);">SO: ${fmt(r.so)} · Inv: ${fmt(r.inv)}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);">Orders</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.so/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.9;"></div></div></div>
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);">Invoiced</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.inv/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.5;"></div></div></div>
+      </div>
+    </div>`).join('');
+}
+
+// ─── CUSTOMER TABLE ───────────────────────────────────────────────────────────
+function renderCustomerTable(allCustomers, soData){
+  const repTotals={};
+  soData.filter(d=>activeReps.has(d.rep)).forEach(d=>{repTotals[d.rep]=d.total;});
+  const st=(document.getElementById('custSearch')?.value||'').toLowerCase();
+  let custs=allCustomers.filter(c=>activeReps.has(c.rep)).filter(c=>!st||c.customer.toLowerCase().includes(st)||c.rep.toLowerCase().includes(st)).sort((a,b)=>b.total-a.total);
+  const mx=custs[0]?.total||1,SC=20;
+  document.getElementById('custTbody').innerHTML=custs.map((c,i)=>{
+    const pct=((c.total/(repTotals[c.rep]||1))*100).toFixed(1),bp=(c.total/mx*100).toFixed(1);
+    const hid=!showAllCustomers&&i>=SC&&!st?'class="hidden-row"':'';
+    return `<tr ${hid}>
+      <td style="color:var(--text-dim);font-family:'DM Mono',monospace;font-size:11px;">${i+1}</td>
+      <td>${c.customer}</td>
+      <td><span class="rep-badge-sm" style="background:${REP_COLORS[c.rep]}">${c.rep.split(' ')[0]}</span></td>
+      <td style="color:var(--text-muted);">${c.orders}</td>
+      <td class="amount-cell">${fmtFull(c.total)}</td>
+      <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${bp}%;background:${REP_COLORS[c.rep]};"></div></div><span style="font-size:10px;color:var(--text-muted);width:36px;text-align:right;">${pct}%</span></div></td>
+    </tr>`;
+  }).join('');
+  const n=custs.length,btn=document.getElementById('seeMoreBtn'),ce=document.getElementById('custCount');
+  if(st){ce.textContent=`${n} result${n!==1?'s':''}`;btn.style.display='none';}
+  else if(n>SC){ce.textContent=showAllCustomers?`Showing all ${n}`:`Showing top ${SC} of ${n}`;btn.style.display='block';btn.textContent=showAllCustomers?'▲ Show less':`▼ Show all ${n} customers`;}
+  else{ce.textContent=`${n} customers`;btn.style.display='none';}
+}
+
+function toggleMore(){showAllCustomers=!showAllCustomers;render();}
+function filterCustomers(){showAllCustomers=false;render();}
+
+// ─── TOOLTIP ─────────────────────────────────────────────────────────────────
+function showTip(e,name,val){const t=document.getElementById('tooltip');t.textContent=`${name}: ${val}`;t.style.opacity='1';t.style.left=(e.clientX+12)+'px';t.style.top=(e.clientY-30)+'px';}
+function hideTip(){document.getElementById('tooltip').style.opacity='0';}
+document.addEventListener('mousemove',e=>{const t=document.getElementById('tooltip');if(t.style.opacity==='1'){t.style.left=(e.clientX+12)+'px';t.style.top=(e.clientY-30)+'px';}});
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+switchView('hub');
+</script>
+</body>
+</html>
