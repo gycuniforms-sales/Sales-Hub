@@ -4,17 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GYC Uniforms — Sales Dashboard 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&family=Public+Sans+Italic:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0d1117; --surface: #161b22; --surface2: #1c2230; --surface3: #21283a;
     --border: #30363d; --accent: #00d4aa; --accent2: #4fa3ff; --accent3: #ff6b6b; --accent4: #ffd166;
     --text: #e6edf3; --text-muted: #8b949e; --text-dim: #4f5769;
     --rep-joe: #4fa3ff; --rep-rhonda: #00d4aa; --rep-michelle: #b06aff;
-    --rep-kyle: #ffd166; --rep-william: #ff9f43; --rep-kailyn: #ff6b6b;
+    --rep-kyle: #ffd166; --rep-william: #ff9f43; --rep-randi: #ff6b6b;
+    --hit: #00d4aa; --miss: #ff6b6b; --partial: #ffd166;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
   /* ─── STICKY HEADER ─── */
   .header {
@@ -27,15 +28,15 @@
     width: 36px; height: 36px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 700; color: #0d1117; flex-shrink: 0;
+    font-size: 18px; font-weight: 800; color: #0d1117; flex-shrink: 0;
   }
-  .header-title { font-size: 15px; font-weight: 600; }
-  .header-subtitle { font-size: 11px; color: var(--text-muted); }
+  .header-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .header-subtitle { font-size: 11px; color: var(--text-muted); font-weight: 400; }
   .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; display: inline-block; margin-right: 5px; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .period-badge {
     background: var(--surface3); border: 1px solid var(--border);
-    border-radius: 8px; padding: 5px 13px; font-size: 12px; font-weight: 500;
+    border-radius: 8px; padding: 5px 13px; font-size: 12px; font-weight: 600;
     color: var(--accent); letter-spacing: 0.02em;
   }
 
@@ -46,10 +47,11 @@
     position: sticky; top: 58px; z-index: 190;
   }
   .tab-btn {
-    padding: 10px 18px; font-size: 12px; font-weight: 500;
+    padding: 10px 18px; font-size: 12px; font-weight: 600;
     color: var(--text-muted); background: none; border: none;
     cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent;
     transition: all 0.18s; white-space: nowrap; margin-bottom: -1px;
+    letter-spacing: 0.01em;
   }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
@@ -66,11 +68,11 @@
 
   /* ─── FILTER BAR ─── */
   .filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
-  .filter-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
-  .rep-chip { padding: 6px 14px; border-radius: 20px; border: 1px solid; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; background: var(--surface); font-family: inherit; }
+  .filter-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-right: 4px; }
+  .rep-chip { padding: 6px 14px; border-radius: 20px; border: 1px solid; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: var(--surface); font-family: inherit; }
   .rep-chip:hover { opacity: 0.85; }
   .rep-chip.active-chip { opacity: 1; }
-  .reset-btn { margin-left: auto; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: none; color: var(--text-muted); font-size: 11px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .reset-btn { margin-left: auto; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: none; color: var(--text-muted); font-size: 11px; cursor: pointer; font-family: inherit; transition: all 0.15s; font-weight: 500; }
   .reset-btn:hover { color: var(--accent); border-color: var(--accent); }
 
   /* ─── KPI ROW ─── */
@@ -79,8 +81,8 @@
   .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
   .kpi-card:hover { border-color: #3d444d; transform: translateY(-1px); }
   .kpi-card:hover::before { opacity: 1; }
-  .kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
-  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+  .kpi-value { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 6px; }
   .kpi-sub { font-size: 12px; color: var(--text-muted); }
   .kpi-highlight { border-color: rgba(0,212,170,0.3); background: rgba(0,212,170,0.04); }
   .kpi-highlight::before { opacity: 1; }
@@ -92,30 +94,30 @@
   /* ─── CARD ─── */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .card-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .card-title { font-size: 13px; font-weight: 600; color: var(--text); }
-  .card-tag { font-size: 11px; color: var(--text-muted); background: var(--surface2); padding: 3px 8px; border-radius: 5px; }
+  .card-title { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .card-tag { font-size: 11px; color: var(--text-muted); background: var(--surface2); padding: 3px 8px; border-radius: 5px; font-weight: 500; }
   .card-body { padding: 18px 20px; }
 
   /* ─── LEADERBOARD ─── */
   .rep-row { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; border-radius: 8px; margin: 0 -8px; }
   .rep-row:last-child { border-bottom: none; }
   .rep-row:hover { background: var(--surface2); }
-  .rep-rank { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; width: 20px; }
-  .rep-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: #0d1117; }
+  .rep-rank { font-size: 11px; color: var(--text-dim); font-variant-numeric: tabular-nums; font-weight: 500; width: 20px; }
+  .rep-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; color: #0d1117; }
   .rep-info { flex: 1; }
-  .rep-name { font-size: 13px; font-weight: 500; }
+  .rep-name { font-size: 13px; font-weight: 600; }
   .rep-orders { font-size: 11px; color: var(--text-muted); }
   .rep-bar-wrap { width: 120px; }
   .rep-bar-bg { background: var(--surface3); border-radius: 4px; height: 5px; overflow: hidden; }
   .rep-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-  .rep-amount { font-size: 14px; font-weight: 600; font-family: 'DM Mono', monospace; text-align: right; width: 90px; }
+  .rep-amount { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; width: 90px; }
 
   /* ─── BAR CHART ─── */
   .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 140px; padding: 0 4px; }
   .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
   .bar-col { width: 100%; border-radius: 4px 4px 0 0; transition: all 0.4s ease; min-height: 2px; }
   .bar-col:hover { filter: brightness(1.2); }
-  .bar-label { font-size: 10px; color: var(--text-muted); text-align: center; font-family: 'DM Mono', monospace; }
+  .bar-label { font-size: 10px; color: var(--text-muted); text-align: center; font-weight: 600; letter-spacing: 0.02em; }
 
   /* ─── DONUT ─── */
   .donut-wrap { display: flex; align-items: center; gap: 24px; }
@@ -124,36 +126,79 @@
   .legend-item { display: flex; align-items: center; gap: 8px; }
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .legend-name { font-size: 12px; color: var(--text-muted); flex: 1; }
-  .legend-pct { font-size: 12px; font-weight: 600; color: var(--text); font-family: 'DM Mono', monospace; }
+  .legend-pct { font-size: 12px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 
   /* ─── CUSTOMER TABLE ─── */
   .cust-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .cust-table th { text-align: left; padding: 8px 12px; color: var(--text-muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .cust-table th { text-align: left; padding: 8px 12px; color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
   .cust-table td { padding: 10px 12px; border-bottom: 1px solid rgba(48,54,61,0.5); color: var(--text); vertical-align: middle; }
   .cust-table tr:last-child td { border-bottom: none; }
   .cust-table tr:hover td { background: var(--surface2); }
   .cust-table tr.hidden-row { display: none; }
-  .rep-badge-sm { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; color: #0d1117; }
-  .amount-cell { font-family: 'DM Mono', monospace; text-align: right; }
+  .rep-badge-sm { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; color: #0d1117; }
+  .amount-cell { font-variant-numeric: tabular-nums; text-align: right; }
   .mini-bar-wrap { display: flex; align-items: center; gap: 8px; }
   .mini-bar-bg { flex: 1; background: var(--surface3); border-radius: 3px; height: 4px; }
   .mini-bar-fill { height: 100%; border-radius: 3px; }
-  .see-more-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: inherit; transition: color 0.15s; }
+  .see-more-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: inherit; transition: color 0.15s; font-weight: 500; }
   .see-more-btn:hover { color: var(--accent); }
 
   /* ─── FOOTER ─── */
   .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
   .footer-left { font-size: 11px; color: var(--text-dim); }
-  .footer-right { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+  .footer-right { font-size: 11px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 
   /* ─── TOOLTIP ─── */
-  .tooltip { position: fixed; background: var(--surface3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text); pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 999; white-space: nowrap; }
+  .tooltip { position: fixed; background: var(--surface3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text); pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 999; white-space: nowrap; font-weight: 500; }
+
+  /* ════════════════════════════════════════
+     QUOTA VS ACTUAL CARD
+  ════════════════════════════════════════ */
+  .quota-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 16px; }
+  .quota-card-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .quota-card-body { padding: 16px 20px; }
+  .quota-legend { display: flex; gap: 16px; align-items: center; }
+  .ql-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .ql-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .quota-rep-row { margin-bottom: 20px; }
+  .quota-rep-row:last-child { margin-bottom: 0; }
+  .quota-rep-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .quota-rep-name { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+  .quota-rep-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .quota-rep-meta { display: flex; gap: 16px; align-items: center; }
+  .quota-meta-item { font-size: 11px; }
+  .quota-meta-label { color: var(--text-muted); }
+  .quota-meta-val { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .quota-track { position: relative; height: 28px; background: var(--surface3); border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+  .quota-actual-bar { position: absolute; top: 0; left: 0; height: 100%; border-radius: 6px 0 0 6px; transition: width 0.6s ease; display: flex; align-items: center; padding-left: 10px; }
+  .quota-actual-bar.over { border-radius: 6px; }
+  .quota-actual-label { font-size: 11px; font-weight: 700; color: #0d1117; white-space: nowrap; }
+  .quota-line { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.7); z-index: 2; }
+  .quota-line-label { position: absolute; top: -18px; transform: translateX(-50%); font-size: 10px; color: var(--text-muted); white-space: nowrap; font-weight: 600; }
+
+  .quota-status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  .quota-status-badge.hit { background: rgba(0,212,170,0.15); color: var(--hit); border: 1px solid rgba(0,212,170,0.3); }
+  .quota-status-badge.miss { background: rgba(255,107,107,0.15); color: var(--miss); border: 1px solid rgba(255,107,107,0.3); }
+  .quota-status-badge.over { background: rgba(79,163,255,0.15); color: var(--accent2); border: 1px solid rgba(79,163,255,0.3); }
+  .quota-status-badge.no-quota { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  .quota-summary-bar { display: flex; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .qs-pill { flex: 1; background: var(--surface2); border-radius: 10px; padding: 14px 16px; }
+  .qs-pill-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); font-weight: 600; margin-bottom: 5px; }
+  .qs-pill-val { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .qs-pill-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .color-hit { color: var(--hit); }
+  .color-miss { color: var(--miss); }
+  .color-partial { color: var(--partial); }
+  .color-blue { color: var(--accent2); }
 
   /* ════════════════════════════════════════
      HUB PAGE STYLES
   ════════════════════════════════════════ */
   .hub-main { padding: 44px 40px; max-width: 1200px; margin: 0 auto; }
-  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .months-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
@@ -170,43 +215,51 @@
   .month-card.latest { border-color: rgba(0,212,170,0.3); background: linear-gradient(145deg, rgba(0,212,170,0.04), var(--surface)); }
   .month-card.latest::before { transform: scaleX(1); }
 
-  .month-num { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; color: var(--card-color, var(--accent)); opacity: 0.18; position: absolute; right: 20px; top: 16px; font-family: 'DM Mono', monospace; line-height: 1; }
+  .month-num { font-size: 48px; font-weight: 800; letter-spacing: -0.04em; color: var(--card-color, var(--accent)); opacity: 0.18; position: absolute; right: 20px; top: 16px; font-variant-numeric: tabular-nums; line-height: 1; }
   .month-top { display: flex; align-items: flex-start; justify-content: space-between; }
-  .month-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-  .month-year { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-  .month-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; background: color-mix(in srgb, var(--card-color, var(--accent)) 15%, transparent); color: var(--card-color, var(--accent)); border: 1px solid color-mix(in srgb, var(--card-color, var(--accent)) 30%, transparent); flex-shrink: 0; }
+  .month-name { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .month-year { font-size: 12px; color: var(--text-muted); margin-top: 3px; font-weight: 400; }
+  .month-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; background: color-mix(in srgb, var(--card-color, var(--accent)) 15%, transparent); color: var(--card-color, var(--accent)); border: 1px solid color-mix(in srgb, var(--card-color, var(--accent)) 30%, transparent); flex-shrink: 0; }
 
   .month-stats { display: flex; flex-direction: column; gap: 8px; }
   .stat-row { display: flex; justify-content: space-between; align-items: center; }
   .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-  .stat-value { font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; }
+  .stat-value { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat-quota { font-size: 11px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+  /* quota attainment mini-bar in hub card */
+  .hub-quota-wrap { margin-top: 4px; }
+  .hub-quota-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); margin-bottom: 4px; font-weight: 500; }
+  .hub-quota-track { height: 4px; background: var(--surface3); border-radius: 2px; overflow: visible; position: relative; }
+  .hub-quota-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; position: relative; }
+  .hub-quota-line { position: absolute; right: 0; top: -3px; bottom: -3px; width: 2px; background: rgba(255,255,255,0.5); border-radius: 1px; }
 
   .trend-bar-wrap { display: flex; align-items: flex-end; gap: 3px; height: 30px; margin-top: 4px; }
   .trend-bar { flex: 1; border-radius: 2px 2px 0 0; opacity: 0.7; min-height: 2px; }
 
-  .month-cta { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--card-color, var(--accent)); font-weight: 600; border-top: 1px solid var(--border); padding-top: 16px; }
+  .month-cta { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--card-color, var(--accent)); font-weight: 700; border-top: 1px solid var(--border); padding-top: 16px; }
   .cta-arrow { font-size: 16px; transition: transform 0.2s; }
   .month-card:hover .cta-arrow { transform: translateX(4px); }
 
   .quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; }
   .qs-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
-  .qs-label { font-size: 10px; color: var(--text-dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-  .qs-value { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+  .qs-label { font-size: 10px; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .qs-value { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; }
   .qs-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
   .qs-up { color: var(--accent); }
 
   .rep-summary-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
   .rep-summary-header { padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .rep-summary-title { font-size: 14px; font-weight: 600; }
+  .rep-summary-title { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
   .rep-summary-table { width: 100%; border-collapse: collapse; }
-  .rst th { text-align: left; padding: 10px 24px; font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .rst th { text-align: left; padding: 10px 24px; font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
   .rst th.right { text-align: right; }
   .rst td { padding: 13px 24px; border-bottom: 1px solid rgba(48,54,61,0.4); font-size: 13px; vertical-align: middle; }
   .rst tr:last-child td { border-bottom: none; }
   .rst tr:hover td { background: var(--surface2); }
   .rep-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
-  .rep-name-cell { display: flex; align-items: center; font-weight: 500; }
-  .mono { font-family: 'DM Mono', monospace; font-size: 12px; text-align: right; }
+  .rep-name-cell { display: flex; align-items: center; font-weight: 600; }
+  .mono { font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; }
   .trend-mini { display: flex; align-items: flex-end; gap: 2px; height: 22px; justify-content: flex-end; }
   .tm-bar { width: 6px; border-radius: 1px 1px 0 0; }
 
@@ -214,6 +267,113 @@
   @media(max-width:1200px){.kpi-row{grid-template-columns:repeat(3,1fr);}.months-grid{grid-template-columns:repeat(2,1fr);}.quick-stats{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr);}.grid-2{grid-template-columns:1fr;}.main{padding:16px;}.hub-main{padding:24px 16px;}.header{padding:0 16px;}.rep-bar-wrap{display:none;}.tab-nav{padding:0 16px;overflow-x:auto;}.months-grid{grid-template-columns:1fr 1fr;}}
   @media(max-width:520px){.months-grid{grid-template-columns:1fr;}.quick-stats{grid-template-columns:1fr 1fr;}}
+
+  /* ─── BLURRED BACKGROUNDS ─── */
+  .hub-bg {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  }
+  .hub-bg .blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.06;
+  }
+  .hub-bg .b1 { width: 600px; height: 600px; background: #ffffff; top: -100px; left: -100px; }
+  .hub-bg .b2 { width: 400px; height: 400px; background: #ffffff; bottom: 0; right: 10%; }
+  .hub-bg .b3 { width: 300px; height: 300px; background: #cccccc; top: 40%; left: 50%; }
+
+  .month-bg {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  }
+  .month-bg .blob {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.07;
+  }
+
+  /* ─── YOY REPORT VIEW ─── */
+  .yoy-main { padding: 28px 32px; max-width: 1400px; margin: 0 auto; }
+
+  .yoy-toggle-bar {
+    display: flex; gap: 0; margin-bottom: 28px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 10px; overflow: hidden; width: fit-content;
+  }
+  .yoy-toggle-btn {
+    padding: 10px 24px; font-size: 13px; font-weight: 600; cursor: pointer; border: none;
+    background: none; color: var(--text-muted); font-family: inherit; transition: all 0.18s;
+    letter-spacing: 0.01em;
+  }
+  .yoy-toggle-btn.active { background: var(--surface3); color: var(--text); }
+  .yoy-toggle-btn.growth.active { color: #3dd68c; }
+  .yoy-toggle-btn.decline.active { color: #ff4d4d; }
+
+  .yoy-panel { display: none; }
+  .yoy-panel.active { display: block; }
+
+  /* shared yoy card styles */
+  .yoy-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .yoy-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .yoy-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 600; }
+  .yoy-stat-value { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .yoy-section-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .yoy-rep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .yoy-rep-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: all 0.15s; }
+  .yoy-rep-card:hover, .yoy-rep-card.active { background: var(--surface2); }
+  .yoy-rep-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .yoy-rep-name { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .yoy-rep-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .yoy-change-pos { font-size: 13px; font-weight: 600; color: #3dd68c; font-variant-numeric: tabular-nums; }
+  .yoy-change-neg { font-size: 13px; font-weight: 600; color: #ff4d4d; font-variant-numeric: tabular-nums; }
+  .yoy-bar-track { background: var(--surface2); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .yoy-bar-prior { height: 100%; border-radius: 3px; opacity: 0.35; }
+  .yoy-bar-curr { height: 100%; border-radius: 3px; margin-top: -6px; }
+  .yoy-rep-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  .yoy-filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .yoy-filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: inherit; font-size: 13px; padding: 7px 12px; outline: none; cursor: pointer; }
+  .yoy-filter-label { font-size: 12px; color: var(--text-muted); }
+  .yoy-result-count { font-size: 12px; color: var(--text-muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  .yoy-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  .yoy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .yoy-table thead th { background: var(--surface2); color: var(--text-muted); text-transform: uppercase; font-size: 10px; letter-spacing: 0.08em; font-weight: 600; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .yoy-table thead th.num, .yoy-table td.num { text-align: right; }
+  .yoy-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  .yoy-table tbody tr:last-child { border-bottom: none; }
+  .yoy-table tbody tr:hover { background: var(--surface2); }
+  .yoy-table td { padding: 10px 14px; vertical-align: middle; }
+  .yoy-table td.mono { font-variant-numeric: tabular-nums; }
+  .yoy-pct-bar-wrap { display: flex; align-items: center; gap: 6px; }
+  .yoy-pct-bar-bg { flex: 1; background: var(--surface2); height: 4px; border-radius: 2px; overflow: hidden; min-width: 60px; }
+  .yoy-pct-bar-inner-red { height: 100%; border-radius: 2px; background: #ff4d4d; }
+  .yoy-pct-bar-inner-green { height: 100%; border-radius: 2px; background: #3dd68c; }
+  .yoy-pct-label-red { font-size: 11px; color: #ff4d4d; min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+  .yoy-pct-label-green { font-size: 11px; color: #3dd68c; min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+  .yoy-rep-chip { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .yoy-zero-badge { background: #1a0f0f; color: #ff4d4d; font-size: 10px; font-variant-numeric: tabular-nums; padding: 2px 6px; border-radius: 4px; border: 1px solid #3a1515; }
+  .yoy-new-badge { background: #0a1f13; color: #3dd68c; font-size: 10px; font-variant-numeric: tabular-nums; padding: 2px 6px; border-radius: 4px; border: 1px solid #1a4a2a; }
+  .yoy-pagination { display: flex; align-items: center; gap: 8px; padding: 14px 0 0; justify-content: center; flex-wrap: wrap; }
+  .yoy-page-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
+  .yoy-page-btn:disabled { opacity: 0.3; cursor: default; }
+  .yoy-note { border-radius: 8px; padding: 12px 16px; margin-bottom: 18px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .yoy-note-warn { background: #1a120a; border: 1px solid #3a2510; color: #ff8c42; }
+  .yoy-note-info { background: #0a1f13; border: 1px solid #1a4a2a; color: #3dd68c; }
+  .yoy-footer { margin-top: 20px; font-size: 11px; color: var(--text-muted); text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ─── HUB YOY CARD ─── */
+  .yoy-hub-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 28px 24px; cursor: pointer; color: var(--text);
+    transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; gap: 16px; position: relative; overflow: hidden;
+    text-align: left; font-family: inherit; --card-color: #6366f1;
+  }
+  .yoy-hub-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #3dd68c, #6366f1, #ff4d4d); transform: scaleX(0); transition: transform 0.25s ease; transform-origin: left; }
+  .yoy-hub-card:hover { border-color: #6366f1; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .yoy-hub-card:hover::before { transform: scaleX(1); }
+  .yoy-hub-card .month-num { color: #6366f1; }
+  .yoy-hub-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .yoy-hub-half { padding: 12px; border-radius: 8px; }
+  .yoy-hub-half.growth { background: rgba(61,214,140,0.06); border: 1px solid rgba(61,214,140,0.15); }
+  .yoy-hub-half.decline { background: rgba(255,77,77,0.06); border: 1px solid rgba(255,77,77,0.15); }
+  .yoy-hub-half-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  .yoy-hub-half-val { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .yoy-hub-half-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -244,16 +404,23 @@
   <button class="tab-btn" onclick="switchView('feb')">February</button>
   <button class="tab-btn" onclick="switchView('mar')">March</button>
   <button class="tab-btn latest-tab" onclick="switchView('apr')">April</button>
+  <button class="tab-btn" onclick="switchView('yoy')" style="color:#6366f1;margin-left:8px;border-left:1px solid var(--border);padding-left:18px;">↕ Q1 YoY</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
      VIEW: HUB
 ════════════════════════════════════════════ -->
 <div class="view active" id="view-hub">
+<!-- blurred bg for hub: soft white blobs -->
+<div class="hub-bg">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
 <div class="hub-main">
 
   <div class="section-label">Monthly Reports</div>
-  <div class="months-grid">
+  <div class="months-grid" style="grid-template-columns: repeat(4,1fr);">
 
     <button class="month-card" style="--card-color:#4fa3ff;" onclick="switchView('jan')">
       <span class="month-num">01</span>
@@ -262,6 +429,10 @@
         <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.02M</span></div>
         <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.27M</span></div>
         <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">1,830</span></div>
+        <div class="hub-quota-wrap">
+          <div class="hub-quota-label"><span>Quota Attainment</span><span>68% · $1.02M / $1.50M</span></div>
+          <div class="hub-quota-track"><div class="hub-quota-fill" style="width:68%;background:#4fa3ff;"></div></div>
+        </div>
         <div class="trend-bar-wrap">
           <div class="trend-bar" style="height:40%;background:#4fa3ff;"></div><div class="trend-bar" style="height:52%;background:#4fa3ff;"></div>
           <div class="trend-bar" style="height:44%;background:#4fa3ff;"></div><div class="trend-bar" style="height:60%;background:#4fa3ff;"></div>
@@ -279,6 +450,10 @@
         <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.12M</span></div>
         <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.38M</span></div>
         <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">1,997</span></div>
+        <div class="hub-quota-wrap">
+          <div class="hub-quota-label"><span>Quota Attainment</span><span>71% · $1.12M / $1.58M</span></div>
+          <div class="hub-quota-track"><div class="hub-quota-fill" style="width:71%;background:#b06aff;"></div></div>
+        </div>
         <div class="trend-bar-wrap">
           <div class="trend-bar" style="height:45%;background:#b06aff;"></div><div class="trend-bar" style="height:58%;background:#b06aff;"></div>
           <div class="trend-bar" style="height:50%;background:#b06aff;"></div><div class="trend-bar" style="height:65%;background:#b06aff;"></div>
@@ -296,6 +471,10 @@
         <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.22M</span></div>
         <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.52M</span></div>
         <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,186</span></div>
+        <div class="hub-quota-wrap">
+          <div class="hub-quota-label"><span>Quota Attainment</span><span>90% · $1.22M / $1.35M</span></div>
+          <div class="hub-quota-track"><div class="hub-quota-fill" style="width:90%;background:#ffd166;"></div></div>
+        </div>
         <div class="trend-bar-wrap">
           <div class="trend-bar" style="height:55%;background:#ffd166;"></div><div class="trend-bar" style="height:62%;background:#ffd166;"></div>
           <div class="trend-bar" style="height:70%;background:#ffd166;"></div><div class="trend-bar" style="height:66%;background:#ffd166;"></div>
@@ -313,6 +492,10 @@
         <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.30M</span></div>
         <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.62M</span></div>
         <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,346</span></div>
+        <div class="hub-quota-wrap">
+          <div class="hub-quota-label"><span>Quota Attainment</span><span>114% · $1.30M / $1.14M</span></div>
+          <div class="hub-quota-track"><div class="hub-quota-fill" style="width:100%;background:var(--accent);"></div></div>
+        </div>
         <div class="trend-bar-wrap">
           <div class="trend-bar" style="height:60%;background:#00d4aa;"></div><div class="trend-bar" style="height:72%;background:#00d4aa;"></div>
           <div class="trend-bar" style="height:80%;background:#00d4aa;"></div><div class="trend-bar" style="height:75%;background:#00d4aa;"></div>
@@ -323,6 +506,31 @@
       <div class="month-cta">View April Report <span class="cta-arrow">→</span></div>
     </button>
   </div>
+
+  <div class="section-label">Year-Over-Year Analysis</div>
+  <button class="yoy-hub-card" onclick="switchView('yoy')" style="margin-bottom:48px;">
+    <span class="month-num" style="color:#6366f1;opacity:0.15;">↕</span>
+    <div class="month-top">
+      <div>
+        <div class="month-name">Q1 YoY Comparison</div>
+        <div class="month-year">Q1 2025 vs Q1 2026</div>
+      </div>
+      <span class="month-tag" style="background:rgba(99,102,241,0.15);color:#6366f1;border-color:rgba(99,102,241,0.3);">YoY</span>
+    </div>
+    <div class="yoy-hub-split">
+      <div class="yoy-hub-half growth">
+        <div class="yoy-hub-half-label" style="color:#3dd68c;">↑ Growth</div>
+        <div class="yoy-hub-half-val" style="color:#3dd68c;" id="hubGrowthTotal">—</div>
+        <div class="yoy-hub-half-sub" id="hubGrowthCount">customers grew</div>
+      </div>
+      <div class="yoy-hub-half decline">
+        <div class="yoy-hub-half-label" style="color:#ff4d4d;">↓ Decline</div>
+        <div class="yoy-hub-half-val" style="color:#ff4d4d;" id="hubDeclineTotal">—</div>
+        <div class="yoy-hub-half-sub" id="hubDeclineCount">customers declined</div>
+      </div>
+    </div>
+    <div class="month-cta" style="color:#6366f1;">View Q1 Year-Over-Year Report <span class="cta-arrow">→</span></div>
+  </button>
 
   <div class="section-label">Q1 2026 Cumulative</div>
   <div class="quick-stats">
@@ -335,25 +543,25 @@
   <div class="section-label">Rep Performance — April 2026 (Latest)</div>
   <div class="rep-summary-wrap">
     <div class="rep-summary-header">
-      <span class="rep-summary-title">Sales Rep Overview</span>
+      <span class="rep-summary-title">Sales Rep Overview · Quota vs. Actual</span>
       <span style="font-size:11px;color:var(--text-muted);">Click a month card above to dive deeper</span>
     </div>
     <table class="rep-summary-table rst">
-      <thead><tr><th>Rep</th><th class="right">April SO</th><th class="right">April Invoiced</th><th class="right">Outstanding A/R</th><th class="right">Orders</th><th class="right">Trend</th></tr></thead>
+      <thead><tr><th>Rep</th><th class="right">Quota</th><th class="right">April SO</th><th class="right">Attainment</th><th class="right">April Invoiced</th><th class="right">Outstanding A/R</th><th class="right">Orders</th><th class="right">Trend</th></tr></thead>
       <tbody>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#4fa3ff;"></span>Joe Braaksma</div></td><td class="mono">$679,405</td><td class="mono">$913,805</td><td class="mono" style="color:var(--accent4);">$625,808</td><td class="mono">1,399</td><td><div class="trend-mini"><div class="tm-bar" style="height:55%;background:#4fa3ff;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#4fa3ff;opacity:0.6;"></div><div class="tm-bar" style="height:80%;background:#4fa3ff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#4fa3ff;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#00d4aa;"></span>Rhonda Harvey</div></td><td class="mono">$323,879</td><td class="mono">$350,879</td><td class="mono" style="color:var(--accent4);">$306,862</td><td class="mono">388</td><td><div class="trend-mini"><div class="tm-bar" style="height:60%;background:#00d4aa;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#00d4aa;opacity:0.6;"></div><div class="tm-bar" style="height:85%;background:#00d4aa;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#00d4aa;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#b06aff;"></span>Michelle Gable</div></td><td class="mono">$199,335</td><td class="mono">$253,322</td><td class="mono" style="color:var(--accent4);">$178,951</td><td class="mono">393</td><td><div class="trend-mini"><div class="tm-bar" style="height:58%;background:#b06aff;opacity:0.4;"></div><div class="tm-bar" style="height:68%;background:#b06aff;opacity:0.6;"></div><div class="tm-bar" style="height:82%;background:#b06aff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#b06aff;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff9f43;"></span>William Burgess</div></td><td class="mono">$49,810</td><td class="mono">$21,665</td><td class="mono" style="color:var(--accent4);">$18,187</td><td class="mono">92</td><td><div class="trend-mini"><div class="tm-bar" style="height:50%;background:#ff9f43;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#ff9f43;opacity:0.6;"></div><div class="tm-bar" style="height:88%;background:#ff9f43;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff9f43;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ffd166;"></span>Kyle Miller</div></td><td class="mono">$43,273</td><td class="mono">$69,814</td><td class="mono" style="color:var(--accent4);">$52,549</td><td class="mono">64</td><td><div class="trend-mini"><div class="tm-bar" style="height:48%;background:#ffd166;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#ffd166;opacity:0.6;"></div><div class="tm-bar" style="height:84%;background:#ffd166;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ffd166;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff6b6b;"></span>Randi Headley</div></td><td class="mono">$8,377</td><td class="mono">$7,799</td><td class="mono" style="color:var(--accent4);">$1,419</td><td class="mono">10</td><td><div class="trend-mini"><div class="tm-bar" style="height:40%;background:#ff6b6b;opacity:0.4;"></div><div class="tm-bar" style="height:58%;background:#ff6b6b;opacity:0.6;"></div><div class="tm-bar" style="height:75%;background:#ff6b6b;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff6b6b;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#4fa3ff;"></span>Joe Braaksma</div></td><td class="mono" style="color:var(--text-muted);">$527,816</td><td class="mono">$679,405</td><td class="mono" style="color:var(--hit);font-weight:700;">129%</td><td class="mono">$913,805</td><td class="mono" style="color:var(--accent4);">$625,808</td><td class="mono">1,399</td><td><div class="trend-mini"><div class="tm-bar" style="height:55%;background:#4fa3ff;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#4fa3ff;opacity:0.6;"></div><div class="tm-bar" style="height:80%;background:#4fa3ff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#4fa3ff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#00d4aa;"></span>Rhonda Harvey</div></td><td class="mono" style="color:var(--text-muted);">$274,415</td><td class="mono">$323,879</td><td class="mono" style="color:var(--hit);font-weight:700;">118%</td><td class="mono">$350,879</td><td class="mono" style="color:var(--accent4);">$306,862</td><td class="mono">388</td><td><div class="trend-mini"><div class="tm-bar" style="height:60%;background:#00d4aa;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#00d4aa;opacity:0.6;"></div><div class="tm-bar" style="height:85%;background:#00d4aa;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#00d4aa;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#b06aff;"></span>Michelle Gable</div></td><td class="mono" style="color:var(--text-muted);">$199,003</td><td class="mono">$199,335</td><td class="mono" style="color:var(--hit);font-weight:700;">100%</td><td class="mono">$253,322</td><td class="mono" style="color:var(--accent4);">$178,951</td><td class="mono">393</td><td><div class="trend-mini"><div class="tm-bar" style="height:58%;background:#b06aff;opacity:0.4;"></div><div class="tm-bar" style="height:68%;background:#b06aff;opacity:0.6;"></div><div class="tm-bar" style="height:82%;background:#b06aff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#b06aff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff9f43;"></span>William Burgess</div></td><td class="mono" style="color:var(--text-muted);">$80,000</td><td class="mono">$49,810</td><td class="mono" style="color:var(--miss);font-weight:700;">62%</td><td class="mono">$21,665</td><td class="mono" style="color:var(--accent4);">$18,187</td><td class="mono">92</td><td><div class="trend-mini"><div class="tm-bar" style="height:50%;background:#ff9f43;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#ff9f43;opacity:0.6;"></div><div class="tm-bar" style="height:88%;background:#ff9f43;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff9f43;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ffd166;"></span>Kyle Miller</div></td><td class="mono" style="color:var(--text-muted);">$62,537</td><td class="mono">$43,273</td><td class="mono" style="color:var(--partial);font-weight:700;">69%</td><td class="mono">$69,814</td><td class="mono" style="color:var(--accent4);">$52,549</td><td class="mono">64</td><td><div class="trend-mini"><div class="tm-bar" style="height:48%;background:#ffd166;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#ffd166;opacity:0.6;"></div><div class="tm-bar" style="height:84%;background:#ffd166;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ffd166;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff6b6b;"></span>Randi Headley</div></td><td class="mono" style="color:var(--text-dim);">—</td><td class="mono">$8,377</td><td class="mono" style="color:var(--text-dim);">No quota</td><td class="mono">$7,799</td><td class="mono" style="color:var(--accent4);">$1,419</td><td class="mono">10</td><td><div class="trend-mini"><div class="tm-bar" style="height:40%;background:#ff6b6b;opacity:0.4;"></div><div class="tm-bar" style="height:58%;background:#ff6b6b;opacity:0.6;"></div><div class="tm-bar" style="height:75%;background:#ff6b6b;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff6b6b;"></div></div></td></tr>
       </tbody>
     </table>
   </div>
 
 </div><!-- /hub-main -->
 <div class="footer">
-  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> GYC Uniforms Sales Hub · All data from NetSuite</div>
+  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> GYC Uniforms Sales Hub · All data from NetSuite · Quotas sourced from Forecast vs. Quota report</div>
   <div class="footer-right">Got You Covered · Internal Use Only</div>
 </div>
 </div><!-- /view-hub -->
@@ -364,6 +572,10 @@
      (rendered once, data swapped by JS)
 ════════════════════════════════════════════ -->
 <div class="view" id="view-month">
+<div class="month-bg" id="monthBg">
+  <div class="blob" id="monthBlob1" style="width:500px;height:500px;top:-80px;left:-80px;"></div>
+  <div class="blob" id="monthBlob2" style="width:350px;height:350px;bottom:0;right:5%;"></div>
+</div>
 <div class="main">
 
   <div class="filter-bar" id="filterBar">
@@ -380,10 +592,30 @@
   <div class="kpi-row">
     <div class="kpi-card kpi-highlight"><div class="kpi-label">Total Orders (SO)</div><div class="kpi-value" id="kpiOrders">—</div><div class="kpi-sub" style="color:var(--accent);">All active reps</div></div>
     <div class="kpi-card"><div class="kpi-label">Sales Order Value</div><div class="kpi-value" id="kpiSO">—</div><div class="kpi-sub">Gross booked</div></div>
+    <div class="kpi-card"><div class="kpi-label">Month Quota (Total)</div><div class="kpi-value" id="kpiQuota">—</div><div class="kpi-sub" id="kpiQuotaAttain">vs. SO value</div></div>
     <div class="kpi-card"><div class="kpi-label">Total Invoiced</div><div class="kpi-value" id="kpiInv">—</div><div class="kpi-sub">Incl. prior orders shipped</div></div>
     <div class="kpi-card"><div class="kpi-label">Outstanding A/R</div><div class="kpi-value" id="kpiAR" style="color:var(--accent4);">—</div><div class="kpi-sub">Unpaid invoices</div></div>
-    <div class="kpi-card"><div class="kpi-label">Avg Order Size</div><div class="kpi-value" id="kpiAvg">—</div><div class="kpi-sub">Per sales order</div></div>
     <div class="kpi-card"><div class="kpi-label">Top Rep</div><div class="kpi-value" style="font-size:18px;" id="kpiTop">—</div><div class="kpi-sub" id="kpiTopAmt">—</div></div>
+  </div>
+
+  <!-- ─── QUOTA VS ACTUAL SECTION ─── -->
+  <div class="quota-card">
+    <div class="quota-card-header">
+      <span class="card-title">📊 Quota vs. Actual Sales Orders</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="quota-legend">
+          <div class="ql-item"><div class="ql-dot" style="background:var(--accent);"></div>Hit quota</div>
+          <div class="ql-item"><div class="ql-dot" style="background:var(--partial);"></div>75–99%</div>
+          <div class="ql-item"><div class="ql-dot" style="background:var(--miss);"></div>Below 75%</div>
+          <div class="ql-item"><div class="ql-dot" style="background:var(--text-dim);"></div>No quota set</div>
+        </div>
+        <span class="card-tag" id="quotaMonthTag">—</span>
+      </div>
+    </div>
+    <div class="quota-card-body">
+      <div class="quota-summary-bar" id="quotaSummary"></div>
+      <div id="quotaRows"></div>
+    </div>
   </div>
 
   <div class="grid-2" style="grid-template-columns:1.1fr 0.9fr;">
@@ -433,6 +665,111 @@
 <div class="tooltip" id="tooltip"></div>
 
 <!-- ═══════════════════════════════════════════
+     VIEW: YOY COMPARISON
+════════════════════════════════════════════ -->
+<div class="view" id="view-yoy">
+<div class="month-bg">
+  <div class="blob" style="width:500px;height:500px;background:#6366f1;top:-100px;left:-100px;opacity:0.05;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+  <div class="blob" style="width:400px;height:400px;background:#3dd68c;bottom:0;right:0;opacity:0.04;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+  <div class="blob" style="width:300px;height:300px;background:#ff4d4d;top:40%;left:40%;opacity:0.04;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+</div>
+<div class="yoy-main">
+
+  <div style="margin-bottom:24px;">
+    <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Q1 Year-Over-Year Comparison</div>
+    <div style="font-size:13px;color:var(--text-muted);">GYC Uniforms · Q1 2025 (Jan 1 – Apr 1) vs Q1 2026 (Jan 1 – Apr 1) · Source: NetSuite</div>
+  </div>
+
+  <!-- Toggle -->
+  <div class="yoy-toggle-bar">
+    <button class="yoy-toggle-btn growth active" id="yoyGrowthBtn" onclick="yoySwitch('growth')">↑ Growth Customers</button>
+    <button class="yoy-toggle-btn decline" id="yoyDeclineBtn" onclick="yoySwitch('decline')">↓ Decline Customers</button>
+  </div>
+
+  <!-- GROWTH PANEL -->
+  <div class="yoy-panel active" id="yoyPanelGrowth">
+    <div class="yoy-stats-row" id="yoyGrowthStats"></div>
+    <div class="yoy-note yoy-note-info">✅ <strong>Note:</strong> Accounts showing $0 in Q1 2025 are new customers with no prior Q1 sales history — these represent net new business wins.</div>
+    <div class="yoy-section-title">Sales Rep Overview — click to filter</div>
+    <div class="yoy-rep-grid" id="yoyGrowthRepGrid"></div>
+    <div class="yoy-section-title">Customer Growth Detail</div>
+    <div class="yoy-filter-bar">
+      <span class="yoy-filter-label">Rep:</span>
+      <select class="yoy-filter-select" id="yoyGrowthRepFilter"></select>
+      <span class="yoy-filter-label">Min $ growth:</span>
+      <select class="yoy-filter-select" id="yoyGrowthMinFilter">
+        <option value="0">Any</option><option value="5000">$5K+</option>
+        <option value="10000">$10K+</option><option value="25000">$25K+</option>
+        <option value="50000">$50K+</option>
+      </select>
+      <span class="yoy-filter-label">Show:</span>
+      <select class="yoy-filter-select" id="yoyGrowthNewFilter">
+        <option value="all">All</option>
+        <option value="existing">Existing Only</option>
+        <option value="new">New Accounts Only</option>
+      </select>
+      <span class="yoy-filter-label">Sort:</span>
+      <select class="yoy-filter-select" id="yoyGrowthSort">
+        <option value="diff">$ Growth</option>
+        <option value="pct">% Growth</option>
+        <option value="q1_2026">Q1 2026 Sales</option>
+        <option value="customer">Customer</option>
+      </select>
+      <span class="yoy-result-count" id="yoyGrowthCount"></span>
+    </div>
+    <div class="yoy-table-wrap">
+      <table class="yoy-table">
+        <thead><tr><th>Customer</th><th>Rep</th><th class="num">Q1 2025</th><th class="num">Q1 2026</th><th class="num">$ Change</th><th>% Change</th></tr></thead>
+        <tbody id="yoyGrowthBody"></tbody>
+      </table>
+    </div>
+    <div class="yoy-pagination" id="yoyGrowthPagination"></div>
+    <div class="yoy-footer" id="yoyGrowthFooter"></div>
+  </div>
+
+  <!-- DECLINE PANEL -->
+  <div class="yoy-panel" id="yoyPanelDecline">
+    <div class="yoy-stats-row" id="yoyDeclineStats"></div>
+    <div class="yoy-note yoy-note-warn" id="yoyValerieNote">⚠️ <strong>Note:</strong> Valerie Bryan's former accounts have been re-attributed to their current 2026 rep owners. Accounts marked "(formerly Valerie Bryan)" show $0 in Q1 2026 — these accounts are either inactive or haven't yet ordered under the new rep.</div>
+    <div class="yoy-section-title">Sales Rep Overview — click to filter</div>
+    <div class="yoy-rep-grid" id="yoyDeclineRepGrid"></div>
+    <div class="yoy-section-title">Customer Decline Detail</div>
+    <div class="yoy-filter-bar">
+      <span class="yoy-filter-label">Rep:</span>
+      <select class="yoy-filter-select" id="yoyDeclineRepFilter"></select>
+      <span class="yoy-filter-label">Min $ decline:</span>
+      <select class="yoy-filter-select" id="yoyDeclineMinFilter">
+        <option value="0">Any</option><option value="5000">$5K+</option>
+        <option value="10000">$10K+</option><option value="25000">$25K+</option>
+        <option value="50000">$50K+</option>
+      </select>
+      <span class="yoy-filter-label">Sort:</span>
+      <select class="yoy-filter-select" id="yoyDeclineSort">
+        <option value="diff">$ Decline</option>
+        <option value="pct">% Decline</option>
+        <option value="q1_2025">Q1 2025 Sales</option>
+        <option value="customer">Customer</option>
+      </select>
+      <span class="yoy-result-count" id="yoyDeclineCount"></span>
+    </div>
+    <div class="yoy-table-wrap">
+      <table class="yoy-table">
+        <thead><tr><th>Customer</th><th>Rep</th><th class="num">Q1 2025</th><th class="num">Q1 2026</th><th class="num">$ Change</th><th>% Change</th></tr></thead>
+        <tbody id="yoyDeclineBody"></tbody>
+      </table>
+    </div>
+    <div class="yoy-pagination" id="yoyDeclinePagination"></div>
+    <div class="yoy-footer">Generated from NetSuite · Got You Covered · 409 customers with YoY decline · 621 total customers tracked · Jan 1 – Apr 1</div>
+  </div>
+
+</div><!-- /yoy-main -->
+<div class="footer">
+  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> Q1 2025 vs Q1 2026 · NetSuite · Got You Covered</div>
+  <div class="footer-right">GYC Uniforms · Internal Use Only</div>
+</div>
+</div><!-- /view-yoy -->
+
+<!-- ═══════════════════════════════════════════
      JAVASCRIPT — ALL DATA + LOGIC
 ════════════════════════════════════════════ -->
 <script>
@@ -440,6 +777,43 @@
 const REP_COLORS = {
   'Joe Braaksma':'#4fa3ff','Rhonda Harvey':'#00d4aa','Michelle Gable':'#b06aff',
   'Kyle Miller':'#ffd166','William Burgess':'#ff9f43','Randi Headley':'#ff6b6b',
+};
+
+// ─── QUOTA DATA (from NetSuite Forecast vs. Quota report) ─────────────────────
+// Values sourced live: Jan–Apr 2026, Got You Covered subsidiary
+const QUOTA_DATA = {
+  jan: {
+    'Joe Braaksma':   859812,
+    'Rhonda Harvey':  281668,
+    'Michelle Gable': 279584,
+    'Kyle Miller':    80416,
+    'William Burgess': null,
+    'Randi Headley':  null,
+  },
+  feb: {
+    'Joe Braaksma':   928273,
+    'Rhonda Harvey':  297956,
+    'Michelle Gable': 286057,
+    'Kyle Miller':    63383,
+    'William Burgess': null,
+    'Randi Headley':  null,
+  },
+  mar: {
+    'Joe Braaksma':   737511,
+    'Rhonda Harvey':  290535,
+    'Michelle Gable': 280268,
+    'Kyle Miller':    42190,
+    'William Burgess': null,
+    'Randi Headley':  null,
+  },
+  apr: {
+    'Joe Braaksma':   527816,
+    'Rhonda Harvey':  274415,
+    'Michelle Gable': 199003,
+    'Kyle Miller':    62537,
+    'William Burgess': 80000,
+    'Randi Headley':  null,
+  },
 };
 
 // ─── ALL MONTHLY DATA ─────────────────────────────────────────────────────────
@@ -704,41 +1078,36 @@ let activeReps = new Set(Object.keys(REP_COLORS));
 let showAllCustomers = false;
 
 // ─── VIEW SWITCHER ────────────────────────────────────────────────────────────
-const BADGE_LABELS = {hub:'Hub View',jan:'January 2026',feb:'February 2026',mar:'March 2026',apr:'April 2026'};
-const TAB_BUTTONS  = ['hub','jan','feb','mar','apr'];
+const BADGE_LABELS = {hub:'Hub View',jan:'January 2026',feb:'February 2026',mar:'March 2026',apr:'April 2026',yoy:'Q1 YoY'};
+const TAB_BUTTONS  = ['hub','jan','feb','mar','apr','yoy'];
 
 function switchView(key) {
-  // Update tabs
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', TAB_BUTTONS[i] === key);
   });
-
-  // Update header badge
   document.getElementById('headerBadge').textContent = BADGE_LABELS[key] || 'Hub View';
-
-  // Show/hide views
   document.getElementById('view-hub').style.display   = key === 'hub' ? 'block' : 'none';
-  document.getElementById('view-month').style.display = key !== 'hub' ? 'block' : 'none';
-
-  // Scroll to top
+  document.getElementById('view-month').style.display = (key !== 'hub' && key !== 'yoy') ? 'block' : 'none';
+  document.getElementById('view-yoy').style.display   = key === 'yoy' ? 'block' : 'none';
   window.scrollTo({top: 0, behavior: 'smooth'});
 
+  if (key === 'yoy') return; // yoy already rendered at init
+
   if (key !== 'hub') {
+    updateMonthBg(key);
     currentMonth = key;
     activeReps = new Set(Object.keys(REP_COLORS));
     showAllCustomers = false;
-    // Reset chip UI
     document.querySelectorAll('.rep-chip').forEach(b => {
       b.classList.add('active-chip');
       b.style.background = `color-mix(in srgb, ${REP_COLORS[b.dataset.rep]} 15%, transparent)`;
     });
-    // Update card tags & footer
     const lbl = MONTH_DATA[key].label;
     document.getElementById('tagLeader').textContent = lbl;
     document.getElementById('tagBar').textContent = lbl;
+    document.getElementById('quotaMonthTag').textContent = lbl;
     document.getElementById('footerPeriod').textContent = MONTH_DATA[key].period;
     document.getElementById('barNote').textContent = `Invoiced totals include orders placed in prior months and billed in ${lbl.split(' ')[0]}.`;
-    // Clear search
     const cs = document.getElementById('custSearch');
     if(cs) cs.value = '';
     render();
@@ -748,6 +1117,26 @@ function switchView(key) {
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function fmt(n){if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(1)+'K';return'$'+n.toFixed(0);}
 function fmtFull(n){return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function pct(a,b){return b?((a/b)*100).toFixed(1):'—';}
+
+function getQuotaColor(attainPct) {
+  if(attainPct === null) return 'var(--text-dim)';
+  if(attainPct >= 100) return 'var(--hit)';
+  if(attainPct >= 75) return 'var(--partial)';
+  return 'var(--miss)';
+}
+function getQuotaBarColor(attainPct) {
+  if(attainPct === null) return 'var(--surface3)';
+  if(attainPct >= 100) return 'var(--hit)';
+  if(attainPct >= 75) return 'var(--partial)';
+  return 'var(--miss)';
+}
+function getStatusBadge(attainPct) {
+  if(attainPct === null) return `<span class="quota-status-badge no-quota">No Quota</span>`;
+  if(attainPct >= 100) return `<span class="quota-status-badge over">✓ ${attainPct.toFixed(0)}% — HIT</span>`;
+  if(attainPct >= 75)  return `<span class="quota-status-badge hit">${attainPct.toFixed(0)}% — CLOSE</span>`;
+  return `<span class="quota-status-badge miss">${attainPct.toFixed(0)}% — MISS</span>`;
+}
 
 // ─── FILTER ──────────────────────────────────────────────────────────────────
 function filterRep(rep, btn) {
@@ -778,6 +1167,7 @@ function render(){
   const d = MONTH_DATA[currentMonth];
   const fSO  = d.so.filter(x=>activeReps.has(x.rep)).sort((a,b)=>b.total-a.total);
   const fInv = d.inv.filter(x=>activeReps.has(x.rep)).sort((a,b)=>b.total-a.total);
+  const monthQuotas = QUOTA_DATA[currentMonth];
 
   const totalOrders = fSO.reduce((s,x)=>s+x.orders,0);
   const totalSO     = fSO.reduce((s,x)=>s+x.total,0);
@@ -786,11 +1176,30 @@ function render(){
   const avgOrder    = totalOrders>0 ? totalSO/totalOrders : 0;
   const topRep      = fSO[0];
 
+  // Total quota for active reps
+  const totalQuota = fSO.reduce((s,x)=>{
+    const q = monthQuotas[x.rep];
+    return s + (q || 0);
+  }, 0);
+  const overallAttain = totalQuota > 0 ? (totalSO/totalQuota*100) : null;
+
   document.getElementById('kpiOrders').textContent = totalOrders.toLocaleString();
   document.getElementById('kpiSO').textContent = fmt(totalSO);
   document.getElementById('kpiInv').textContent = fmt(totalInv);
   document.getElementById('kpiAR').textContent = fmt(totalAR);
-  document.getElementById('kpiAvg').textContent = '$'+Math.round(avgOrder).toLocaleString();
+
+  // Quota KPI
+  if(totalQuota > 0) {
+    document.getElementById('kpiQuota').textContent = fmt(totalQuota);
+    const attainColor = overallAttain >= 100 ? 'var(--hit)' : overallAttain >= 75 ? 'var(--partial)' : 'var(--miss)';
+    document.getElementById('kpiQuotaAttain').innerHTML = `<span style="color:${attainColor};font-weight:700;">${overallAttain.toFixed(0)}% attainment</span>`;
+    document.getElementById('kpiQuota').style.color = attainColor;
+  } else {
+    document.getElementById('kpiQuota').textContent = '—';
+    document.getElementById('kpiQuotaAttain').textContent = 'No quotas set';
+    document.getElementById('kpiQuota').style.color = 'var(--text-dim)';
+  }
+
   if(topRep){
     const p = topRep.rep.split(' ');
     document.getElementById('kpiTop').textContent = p[0]+' '+p[1][0]+'.';
@@ -798,11 +1207,81 @@ function render(){
     document.getElementById('kpiTopAmt').style.color = REP_COLORS[topRep.rep]||'var(--accent)';
   }
 
+  renderQuotaSection(fSO, monthQuotas, totalSO, totalQuota, overallAttain);
   renderLeaderboard(fSO);
   renderBarChart(fInv);
   renderDonut(fSO);
   renderComparison(fSO, fInv);
   renderCustomerTable(d.customers, d.so);
+}
+
+// ─── QUOTA SECTION ────────────────────────────────────────────────────────────
+function renderQuotaSection(fSO, monthQuotas, totalSO, totalQuota, overallAttain){
+  // Summary pills
+  const repsWithQuota = fSO.filter(d => monthQuotas[d.rep] !== null);
+  const repsHit = repsWithQuota.filter(d => d.total >= monthQuotas[d.rep]);
+  const repsMiss = repsWithQuota.filter(d => d.total < monthQuotas[d.rep] * 0.75);
+  const repsPartial = repsWithQuota.filter(d => d.total >= monthQuotas[d.rep]*0.75 && d.total < monthQuotas[d.rep]);
+
+  const attainHTML = overallAttain !== null
+    ? `<div class="qs-pill-val" style="color:${overallAttain>=100?'var(--hit)':overallAttain>=75?'var(--partial)':'var(--miss)'}">${overallAttain.toFixed(0)}%</div><div class="qs-pill-sub">${fmt(totalSO)} of ${fmt(totalQuota)} goal</div>`
+    : `<div class="qs-pill-val" style="color:var(--text-dim)">—</div><div class="qs-pill-sub">No quota data</div>`;
+
+  document.getElementById('quotaSummary').innerHTML = `
+    <div class="qs-pill"><div class="qs-pill-label">Team Attainment</div>${attainHTML}</div>
+    <div class="qs-pill"><div class="qs-pill-label">Quota Hit</div><div class="qs-pill-val color-hit">${repsHit.length}<span style="font-size:13px;font-weight:500;color:var(--text-muted);"> / ${repsWithQuota.length}</span></div><div class="qs-pill-sub">reps at or above target</div></div>
+    <div class="qs-pill"><div class="qs-pill-label">Within 25%</div><div class="qs-pill-val color-partial">${repsPartial.length}</div><div class="qs-pill-sub">reps 75–99% of quota</div></div>
+    <div class="qs-pill"><div class="qs-pill-label">Below 75%</div><div class="qs-pill-val color-miss">${repsMiss.length}</div><div class="qs-pill-sub">reps under 75% of quota</div></div>
+  `;
+
+  // Individual rep rows
+  // Scale: max of (all quotas + all actuals) to set track width reference
+  const allVals = fSO.flatMap(d => {
+    const q = monthQuotas[d.rep];
+    return q ? [d.total, q] : [d.total];
+  });
+  const maxVal = Math.max(...allVals);
+
+  document.getElementById('quotaRows').innerHTML = fSO.map(d => {
+    const quota = monthQuotas[d.rep];
+    const actual = d.total;
+    const attainPct = quota ? (actual / quota * 100) : null;
+    const barColor = getQuotaBarColor(attainPct);
+    const color = REP_COLORS[d.rep];
+
+    // Bar fills: actual as % of maxVal for track width
+    const actualPctOfMax = (actual / maxVal * 100).toFixed(1);
+    const quotaPctOfMax  = quota ? (quota / maxVal * 100).toFixed(1) : null;
+    const isOver = attainPct !== null && attainPct >= 100;
+
+    const actualBarWidth = Math.min(actualPctOfMax, 100);
+    const quotaLinePos   = quotaPctOfMax ? Math.min(parseFloat(quotaPctOfMax), 100) : null;
+
+    return `
+    <div class="quota-rep-row">
+      <div class="quota-rep-header">
+        <div class="quota-rep-name">
+          <div class="quota-rep-dot" style="background:${color}"></div>
+          ${d.rep}
+          ${getStatusBadge(attainPct)}
+        </div>
+        <div class="quota-rep-meta">
+          ${quota ? `<span class="quota-meta-item"><span class="quota-meta-label">Quota: </span><span class="quota-meta-val" style="color:var(--text-muted)">${fmtFull(quota)}</span></span>` : ''}
+          <span class="quota-meta-item"><span class="quota-meta-label">Actual SO: </span><span class="quota-meta-val" style="color:${color}">${fmtFull(actual)}</span></span>
+          ${quota ? `<span class="quota-meta-item"><span class="quota-meta-label">Var: </span><span class="quota-meta-val" style="color:${actual>=quota?'var(--hit)':'var(--miss)'}">${actual>=quota?'+':''}${fmtFull(actual-quota)}</span></span>` : ''}
+        </div>
+      </div>
+      <div class="quota-track">
+        <div class="quota-actual-bar${isOver?' over':''}" style="width:${actualBarWidth}%;background:${barColor};opacity:0.85;">
+          ${actualBarWidth > 15 ? `<span class="quota-actual-label">${fmt(actual)}</span>` : ''}
+        </div>
+        ${quotaLinePos !== null ? `
+          <div class="quota-line" style="left:${quotaLinePos}%;">
+            <div class="quota-line-label">Quota</div>
+          </div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ─── LEADERBOARD ─────────────────────────────────────────────────────────────
@@ -858,11 +1337,11 @@ function renderDonut(data){
   });
   const lbl=document.createElementNS('http://www.w3.org/2000/svg','text');
   lbl.setAttribute('x',cx);lbl.setAttribute('y',cy-4);lbl.setAttribute('text-anchor','middle');
-  lbl.setAttribute('fill','#e6edf3');lbl.setAttribute('font-size','11');lbl.setAttribute('font-family','DM Sans');lbl.setAttribute('font-weight','600');
+  lbl.setAttribute('fill','#e6edf3');lbl.setAttribute('font-size','11');lbl.setAttribute('font-family','Public Sans');lbl.setAttribute('font-weight','700');
   lbl.textContent=fmt(total);svg.appendChild(lbl);
   const sub=document.createElementNS('http://www.w3.org/2000/svg','text');
   sub.setAttribute('x',cx);sub.setAttribute('y',cy+10);sub.setAttribute('text-anchor','middle');
-  sub.setAttribute('fill','#8b949e');sub.setAttribute('font-size','9');sub.setAttribute('font-family','DM Sans');
+  sub.setAttribute('fill','#8b949e');sub.setAttribute('font-size','9');sub.setAttribute('font-family','Public Sans');
   sub.textContent='Total SO';svg.appendChild(sub);
   document.getElementById('donutLegend').innerHTML=data.map(d=>`
     <div class="legend-item">
@@ -879,12 +1358,12 @@ function renderComparison(soData,invData){
   document.getElementById('comparisonCard').innerHTML=rows.map(r=>`
     <div style="margin-bottom:14px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-size:12px;color:var(--text);font-weight:500;">${r.rep.split(' ')[0]}</span>
+        <span style="font-size:12px;color:var(--text);font-weight:600;">${r.rep.split(' ')[0]}</span>
         <span style="font-size:11px;color:var(--text-muted);">SO: ${fmt(r.so)} · Inv: ${fmt(r.inv)}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:3px;">
-        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);">Orders</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.so/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.9;"></div></div></div>
-        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);">Invoiced</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.inv/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.5;"></div></div></div>
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);font-weight:500;">Orders</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.so/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.9;"></div></div></div>
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:40px;font-size:10px;color:var(--text-dim);font-weight:500;">Invoiced</div><div style="flex:1;background:var(--surface3);border-radius:3px;height:6px;"><div style="width:${(r.inv/mx*100).toFixed(1)}%;height:100%;background:${REP_COLORS[r.rep]};border-radius:3px;opacity:0.5;"></div></div></div>
       </div>
     </div>`).join('');
 }
@@ -900,7 +1379,7 @@ function renderCustomerTable(allCustomers, soData){
     const pct=((c.total/(repTotals[c.rep]||1))*100).toFixed(1),bp=(c.total/mx*100).toFixed(1);
     const hid=!showAllCustomers&&i>=SC&&!st?'class="hidden-row"':'';
     return `<tr ${hid}>
-      <td style="color:var(--text-dim);font-family:'DM Mono',monospace;font-size:11px;">${i+1}</td>
+      <td style="color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:11px;">${i+1}</td>
       <td>${c.customer}</td>
       <td><span class="rep-badge-sm" style="background:${REP_COLORS[c.rep]}">${c.rep.split(' ')[0]}</span></td>
       <td style="color:var(--text-muted);">${c.orders}</td>
@@ -924,6 +1403,307 @@ document.addEventListener('mousemove',e=>{const t=document.getElementById('toolt
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 switchView('hub');
+
+// ═══════════════════════════════════════════
+// YOY COMPARISON — DATA & LOGIC
+// ═══════════════════════════════════════════
+
+// ─── GROWTH DATA ──────────────────────────────────────────────────────────────
+const YOY_RAW_GROWTH = [{"customer":"Tarrant County ESD 1","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":111469.7},{"customer":"Fort Worth Fire Department","rep":"Rhonda Harvey","q1_2025":602.68,"q1_2026":105179.9},{"customer":"Reeves County ESD 1 & 2","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":62026.86},{"customer":"Spring Fire - (Harris County ESD 7)","rep":"Joe Braaksma","q1_2025":5679.7,"q1_2026":63679.21},{"customer":"Navarro County Sheriff's Department","rep":"Michelle Gable","q1_2025":1817.88,"q1_2026":56203.26},{"customer":"Houston ISD Police Department","rep":"Joe Braaksma","q1_2025":31589.83,"q1_2026":69920.8},{"customer":"Bryan Fire Department","rep":"Joe Braaksma","q1_2025":1941.88,"q1_2026":39446.15},{"customer":"Abilene Fire Department","rep":"Rhonda Harvey","q1_2025":16790.8,"q1_2026":53559.13},{"customer":"Fulshear Simonton Fire Department","rep":"Joe Braaksma","q1_2025":724.39,"q1_2026":33107.21},{"customer":"San Marcos Fire Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":26782.06},{"customer":"Cypress Fairbanks ISD Police Department","rep":"Joe Braaksma","q1_2025":10836.86,"q1_2026":35814.96},{"customer":"Shelby County Sheriff","rep":"Michelle Gable","q1_2025":0,"q1_2026":24597.2},{"customer":"Humble ISD Police Department","rep":"Joe Braaksma","q1_2025":5773.17,"q1_2026":30308.64},{"customer":"Horizon Fire Department - El Paso County ESD 1","rep":"Rhonda Harvey","q1_2025":33357.18,"q1_2026":57109.56},{"customer":"Matagorda County Sheriff's Office","rep":"Joe Braaksma","q1_2025":347.51,"q1_2026":23532.42},{"customer":"Lubbock ISD Police Department","rep":"Rhonda Harvey","q1_2025":567,"q1_2026":21285.55},{"customer":"UT System Administration","rep":"Joe Braaksma","q1_2025":0,"q1_2026":20175.9},{"customer":"Lumberton Fire & EMS (Hardin County ESD #2)","rep":"Joe Braaksma","q1_2025":0,"q1_2026":19876.88},{"customer":"Harrison County Sheriff","rep":"Michelle Gable","q1_2025":0,"q1_2026":19414.87},{"customer":"Cleveland ISD Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":17410.1},{"customer":"UT Southwestern Police Department - Dallas","rep":"Michelle Gable","q1_2025":5013.16,"q1_2026":22188.37},{"customer":"Dallas College Police - North Lake","rep":"Michelle Gable","q1_2025":2369.7,"q1_2026":18584.56},{"customer":"Irving Fire Department","rep":"Michelle Gable","q1_2025":3989.34,"q1_2026":20078.07},{"customer":"Roanoke Police Department","rep":"Kyle Miller","q1_2025":2800.07,"q1_2026":18828.35},{"customer":"Melissa Police Department","rep":"Rhonda Harvey","q1_2025":1010.88,"q1_2026":16921.64},{"customer":"Melissa Fire Department","rep":"Michelle Gable","q1_2025":3566.32,"q1_2026":18878.25},{"customer":"Conroe Fire Department","rep":"Joe Braaksma","q1_2025":17543.7,"q1_2026":32778.19},{"customer":"Lubbock Fire Department","rep":"Rhonda Harvey","q1_2025":2874.28,"q1_2026":16867.05},{"customer":"Kennedale Police Department","rep":"Michelle Gable","q1_2025":7645.08,"q1_2026":21154.09},{"customer":"Fresno Fire - (Fort Bend ESD 7)","rep":"Joe Braaksma","q1_2025":0,"q1_2026":13331.76},{"customer":"Northlake Police Department","rep":"Rhonda Harvey","q1_2025":3293.1,"q1_2026":16047.76},{"customer":"Nacogdoches Police Department","rep":"Joe Braaksma","q1_2025":8397.89,"q1_2026":21114.4},{"customer":"Pasadena Fire Department","rep":"Joe Braaksma","q1_2025":6931.61,"q1_2026":19301.81},{"customer":"Hays County ESD 9","rep":"Kyle Miller","q1_2025":0,"q1_2026":12128.79},{"customer":"Round Rock Fire & Emergency","rep":"Kyle Miller","q1_2025":0,"q1_2026":11940.83},{"customer":"Texas State Technical College Police Department","rep":"Kyle Miller","q1_2025":3661.54,"q1_2026":15486.86},{"customer":"Woodway Police Department","rep":"Kyle Miller","q1_2025":592.22,"q1_2026":12411.71},{"customer":"Splendora ISD Police Department","rep":"Joe Braaksma","q1_2025":307.92,"q1_2026":11705},{"customer":"Seguin Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":11209.46},{"customer":"Prairie View A&M University Police Department","rep":"Joe Braaksma","q1_2025":3208.54,"q1_2026":14168.62},{"customer":"Grand Prairie Police Department","rep":"Michelle Gable","q1_2025":60751.25,"q1_2026":71613.93},{"customer":"Killeen Fire Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":10757.4},{"customer":"Pasadena ISD Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":10748.7},{"customer":"Tyler Police Department","rep":"Joe Braaksma","q1_2025":38381.81,"q1_2026":49070.12},{"customer":"Roanoke Fire Department","rep":"Rhonda Harvey","q1_2025":1181.25,"q1_2026":11824.6},{"customer":"Sugar Land Police Department","rep":"Joe Braaksma","q1_2025":1381.28,"q1_2026":11647.1},{"customer":"Red Oak Fire Department","rep":"Michelle Gable","q1_2025":3442.54,"q1_2026":13447.66},{"customer":"Washington County Sheriff","rep":"Joe Braaksma","q1_2025":0,"q1_2026":9816.34},{"customer":"Richmond Fire Department","rep":"Joe Braaksma","q1_2025":273.76,"q1_2026":10089.47},{"customer":"Wood County Sheriff Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":9812.98},{"customer":"Wharton County Sheriff's Office","rep":"Joe Braaksma","q1_2025":2636.28,"q1_2026":12401.38},{"customer":"Texas State Technical College Police Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":9725.64},{"customer":"Hopkins County EMS","rep":"Michelle Gable","q1_2025":0,"q1_2026":9681.63},{"customer":"West University Place Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":9254.85},{"customer":"Reagan County Sheriff","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":9145.89},{"customer":"Euless Police Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":8997.78},{"customer":"Alief ISD Police Department","rep":"Joe Braaksma","q1_2025":6589.82,"q1_2026":15379.76},{"customer":"Sam Houston State University Police Department","rep":"Joe Braaksma","q1_2025":335.27,"q1_2026":8935.34},{"customer":"Arlington Police Department","rep":"Kyle Miller","q1_2025":21814.37,"q1_2026":30350.95},{"customer":"Willowfork Fire - Fort Bend ESD 2","rep":"Joe Braaksma","q1_2025":25965.47,"q1_2026":34430.87},{"customer":"Waco ISD Police Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":8348.74},{"customer":"Copperas Cove Fire Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":8235.33},{"customer":"Prairie View A&M University - Parking","rep":"Joe Braaksma","q1_2025":117,"q1_2026":7847.24},{"customer":"Greenville Police Department","rep":"Michelle Gable","q1_2025":5801.15,"q1_2026":13468.83},{"customer":"Hays County ESD 9","rep":"William Burgess","q1_2025":0,"q1_2026":7650.08},{"customer":"Ector County ISD Police","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":7533.93},{"customer":"Athens Police Department","rep":"Michelle Gable","q1_2025":4860.62,"q1_2026":12383.27},{"customer":"Fort Worth Police Department - Taxable","rep":"Rhonda Harvey","q1_2025":34997.58,"q1_2026":42385.14},{"customer":"Smith County Texas Financial Crimes FCIC","rep":"Michelle Gable","q1_2025":0,"q1_2026":7225.88},{"customer":"Decatur Fire Department","rep":"Kailyn McClanahan","q1_2025":660.95,"q1_2026":7838.18},{"customer":"Copperas Cove Fire Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":7167.02},{"customer":"Angelo State University Police Department","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":7153.62},{"customer":"Waller-Harris ESD 200","rep":"Joe Braaksma","q1_2025":24438.31,"q1_2026":31524.12},{"customer":"Keller Police Department","rep":"Michelle Gable","q1_2025":5760.96,"q1_2026":12739.78},{"customer":"Montgomery County constable PCT 5","rep":"Joe Braaksma","q1_2025":0,"q1_2026":6965.78},{"customer":"Bryan Police Department","rep":"Joe Braaksma","q1_2025":428.08,"q1_2026":7344.73},{"customer":"Conroe Police Department","rep":"Joe Braaksma","q1_2025":28014.98,"q1_2026":34830.82},{"customer":"Corpus Christi ISD Police Department","rep":"Joe Braaksma","q1_2025":11602.34,"q1_2026":18370.81},{"customer":"Texas A&M Police Department","rep":"Joe Braaksma","q1_2025":38509.17,"q1_2026":45269.74},{"customer":"Harker Heights Fire Department","rep":"William Burgess","q1_2025":0,"q1_2026":6370.05},{"customer":"Porter Fire Department - Montgomery County ESD 6","rep":"Joe Braaksma","q1_2025":2867.4,"q1_2026":9189.93},{"customer":"Spring Branch ISD Police Department","rep":"Joe Braaksma","q1_2025":6037.51,"q1_2026":12204.51},{"customer":"San Angelo Police Department","rep":"Rhonda Harvey","q1_2025":12448.8,"q1_2026":18448.23},{"customer":"Whitehouse Police Department","rep":"Michelle Gable","q1_2025":305.97,"q1_2026":6288.1},{"customer":"Mansfield Police Department","rep":"Michelle Gable","q1_2025":7205.11,"q1_2026":13099.8},{"customer":"Pantego Fire Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":5859.81},{"customer":"Smith County Sheriff's Office","rep":"Joe Braaksma","q1_2025":68203.16,"q1_2026":73820.67},{"customer":"Hedwig Village Police Department","rep":"Joe Braaksma","q1_2025":3199.32,"q1_2026":8723.1},{"customer":"Hurst Police Department","rep":"Michelle Gable","q1_2025":6358.42,"q1_2026":11783.52},{"customer":"La Porte Police Department","rep":"Joe Braaksma","q1_2025":463.2,"q1_2026":5854.24},{"customer":"WILLIAMSON COUNTY FIRE MARSHAL","rep":"William Burgess","q1_2025":0,"q1_2026":5284.15},{"customer":"Little York Fire Department - Harris County ESD 17","rep":"Joe Braaksma","q1_2025":9460.44,"q1_2026":14708.27},{"customer":"Harker Heights Police Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":5190.68},{"customer":"Tier One Security","rep":"Rhonda Harvey","q1_2025":187,"q1_2026":5369.92},{"customer":"Denison Fire Department","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":5090.92},{"customer":"City of Whitesboro Police Department","rep":"Michelle Gable","q1_2025":8.95,"q1_2026":5069.2},{"customer":"Kilgore Police Department","rep":"Michelle Gable","q1_2025":5095.17,"q1_2026":10078.96},{"customer":"Titus County Sheriff Department","rep":"Michelle Gable","q1_2025":1165.07,"q1_2026":6126.27},{"customer":"Tomball Fire Department","rep":"Joe Braaksma","q1_2025":4388.81,"q1_2026":9217.67},{"customer":"Bellaire Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":4731.09},{"customer":"Rusk County Sheriff's Office","rep":"Michelle Gable","q1_2025":3557.23,"q1_2026":8252.2},{"customer":"Brazosport College Law Enforcement Academy","rep":"Joe Braaksma","q1_2025":0,"q1_2026":4564.17},{"customer":"Brenham Fire Department","rep":"Joe Braaksma","q1_2025":1502.34,"q1_2026":6064.84},{"customer":"Katy ISD Police Department","rep":"Joe Braaksma","q1_2025":17822.16,"q1_2026":22380.15},{"customer":"Fort Worth Fire Department - Training","rep":"Rhonda Harvey","q1_2025":5312.86,"q1_2026":9823.86},{"customer":"Mineral Wells Fire Department","rep":"Rhonda Harvey","q1_2025":297.16,"q1_2026":4758.53},{"customer":"Belton Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":4386.55},{"customer":"Denison Police Department","rep":"Rhonda Harvey","q1_2025":1463.72,"q1_2026":5799.43},{"customer":"Hays County ESD #5 - Kyle Fire","rep":"William Burgess","q1_2025":0,"q1_2026":4317.59},{"customer":"Wise County ESD 3","rep":"Michelle Gable","q1_2025":0,"q1_2026":4293.89},{"customer":"Hays County ESD 9","rep":"Adrianna Ely","q1_2025":0,"q1_2026":4280.97},{"customer":"BNSF Railway Police Department","rep":"Rhonda Harvey","q1_2025":20094.74,"q1_2026":24363.12},{"customer":"Shenandoah Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":4234.7},{"customer":"Angelina County Sheriff's Office","rep":"Joe Braaksma","q1_2025":0,"q1_2026":4232.3},{"customer":"Lacy Lakeview Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":4203.16},{"customer":"McLennan County Constable PCT 1","rep":"Kyle Miller","q1_2025":0,"q1_2026":4187.17},{"customer":"Round Rock Fire & Emergency","rep":"Adrianna Ely","q1_2025":0,"q1_2026":4107.4},{"customer":"Hays County ESD #5 - Kyle Fire","rep":"Kyle Miller","q1_2025":0,"q1_2026":4094.77},{"customer":"Mission Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":4003.36},{"customer":"Randall County Fire Department","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":3986.25},{"customer":"Lindale Police Department","rep":"Michelle Gable","q1_2025":1552.97,"q1_2026":5431.74},{"customer":"Montgomery County ESD 3","rep":"Joe Braaksma","q1_2025":10093.97,"q1_2026":13927.57},{"customer":"Baylor Scott & White EMS","rep":"Joe Braaksma","q1_2025":1034.22,"q1_2026":4778.92},{"customer":"Texas City Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":3687},{"customer":"Memorial Villages Police Department","rep":"Joe Braaksma","q1_2025":6994.33,"q1_2026":10642.97},{"customer":"Forney ISD Police","rep":"Michelle Gable","q1_2025":0,"q1_2026":3611.06},{"customer":"Cresson Volunteer Fire Dept","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":3608.05},{"customer":"Eastex Fire - Harris County ESD 10","rep":"Joe Braaksma","q1_2025":21343.89,"q1_2026":24906.74},{"customer":"Fort Bend County Constable PCT 4","rep":"Joe Braaksma","q1_2025":955.08,"q1_2026":4509.72},{"customer":"City of Arlington Animal Services","rep":"Kyle Miller","q1_2025":0,"q1_2026":3477.86},{"customer":"Kimbell Art Museum","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":3466.94},{"customer":"Bullard Police Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":3457.44},{"customer":"Krum Fire Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":3435.28},{"customer":"Cy-Fair Fire Department","rep":"Joe Braaksma","q1_2025":102015.15,"q1_2026":105390.87},{"customer":"Greenville Fire Department","rep":"Michelle Gable","q1_2025":143.95,"q1_2026":3418.8},{"customer":"Nacogdoches Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":3262.32},{"customer":"Del Mar College Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":3262.3},{"customer":"Killeen ISD Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":3243.94},{"customer":"Alabama-Coushatta Tribal Police Department","rep":"Joe Braaksma","q1_2025":1381.29,"q1_2026":4551.16},{"customer":"Village Fire Department","rep":"Joe Braaksma","q1_2025":213.57,"q1_2026":3348.41},{"customer":"City of Aledo","rep":"Kyle Miller","q1_2025":3522.75,"q1_2026":6634.76},{"customer":"El Campo EMS","rep":"Joe Braaksma","q1_2025":0,"q1_2026":3112},{"customer":"Gatesville Police Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":3108.91},{"customer":"University of Texas Arlington Police Department","rep":"Michelle Gable","q1_2025":83.7,"q1_2026":3168.2},{"customer":"Lampasas Fire Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":3002.48},{"customer":"Robinson Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":2967.11},{"customer":"Smith County Constable PCT 5","rep":"Michelle Gable","q1_2025":0,"q1_2026":2827.68},{"customer":"La Porte Fire Department","rep":"Joe Braaksma","q1_2025":209.4,"q1_2026":2965.8},{"customer":"Tomball Police Department","rep":"Joe Braaksma","q1_2025":4182.98,"q1_2026":6876.56},{"customer":"Chambers County EMS Fire Marshal","rep":"Joe Braaksma","q1_2025":0,"q1_2026":2679.99},{"customer":"Richland Hills Fire Department","rep":"Rhonda Harvey","q1_2025":3706.23,"q1_2026":6373.49},{"customer":"Montgomery County Constable PCT 2","rep":"Joe Braaksma","q1_2025":287.28,"q1_2026":2909.33},{"customer":"Bedford Fire Department","rep":"Michelle Gable","q1_2025":4998.54,"q1_2026":7580.4},{"customer":"Newton County Sheriff's Office","rep":"Joe Braaksma","q1_2025":0,"q1_2026":2492.5},{"customer":"Bedford Police Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":2459},{"customer":"Lake Bridgeport Volunteer Fire Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":2451.79},{"customer":"Skellytown Volunteer Fire Department","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":2450.56},{"customer":"Kilgore Fire Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":2393.84},{"customer":"LOCKHART POLICE DEPARTMENT","rep":"Adrianna Ely","q1_2025":0,"q1_2026":2345.04},{"customer":"Robinson Police Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":2308.62},{"customer":"Navarro College Police Department - Corsicana","rep":"Michelle Gable","q1_2025":0,"q1_2026":2301.82},{"customer":"Santa Fe Police Department","rep":"Joe Braaksma","q1_2025":910.2,"q1_2026":3201.48},{"customer":"Harker Heights Fire Department","rep":"Adrianna Ely","q1_2025":0,"q1_2026":2282.3},{"customer":"Colorado County EMS","rep":"Joe Braaksma","q1_2025":903.49,"q1_2026":3167.1},{"customer":"Waller Police Department","rep":"Joe Braaksma","q1_2025":3365.3,"q1_2026":5608.11},{"customer":"Montgomery County constable PCT 5 - Taxable","rep":"Joe Braaksma","q1_2025":0,"q1_2026":2237.2},{"customer":"Stephen F. Austin State University Police Department","rep":"Joe Braaksma","q1_2025":436.94,"q1_2026":2647.58},{"customer":"Valley Mills ISD Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":2208.88},{"customer":"Huffman Fire Department - Harris County ESD 4","rep":"Joe Braaksma","q1_2025":4759.12,"q1_2026":6952.67},{"customer":"Harris County Constable PCT 2","rep":"Joe Braaksma","q1_2025":3907.4,"q1_2026":6098.45},{"customer":"Willis Police Department","rep":"Joe Braaksma","q1_2025":900.59,"q1_2026":3018.97},{"customer":"Comanche County Sheriff's Office","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":2078.77},{"customer":"Angelo State University Police Department","rep":"Kyle Miller","q1_2025":0,"q1_2026":2058.3},{"customer":"Corsicana ISD Police Department","rep":"Michelle Gable","q1_2025":492.04,"q1_2026":2539.61},{"customer":"Gainesville Fire Department","rep":"Rhonda Harvey","q1_2025":755.99,"q1_2026":2748.09},{"customer":"Port Arthur Police Department - Taxable","rep":"Joe Braaksma","q1_2025":572.2,"q1_2026":2552.08},{"customer":"Brazosport ISD Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1966.61},{"customer":"Angelina College Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1944.6},{"customer":"Montgomery County Constable PCT 4","rep":"Joe Braaksma","q1_2025":1661.44,"q1_2026":3602.99},{"customer":"Clifton Police Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":1876.5},{"customer":"Crockett Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1858.91},{"customer":"Tarrant Regional Water District","rep":"Rhonda Harvey","q1_2025":703.32,"q1_2026":2554.59},{"customer":"Lufkin Police Department","rep":"Joe Braaksma","q1_2025":3455.68,"q1_2026":5218.4},{"customer":"Yoakum Police Department","rep":"Joe Braaksma","q1_2025":275.93,"q1_2026":2023.36},{"customer":"Nacogdoches County Sheriff's Office","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1737.13},{"customer":"Potter County Fire Department","rep":"Rhonda Harvey","q1_2025":0,"q1_2026":1710.12},{"customer":"Pasadena Police Department - Taxable","rep":"Joe Braaksma","q1_2025":391.2,"q1_2026":2093},{"customer":"China Spring ISD Police Department","rep":"Michelle Gable","q1_2025":0,"q1_2026":1675.32},{"customer":"Dallas ISD Police Department","rep":"Michelle Gable","q1_2025":540.96,"q1_2026":2211.02},{"customer":"Meadows Place Police Department","rep":"Joe Braaksma","q1_2025":762.14,"q1_2026":2342.51},{"customer":"White Settlement Fire Department","rep":"Michelle Gable","q1_2025":6364.78,"q1_2026":7929.22},{"customer":"Conroe ISD Police Department - Taxable","rep":"Joe Braaksma","q1_2025":516.61,"q1_2026":2071.06},{"customer":"Lufkin Fire Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1543.04},{"customer":"Clute Police Department","rep":"Joe Braaksma","q1_2025":729.59,"q1_2026":2247.54},{"customer":"Walker County EMS","rep":"Joe Braaksma","q1_2025":2196.67,"q1_2026":3710.05},{"customer":"Pantego Police Department","rep":"Michelle Gable","q1_2025":457.24,"q1_2026":1965.66},{"customer":"Nassau Bay Police Department","rep":"Joe Braaksma","q1_2025":0,"q1_2026":1479.84},{"customer":"White Settlement Police Department","rep":"Michelle Gable","q1_2025":1298.04,"q1_2026":2756.98},{"customer":"Rockwall Fire Department","rep":"Rhonda Harvey","q1_2025":2392.79,"q1_2026":3673.47},{"customer":"Sherman Fire and Rescue","rep":"Rhonda Harvey","q1_2025":3257.72,"q1_2026":4553.81},{"customer":"Wharton County Jr College EMS - Taxable","rep":"Joe Braaksma","q1_2025":8894.06,"q1_2026":10268.83},{"customer":"Atascocita Fire Department - Harris County ESD 46","rep":"Joe Braaksma","q1_2025":23139.51,"q1_2026":24483.24},{"customer":"Methodist Health Systems Police Department","rep":"Rhonda Harvey","q1_2025":19074.6,"q1_2026":19253.05},{"customer":"Richland Hills Police Department","rep":"Rhonda Harvey","q1_2025":6261.67,"q1_2026":6611.98},{"customer":"City of Whitesboro Fire Department","rep":"Rhonda Harvey","q1_2025":6556.8,"q1_2026":7015.02},{"customer":"Lone Star College Cy Fair Fire/EMS Academy - Taxable","rep":"Joe Braaksma","q1_2025":3053.42,"q1_2026":4449.33},{"customer":"Lone Star College Montgomery EMS Academy - Taxable","rep":"Joe Braaksma","q1_2025":7796.78,"q1_2026":8901.53},{"customer":"San Jacinto College Police Department","rep":"Joe Braaksma","q1_2025":9747.46,"q1_2026":10036.34}];
+
+// Deduplicate
+const _gSeen = new Set();
+const YOY_GROWTH = [];
+YOY_RAW_GROWTH.forEach(r => {
+  const key = r.customer + '|' + r.rep;
+  if (!_gSeen.has(key)) {
+    _gSeen.add(key);
+    const diff = r.q1_2026 - r.q1_2025;
+    const pct = r.q1_2025 > 0 ? ((diff / r.q1_2025) * 100) : null;
+    YOY_GROWTH.push({...r, diff, pct_change: pct});
+  }
+});
+
+// ─── DECLINE DATA (all accounts attributed to 2026 rep owner) ─────────────────
+const YOY_DECLINE = {"declined": [{"rep": "Rhonda L Harvey", "customer": "Texas Health Police Security", "q1_2025": 254696.64, "q1_2026": 74961.92, "diff": -179734.72, "pct_change": -70.57}, {"rep": "Michelle Gable", "customer": "Jacksonville Police Department", "q1_2025": 133228.77, "q1_2026": 244.24, "diff": -132984.53, "pct_change": -99.82}, {"rep": "Joe Braaksma", "customer": "Pasadena Police Department", "q1_2025": 182601.89, "q1_2026": 108524.27, "diff": -74077.62, "pct_change": -40.57}, {"rep": "Kyle Miller", "customer": "Arlington Police Department (formerly Valerie Bryan)", "q1_2025": 62636.66, "q1_2026": 0, "diff": -62636.66, "pct_change": -100.0}, {"rep": "Rhonda L Harvey", "customer": "Tarleton State University Police Department (formerly Valerie Bryan)", "q1_2025": 57786.16, "q1_2026": 0, "diff": -57786.16, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Santa Fe ISD Police Department", "q1_2025": 52046.70, "q1_2026": 362.50, "diff": -51684.20, "pct_change": -99.30}, {"rep": "Michelle Gable", "customer": "Arlington Fire Department", "q1_2025": 87144.02, "q1_2026": 35523.98, "diff": -51620.04, "pct_change": -59.24}, {"rep": "Joe Braaksma", "customer": "UT Health East Texas EMS", "q1_2025": 65933.59, "q1_2026": 14729.68, "diff": -51203.91, "pct_change": -77.66}, {"rep": "Michelle Gable", "customer": "Collin County Sheriff's Office", "q1_2025": 66585.18, "q1_2026": 20082.30, "diff": -46502.88, "pct_change": -69.84}, {"rep": "Joe Braaksma", "customer": "Smith County Sheriff's Office", "q1_2025": 101555.40, "q1_2026": 55539.30, "diff": -46016.10, "pct_change": -45.31}, {"rep": "Joe Braaksma", "customer": "Beaumont Fire Rescue", "q1_2025": 45463.97, "q1_2026": 7544.83, "diff": -37919.14, "pct_change": -83.40}, {"rep": "Joe Braaksma", "customer": "MCHD - Montgomery County Hospital District", "q1_2025": 83124.48, "q1_2026": 45810.20, "diff": -37314.28, "pct_change": -44.89}, {"rep": "Michelle Gable", "customer": "Gregg County Sheriff's Office", "q1_2025": 34825.90, "q1_2026": 1476.67, "diff": -33349.23, "pct_change": -95.76}, {"rep": "Kyle Miller", "customer": "AMENTUM SERVICES INC", "q1_2025": 32659.94, "q1_2026": 0, "diff": -32659.94, "pct_change": -100.0}, {"rep": "Kyle Miller", "customer": "San Angelo Police Department", "q1_2025": 51722.19, "q1_2026": 19113.58, "diff": -32608.61, "pct_change": -63.05}, {"rep": "Joe Braaksma", "customer": "Schulenburg Police Department", "q1_2025": 33632.16, "q1_2026": 1903.88, "diff": -31728.28, "pct_change": -94.34}, {"rep": "Rhonda L Harvey", "customer": "Rockwall Police Department", "q1_2025": 48281.73, "q1_2026": 17396.63, "diff": -30885.10, "pct_change": -63.97}, {"rep": "Joe Braaksma", "customer": "Katy ISD Police Department", "q1_2025": 47142.54, "q1_2026": 18310.40, "diff": -28832.14, "pct_change": -61.16}, {"rep": "Michelle Gable", "customer": "Killeen Fire Department", "q1_2025": 28064.30, "q1_2026": 0, "diff": -28064.30, "pct_change": -100.0}, {"rep": "Kyle Miller", "customer": "San Angelo Police Department (formerly Valerie Bryan)", "q1_2025": 25161.24, "q1_2026": 0, "diff": -25161.24, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Blinn College Police Department", "q1_2025": 24061.85, "q1_2026": 3082.06, "diff": -20979.79, "pct_change": -87.19}, {"rep": "Rhonda L Harvey", "customer": "Fort Worth Police Department", "q1_2025": 22117.25, "q1_2026": 1456.97, "diff": -20660.28, "pct_change": -93.41}, {"rep": "Rhonda L Harvey", "customer": "Fort Worth Transportation and Public Works", "q1_2025": 20417.02, "q1_2026": 0, "diff": -20417.02, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Baytown Fire Department", "q1_2025": 29302.98, "q1_2026": 10092.12, "diff": -19210.86, "pct_change": -65.56}, {"rep": "Michelle Gable", "customer": "Arlington ISD Security (formerly Valerie Bryan)", "q1_2025": 17970.73, "q1_2026": 0, "diff": -17970.73, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Sugar Land Fire Department", "q1_2025": 35705.23, "q1_2026": 18737.55, "diff": -16967.68, "pct_change": -47.52}, {"rep": "Joe Braaksma", "customer": "Pecan Grove Vol. Fire Department", "q1_2025": 24013.12, "q1_2026": 8413.34, "diff": -15599.78, "pct_change": -64.96}, {"rep": "Joe Braaksma", "customer": "Harris County ESD 3 (Spring Creek EMS)", "q1_2025": 15017.80, "q1_2026": 0, "diff": -15017.80, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Lamar Consolidated (LCISD) Police Department", "q1_2025": 33301.02, "q1_2026": 18331.08, "diff": -14969.94, "pct_change": -44.95}, {"rep": "Michelle Gable", "customer": "Lake Worth Police Department", "q1_2025": 16158.28, "q1_2026": 2217.29, "diff": -13940.99, "pct_change": -86.28}, {"rep": "Rhonda L Harvey", "customer": "Bridgeport Fire Department", "q1_2025": 26703.95, "q1_2026": 12903.75, "diff": -13800.20, "pct_change": -51.68}, {"rep": "William Burgess", "customer": "Travis County ESD 8 (Pedernales Fire) (formerly Valerie Bryan)", "q1_2025": 13567.86, "q1_2026": 0, "diff": -13567.86, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Port Arthur ISD Police Department", "q1_2025": 14833.78, "q1_2026": 1962.27, "diff": -12871.51, "pct_change": -86.77}, {"rep": "Joe Braaksma", "customer": "BSA Health System EMS", "q1_2025": 14699.65, "q1_2026": 2617.68, "diff": -12081.97, "pct_change": -82.19}, {"rep": "Joe Braaksma", "customer": "Nederland Police Department", "q1_2025": 10958.38, "q1_2026": 0, "diff": -10958.38, "pct_change": -100.0}, {"rep": "Kyle Miller", "customer": "Arlington Police Department", "q1_2025": 47339.32, "q1_2026": 36819.83, "diff": -10519.49, "pct_change": -22.22}, {"rep": "Rhonda L Harvey", "customer": "San Angelo Fire Department (formerly Valerie Bryan)", "q1_2025": 10267.28, "q1_2026": 0, "diff": -10267.28, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Conroe ISD Police Department", "q1_2025": 19095.18, "q1_2026": 8928.12, "diff": -10167.06, "pct_change": -53.24}, {"rep": "Michelle Gable", "customer": "Harker Heights Fire Department", "q1_2025": 9598.75, "q1_2026": 0, "diff": -9598.75, "pct_change": -100.0}, {"rep": "Kyle Miller", "customer": "Region IV Education Service Center", "q1_2025": 10581.78, "q1_2026": 1009.70, "diff": -9572.08, "pct_change": -90.46}, {"rep": "Joe Braaksma", "customer": "Harris County Constable PCT 3", "q1_2025": 16464.46, "q1_2026": 6993.86, "diff": -9470.60, "pct_change": -57.52}, {"rep": "Michelle Gable", "customer": "Midlothian Fire Department", "q1_2025": 9365.41, "q1_2026": 0, "diff": -9365.41, "pct_change": -100.0}, {"rep": "Michelle Gable", "customer": "Kilgore Police Department", "q1_2025": 8350.21, "q1_2026": -678.49, "diff": -9028.70, "pct_change": -108.13}, {"rep": "Michelle Gable", "customer": "Midlothian Police Department", "q1_2025": 12154.20, "q1_2026": 3169.50, "diff": -8984.70, "pct_change": -73.92}, {"rep": "Joe Braaksma", "customer": "Highlands Fire Department", "q1_2025": 11216.90, "q1_2026": 2365.0, "diff": -8851.90, "pct_change": -78.92}, {"rep": "Rhonda L Harvey", "customer": "Sherman Police Department", "q1_2025": 14906.62, "q1_2026": 6217.83, "diff": -8688.79, "pct_change": -58.29}, {"rep": "Michelle Gable", "customer": "Melissa Fire Department", "q1_2025": 19992.28, "q1_2026": 11326.80, "diff": -8665.48, "pct_change": -43.34}, {"rep": "Joe Braaksma", "customer": "Montgomery County ESD 3", "q1_2025": 21546.26, "q1_2026": 13047.14, "diff": -8499.12, "pct_change": -39.45}, {"rep": "Rhonda L Harvey", "customer": "Sherman Fire and Rescue", "q1_2025": 15197.61, "q1_2026": 7091.41, "diff": -8106.20, "pct_change": -53.34}, {"rep": "Adrianna Ely", "customer": "Waco ISD Police Department (formerly Valerie Bryan)", "q1_2025": 8066.66, "q1_2026": 0, "diff": -8066.66, "pct_change": -100.0}, {"rep": "Michelle Gable", "customer": "Copperas Cove Fire Department", "q1_2025": 8034.74, "q1_2026": 0, "diff": -8034.74, "pct_change": -100.0}, {"rep": "Rhonda L Harvey", "customer": "Lake Cities Fire Department - City of Corinth", "q1_2025": 12583.92, "q1_2026": 4760.29, "diff": -7823.63, "pct_change": -62.17}, {"rep": "Rhonda L Harvey", "customer": "Texas Health Police Security (formerly Valerie Bryan)", "q1_2025": 7808.07, "q1_2026": 0, "diff": -7808.07, "pct_change": -100.0}, {"rep": "Kyle Miller", "customer": "Sanger Police Department", "q1_2025": 10165.25, "q1_2026": 2430.68, "diff": -7734.57, "pct_change": -76.09}, {"rep": "Joe Braaksma", "customer": "Ponderosa Volunteer Fire Association", "q1_2025": 16279.20, "q1_2026": 8622.98, "diff": -7656.22, "pct_change": -47.03}, {"rep": "Michelle Gable", "customer": "Killeen ISD Police Department", "q1_2025": 7622.61, "q1_2026": 0, "diff": -7622.61, "pct_change": -100.0}, {"rep": "Michelle Gable", "customer": "DeSoto Fire Department (formerly Valerie Bryan)", "q1_2025": 7337.51, "q1_2026": 0, "diff": -7337.51, "pct_change": -100.0}, {"rep": "Joe Braaksma", "customer": "Deer Park Police Department", "q1_2025": 7665.20, "q1_2026": 360.36, "diff": -7304.84, "pct_change": -95.30}, {"rep": "Kyle Miller", "customer": "Lampasas Fire Department", "q1_2025": 7659.25, "q1_2026": 465.33, "diff": -7193.92, "pct_change": -93.92}, {"rep": "Joe Braaksma", "customer": "Jersey Village Fire Department", "q1_2025": 7154.20, "q1_2026": 779.40, "diff": -6374.80, "pct_change": -89.11}, {"rep": "Joe Braaksma", "customer": "Lufkin Police Department", "q1_2025": 17739.23, "q1_2026": 11407.37, "diff": -6331.86, "pct_change": -35.69}, {"rep": "Joe Braaksma", "customer": "Cuero Police Department", "q1_2025": 8803.89, "q1_2026": 2548.80, "diff": -6255.09, "pct_change": -71.05}, {"rep": "Michelle Gable", "customer": "Watauga Police Department", "q1_2025": 14532.82, "q1_2026": 8408.91, "diff": -6123.91, "pct_change": -42.14}, {"rep": "Rhonda L Harvey", "customer": "Wise County ESD 1 - Boyd Fire Department", "q1_2025": 8096.17, "q1_2026": 2097.84, "diff": -5998.33, "pct_change": -74.09}, {"rep": "Joe Braaksma", "customer": "Champions Fire - Harris County ESD 29", "q1_2025": 21818.86, "q1_2026": 15843.57, "diff": -5975.29, "pct_change": -27.39}], "rep_summary": {"Joe Braaksma": {"q1_2025": 2164763.83, "q1_2026": 2146089.68, "count_declined": 172}, "Kailyn McClanahan": {"q1_2025": 7099.06, "q1_2026": 9303.00, "count_declined": 5}, "Kyle Miller": {"q1_2025": 277179.35, "q1_2026": 110948.83, "count_declined": 17}, "Michelle Gable": {"q1_2025": 879584.30, "q1_2026": 600796.51, "count_declined": 93}, "Rhonda L Harvey": {"q1_2025": 912296.90, "q1_2026": 715469.63, "count_declined": 99}, "William Burgess": {"q1_2025": 13567.86, "q1_2026": 0, "count_declined": 1}, "Adrianna Ely": {"q1_2025": 8066.66, "q1_2026": 0, "count_declined": 1}}, "total_customers": 621, "total_declined": 409};
+
+// ─── YOY COLORS ───────────────────────────────────────────────────────────────
+const YOY_COLORS = {
+  "Joe Braaksma": "#4fa3ff", "Rhonda Harvey": "#00d4aa", "Rhonda L Harvey": "#00d4aa",
+  "Michelle Gable": "#b06aff", "Kyle Miller": "#ffd166", "William Burgess": "#ff9f43",
+  "Randi Headley": "#ff6b6b", "Adrianna Ely": "#f472b6", "Kailyn McClanahan": "#38bdf8",
+  "Valerie Bryan": "#fb7185",
+};
+const yoyFmt = v => '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+const yoyFmtS = v => (v >= 0 ? '+' : '–') + yoyFmt(v);
+
+let yoyActiveGrowthRep = null;
+let yoyActiveDeclineRep = null;
+let yoyGrowthPage = 1;
+let yoyDeclinePage = 1;
+const YOY_PAGE = 20;
+
+// ─── PANEL SWITCH ─────────────────────────────────────────────────────────────
+function yoySwitch(panel) {
+  document.getElementById('yoyGrowthBtn').classList.toggle('active', panel === 'growth');
+  document.getElementById('yoyDeclineBtn').classList.toggle('active', panel === 'decline');
+  document.getElementById('yoyPanelGrowth').classList.toggle('active', panel === 'growth');
+  document.getElementById('yoyPanelDecline').classList.toggle('active', panel === 'decline');
+}
+
+// ─── GROWTH RENDER ────────────────────────────────────────────────────────────
+function renderYoyGrowthStats() {
+  const total = YOY_GROWTH.reduce((a, r) => a + r.q1_2026, 0);
+  const prior = YOY_GROWTH.reduce((a, r) => a + r.q1_2025, 0);
+  const diff = total - prior;
+  const newAcct = YOY_GROWTH.filter(r => r.q1_2025 <= 0).length;
+  const bigGrowth = YOY_GROWTH.filter(r => r.diff >= 25000).length;
+  document.getElementById('yoyGrowthStats').innerHTML = `
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q1 2025 (Growers)</div><div class="yoy-stat-value">${yoyFmt(prior)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q1 2026 (Growers)</div><div class="yoy-stat-value" style="color:#3dd68c">${yoyFmt(total)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Total $ Growth</div><div class="yoy-stat-value" style="color:#3dd68c">${yoyFmtS(diff)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Customers w/ Growth</div><div class="yoy-stat-value" style="color:#3dd68c">${YOY_GROWTH.length}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Growths >$25K</div><div class="yoy-stat-value" style="color:#34d8b6">${bigGrowth}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">New Accounts</div><div class="yoy-stat-value" style="color:#ffd166">${newAcct}</div></div>
+  `;
+  // update hub card
+  document.getElementById('hubGrowthTotal').textContent = yoyFmtS(diff);
+  document.getElementById('hubGrowthCount').textContent = `${YOY_GROWTH.length} customers grew`;
+}
+
+function buildYoyGrowthRepSummary() {
+  const s = {};
+  YOY_GROWTH.forEach(r => {
+    if (!s[r.rep]) s[r.rep] = { q1_2025: 0, q1_2026: 0, count: 0 };
+    s[r.rep].q1_2025 += r.q1_2025;
+    s[r.rep].q1_2026 += r.q1_2026;
+    s[r.rep].count++;
+  });
+  return Object.entries(s).filter(([rep]) => rep !== 'HOUSE ACCOUNT').sort((a,b) => b[1].q1_2026 - a[1].q1_2026);
+}
+
+function renderYoyGrowthRepGrid() {
+  const reps = buildYoyGrowthRepSummary();
+  const maxC = Math.max(...reps.map(([,v]) => v.q1_2026));
+  document.getElementById('yoyGrowthRepGrid').innerHTML = reps.map(([rep, data]) => {
+    const diff = data.q1_2026 - data.q1_2025;
+    const pct = data.q1_2025 > 0 ? (diff / data.q1_2025 * 100).toFixed(1) : '—';
+    const color = YOY_COLORS[rep] || '#888';
+    const priorPct = (data.q1_2025 / maxC * 100).toFixed(1);
+    const currPct = (data.q1_2026 / maxC * 100).toFixed(1);
+    return `<div class="yoy-rep-card${yoyActiveGrowthRep === rep ? ' active' : ''}" onclick="yoyToggleGrowthRep('${rep.replace(/'/g,"\\'")}')">
+      <div class="yoy-rep-card-header">
+        <div class="yoy-rep-name"><div class="yoy-rep-dot" style="background:${color}"></div>${rep}</div>
+        <div class="yoy-change-pos">${yoyFmtS(diff)} <span style="font-size:11px;opacity:0.7">(${pct}%)</span></div>
+      </div>
+      <div class="yoy-bar-track">
+        <div class="yoy-bar-prior" style="background:${color};width:${priorPct}%"></div>
+        <div class="yoy-bar-curr" style="background:${color};width:${currPct}%"></div>
+      </div>
+      <div class="yoy-rep-meta"><span>Q1 '25: ${yoyFmt(data.q1_2025)}</span><span>${data.count} customers ↑</span><span>Q1 '26: ${yoyFmt(data.q1_2026)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function yoyToggleGrowthRep(rep) {
+  yoyActiveGrowthRep = yoyActiveGrowthRep === rep ? null : rep;
+  yoyGrowthPage = 1;
+  renderYoyGrowthRepGrid();
+  renderYoyGrowthTable();
+}
+
+function getYoyGrowthFiltered() {
+  const repF = document.getElementById('yoyGrowthRepFilter').value;
+  const minG = parseInt(document.getElementById('yoyGrowthMinFilter').value);
+  const newF = document.getElementById('yoyGrowthNewFilter').value;
+  const sort = document.getElementById('yoyGrowthSort').value;
+  let data = [...YOY_GROWTH];
+  if (yoyActiveGrowthRep) data = data.filter(r => r.rep === yoyActiveGrowthRep);
+  else if (repF !== 'all') data = data.filter(r => r.rep === repF);
+  if (minG > 0) data = data.filter(r => r.diff >= minG);
+  if (newF === 'existing') data = data.filter(r => r.q1_2025 > 0);
+  if (newF === 'new') data = data.filter(r => r.q1_2025 <= 0);
+  data.sort((a,b) => {
+    if (sort === 'diff') return b.diff - a.diff;
+    if (sort === 'pct') { const pa = a.pct_change === null ? Infinity : a.pct_change; const pb = b.pct_change === null ? Infinity : b.pct_change; return pb - pa; }
+    if (sort === 'q1_2026') return b.q1_2026 - a.q1_2026;
+    if (sort === 'customer') return a.customer.localeCompare(b.customer);
+    return 0;
+  });
+  return data;
+}
+
+function renderYoyGrowthTable() {
+  const data = getYoyGrowthFiltered();
+  const total = data.length;
+  const pages = Math.ceil(total / YOY_PAGE);
+  yoyGrowthPage = Math.min(yoyGrowthPage, pages || 1);
+  const slice = data.slice((yoyGrowthPage-1)*YOY_PAGE, yoyGrowthPage*YOY_PAGE);
+  document.getElementById('yoyGrowthCount').textContent = `${total} customers`;
+  document.getElementById('yoyGrowthFooter').textContent = `Generated from NetSuite · ${YOY_GROWTH.length} customers with YoY growth · Jan 1 – Apr 1`;
+  document.getElementById('yoyGrowthBody').innerHTML = slice.map(r => {
+    const color = YOY_COLORS[r.rep] || '#888';
+    const isNew = r.q1_2025 <= 0;
+    const pctCell = isNew
+      ? `<span class="yoy-new-badge">NEW</span>`
+      : (() => { const barW = Math.min((Math.min(r.pct_change,500)/500)*100,100); return `<div class="yoy-pct-bar-wrap"><div class="yoy-pct-bar-bg"><div class="yoy-pct-bar-inner-green" style="width:${barW}%"></div></div><span class="yoy-pct-label-green">+${r.pct_change.toFixed(0)}%</span></div>`; })();
+    const priorCell = isNew ? `<span style="color:var(--text-muted)">—</span>` : `<span class="mono">${yoyFmt(r.q1_2025)}</span>`;
+    return `<tr>
+      <td style="font-weight:500;max-width:260px;">${r.customer}</td>
+      <td><span class="yoy-rep-chip" style="background:${color}22;color:${color};border:1px solid ${color}44">${r.rep.split(' ')[0]}</span></td>
+      <td class="num">${priorCell}</td>
+      <td class="num mono">${yoyFmt(r.q1_2026)}</td>
+      <td class="num mono" style="color:#3dd68c;font-weight:600">${yoyFmtS(r.diff)}</td>
+      <td style="min-width:120px">${pctCell}</td>
+    </tr>`;
+  }).join('');
+  yoyRenderPages('yoyGrowthPagination', yoyGrowthPage, pages, 'yoyGoGrowthPage');
+}
+
+function initYoyGrowthFilters() {
+  const reps = buildYoyGrowthRepSummary().map(([r]) => r);
+  document.getElementById('yoyGrowthRepFilter').innerHTML = '<option value="all">All Reps</option>' + reps.map(r => `<option>${r}</option>`).join('');
+  ['yoyGrowthRepFilter','yoyGrowthMinFilter','yoyGrowthNewFilter','yoyGrowthSort'].forEach(id =>
+    document.getElementById(id).addEventListener('change', () => { yoyGrowthPage = 1; renderYoyGrowthTable(); }));
+}
+
+// ─── DECLINE RENDER ───────────────────────────────────────────────────────────
+function renderYoyDeclineStats() {
+  const reps = YOY_DECLINE.rep_summary;
+  const totalPrior = Object.values(reps).reduce((a,b) => a+b.q1_2025,0);
+  const totalCurr = Object.values(reps).reduce((a,b) => a+b.q1_2026,0);
+  const diff = totalCurr - totalPrior;
+  const pct = (diff/totalPrior*100).toFixed(1);
+  const bigD = YOY_DECLINE.declined.filter(r => r.diff < -25000).length;
+  const gone = YOY_DECLINE.declined.filter(r => r.q1_2026 <= 0).length;
+  document.getElementById('yoyDeclineStats').innerHTML = `
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q1 2025 Revenue</div><div class="yoy-stat-value">${yoyFmt(totalPrior)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q1 2026 Revenue</div><div class="yoy-stat-value">${yoyFmt(totalCurr)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">YoY Change</div><div class="yoy-stat-value" style="color:#ff4d4d">${yoyFmtS(diff)} <span style="font-size:14px">(${pct}%)</span></div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Customers w/ Decline</div><div class="yoy-stat-value" style="color:#ff4d4d">${YOY_DECLINE.total_declined}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Declines >$25K</div><div class="yoy-stat-value" style="color:#ff8c42">${bigD}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Zero / No Q1 2026</div><div class="yoy-stat-value" style="color:#ff4d4d">${gone}</div></div>
+  `;
+  // update hub card
+  document.getElementById('hubDeclineTotal').textContent = yoyFmtS(diff);
+  document.getElementById('hubDeclineCount').textContent = `${YOY_DECLINE.total_declined} customers declined`;
+}
+
+function renderYoyDeclineRepGrid() {
+  const reps = Object.entries(YOY_DECLINE.rep_summary);
+  const maxPrior = Math.max(...reps.map(([,v]) => v.q1_2025));
+  document.getElementById('yoyDeclineRepGrid').innerHTML = reps.map(([rep, data]) => {
+    const diff = data.q1_2026 - data.q1_2025;
+    const pct = (diff / data.q1_2025 * 100).toFixed(1);
+    const color = YOY_COLORS[rep] || '#888';
+    const priorPct = (data.q1_2025 / maxPrior * 100).toFixed(1);
+    const currPct = (data.q1_2026 / maxPrior * 100).toFixed(1);
+    return `<div class="yoy-rep-card${yoyActiveDeclineRep === rep ? ' active' : ''}" onclick="yoyToggleDeclineRep('${rep.replace(/'/g,"\\'")}')">
+      <div class="yoy-rep-card-header">
+        <div class="yoy-rep-name"><div class="yoy-rep-dot" style="background:${color}"></div>${rep}</div>
+        <div class="yoy-change-neg">${yoyFmtS(diff)} <span style="font-size:11px;opacity:0.7">(${pct}%)</span></div>
+      </div>
+      <div class="yoy-bar-track">
+        <div class="yoy-bar-prior" style="background:${color};width:${priorPct}%"></div>
+        <div class="yoy-bar-curr" style="background:${color};width:${currPct}%"></div>
+      </div>
+      <div class="yoy-rep-meta"><span>Q1 '25: ${yoyFmt(data.q1_2025)}</span><span>${data.count_declined} customers ↓</span><span>Q1 '26: ${yoyFmt(data.q1_2026)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function yoyToggleDeclineRep(rep) {
+  yoyActiveDeclineRep = yoyActiveDeclineRep === rep ? null : rep;
+  yoyDeclinePage = 1;
+  renderYoyDeclineRepGrid();
+  renderYoyDeclineTable();
+}
+
+function getYoyDeclineFiltered() {
+  const repF = document.getElementById('yoyDeclineRepFilter').value;
+  const minD = parseInt(document.getElementById('yoyDeclineMinFilter').value);
+  const sort = document.getElementById('yoyDeclineSort').value;
+  let data = [...YOY_DECLINE.declined];
+  if (yoyActiveDeclineRep) data = data.filter(r => r.rep === yoyActiveDeclineRep);
+  else if (repF !== 'all') data = data.filter(r => r.rep === repF);
+  if (minD > 0) data = data.filter(r => Math.abs(r.diff) >= minD);
+  data.sort((a,b) => {
+    if (sort === 'diff') return a.diff - b.diff;
+    if (sort === 'pct') return a.pct_change - b.pct_change;
+    if (sort === 'q1_2025') return b.q1_2025 - a.q1_2025;
+    if (sort === 'customer') return a.customer.localeCompare(b.customer);
+    return 0;
+  });
+  return data;
+}
+
+function renderYoyDeclineTable() {
+  const data = getYoyDeclineFiltered();
+  const total = data.length;
+  const pages = Math.ceil(total / YOY_PAGE);
+  yoyDeclinePage = Math.min(yoyDeclinePage, pages || 1);
+  const slice = data.slice((yoyDeclinePage-1)*YOY_PAGE, yoyDeclinePage*YOY_PAGE);
+  document.getElementById('yoyDeclineCount').textContent = `${total} customers`;
+  document.getElementById('yoyDeclineBody').innerHTML = slice.map(r => {
+    const color = YOY_COLORS[r.rep] || '#888';
+    const pctAbs = Math.min(Math.abs(r.pct_change), 100);
+    const currDisplay = r.q1_2026 <= 0 ? `<span class="yoy-zero-badge">${r.q1_2026 < 0 ? yoyFmt(r.q1_2026) : 'ZERO'}</span>` : `<span class="mono">${yoyFmt(r.q1_2026)}</span>`;
+    return `<tr>
+      <td style="font-weight:500;max-width:260px;">${r.customer}</td>
+      <td><span class="yoy-rep-chip" style="background:${color}22;color:${color};border:1px solid ${color}44">${r.rep.split(' ')[0]}</span></td>
+      <td class="num mono">${yoyFmt(r.q1_2025)}</td>
+      <td class="num">${currDisplay}</td>
+      <td class="num mono" style="color:#ff4d4d;font-weight:600">${yoyFmtS(r.diff)}</td>
+      <td style="min-width:120px"><div class="yoy-pct-bar-wrap"><div class="yoy-pct-bar-bg"><div class="yoy-pct-bar-inner-red" style="width:${pctAbs}%"></div></div><span class="yoy-pct-label-red">${r.pct_change.toFixed(0)}%</span></div></td>
+    </tr>`;
+  }).join('');
+  yoyRenderPages('yoyDeclinePagination', yoyDeclinePage, pages, 'yoyGoDeclinePage');
+}
+
+function initYoyDeclineFilters() {
+  const reps = Object.keys(YOY_DECLINE.rep_summary);
+  document.getElementById('yoyDeclineRepFilter').innerHTML = '<option value="all">All Reps</option>' + reps.map(r => `<option>${r}</option>`).join('');
+  ['yoyDeclineRepFilter','yoyDeclineMinFilter','yoyDeclineSort'].forEach(id =>
+    document.getElementById(id).addEventListener('change', () => { yoyDeclinePage = 1; renderYoyDeclineTable(); }));
+}
+
+// ─── SHARED PAGINATION ────────────────────────────────────────────────────────
+function yoyRenderPages(elId, curr, pages, fnName) {
+  const pg = document.getElementById(elId);
+  if (pages <= 1) { pg.innerHTML = ''; return; }
+  let html = `<button class="yoy-page-btn" onclick="${fnName}(${curr-1})" ${curr===1?'disabled':''}>← Prev</button>`;
+  for (let i = 1; i <= pages; i++) {
+    if (i === 1 || i === pages || Math.abs(i - curr) <= 1)
+      html += `<button class="yoy-page-btn" style="${i===curr?'border-color:var(--accent);color:var(--text);':''}" onclick="${fnName}(${i})">${i}</button>`;
+    else if (Math.abs(i - curr) === 2)
+      html += `<span style="color:var(--text-muted);padding:0 4px">…</span>`;
+  }
+  html += `<button class="yoy-page-btn" onclick="${fnName}(${curr+1})" ${curr===pages?'disabled':''}>Next →</button>`;
+  pg.innerHTML = html;
+}
+function yoyGoGrowthPage(p){yoyGrowthPage=p;renderYoyGrowthTable();}
+function yoyGoDeclinePage(p){yoyDeclinePage=p;renderYoyDeclineTable();}
+
+// ─── MONTH BG COLOR UPDATE ────────────────────────────────────────────────────
+const MONTH_COLORS = { jan: '#4fa3ff', feb: '#b06aff', mar: '#ffd166', apr: '#00d4aa' };
+function updateMonthBg(month) {
+  const color = MONTH_COLORS[month];
+  if (!color) return;
+  const b1 = document.getElementById('monthBlob1');
+  const b2 = document.getElementById('monthBlob2');
+  if (b1) b1.style.background = color;
+  if (b2) b2.style.background = color;
+}
+
+// ─── INIT YOY ─────────────────────────────────────────────────────────────────
+renderYoyGrowthStats();
+renderYoyGrowthRepGrid();
+initYoyGrowthFilters();
+renderYoyGrowthTable();
+renderYoyDeclineStats();
+renderYoyDeclineRepGrid();
+initYoyDeclineFilters();
+renderYoyDeclineTable();
 </script>
 </body>
 </html>
