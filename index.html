@@ -15,7 +15,7 @@
     --hit: #00a882; --miss: #e84545; --partial: #d97706;
     /* per-month page tints */
     --month-jan: #e8f0ff; --month-feb: #f0e8ff; --month-mar: #fff8e0;
-    --month-apr: #e0fdf7; --month-may: #fff3e8;
+    --month-apr: #e0fdf7; --month-may: #fff3e8; --month-jun: #ffe9ec;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.4s ease; }
@@ -386,6 +386,7 @@
   body[data-month="mar"]  { background: linear-gradient(160deg, var(--month-mar) 0%, var(--bg) 45%); }
   body[data-month="apr"]  { background: linear-gradient(160deg, var(--month-apr) 0%, var(--bg) 45%); }
   body[data-month="may"]  { background: linear-gradient(160deg, var(--month-may) 0%, var(--bg) 45%); }
+  body[data-month="jun"]  { background: linear-gradient(160deg, var(--month-jun) 0%, var(--bg) 45%); }
   body[data-month="yoy"]  { background: linear-gradient(160deg, #f0eeff 0%, var(--bg) 45%); }
   .month-bg { display: none; }
 
@@ -419,8 +420,10 @@
   <button class="tab-btn" onclick="switchView('feb')">February</button>
   <button class="tab-btn" onclick="switchView('mar')">March</button>
   <button class="tab-btn" onclick="switchView('apr')">April</button>
-  <button class="tab-btn latest-tab" onclick="switchView('may')">May <span style="font-size:9px;vertical-align:middle;opacity:0.75;">thru 12th</span></button>
+  <button class="tab-btn" onclick="switchView('may')">May</button>
+  <button class="tab-btn latest-tab" onclick="switchView('jun')">June</button>
   <button class="tab-btn" onclick="switchView('yoy')" style="color:#6366f1;margin-left:8px;border-left:1px solid var(--border);padding-left:18px;">↕ Q1 YoY</button>
+  <button class="tab-btn" onclick="switchView('yoy2')" style="color:#6366f1;">↕ Q2 YoY</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -436,7 +439,7 @@
 <div class="hub-main">
 
   <div class="section-label">Monthly Reports</div>
-  <div class="months-grid" style="grid-template-columns: repeat(5,1fr);">
+  <div class="months-grid" style="grid-template-columns: repeat(3,1fr);">
 
     <button class="month-card" style="--card-color:#4fa3ff;" onclick="switchView('jan')">
       <span class="month-num">01</span>
@@ -522,19 +525,19 @@
       <div class="month-cta">View April Report <span class="cta-arrow">→</span></div>
     </button>
 
-    <button class="month-card latest" style="--card-color:#ff9f43;" onclick="switchView('may')">
+    <button class="month-card" style="--card-color:#ff9f43;" onclick="switchView('may')">
       <span class="month-num">05</span>
       <div class="month-top">
         <div><div class="month-name">May</div><div class="month-year">2026</div></div>
-        <span class="month-tag" style="background:rgba(255,159,67,0.15);color:#ff9f43;border-color:rgba(255,159,67,0.3);">Latest ✦</span>
+        <span class="month-tag" style="background:rgba(255,159,67,0.15);color:#ff9f43;border-color:rgba(255,159,67,0.3);">Q2</span>
       </div>
       <div class="month-stats">
-        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$559K</span></div>
-        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$232K</span></div>
-        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">865</span></div>
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.41M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.41M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,372</span></div>
         <div class="hub-quota-wrap" style="margin-top:6px;">
-          <div class="hub-quota-label"><span style="color:#ff9f43;font-weight:700;">⚠ Partial — thru May 12 only</span></div>
-          <div class="hub-quota-track" style="margin-top:4px;"><div class="hub-quota-fill" style="width:39%;background:#ff9f43;"></div></div>
+          <div class="hub-quota-label"><span>Full Month</span><span style="color:#ff9f43;">May 2026</span></div>
+          <div class="hub-quota-track" style="margin-top:4px;"><div class="hub-quota-fill" style="width:100%;background:#ff9f43;"></div></div>
         </div>
         <div class="trend-bar-wrap">
           <div class="trend-bar" style="height:30%;background:#ff9f43;"></div><div class="trend-bar" style="height:38%;background:#ff9f43;"></div>
@@ -544,6 +547,30 @@
         </div>
       </div>
       <div class="month-cta">View May Report <span class="cta-arrow">→</span></div>
+    </button>
+
+    <button class="month-card latest" style="--card-color:#e84545;" onclick="switchView('jun')">
+      <span class="month-num">06</span>
+      <div class="month-top">
+        <div><div class="month-name">June</div><div class="month-year">2026</div></div>
+        <span class="month-tag" style="background:rgba(232,69,69,0.12);color:#e84545;border-color:rgba(232,69,69,0.3);">Latest ✦</span>
+      </div>
+      <div class="month-stats">
+        <div class="stat-row"><span class="stat-label">Sales Orders</span><span class="stat-value">$1.10M</span></div>
+        <div class="stat-row"><span class="stat-label">Total Invoiced</span><span class="stat-value">$1.46M</span></div>
+        <div class="stat-row"><span class="stat-label">Orders Placed</span><span class="stat-value">2,246</span></div>
+        <div class="hub-quota-wrap" style="margin-top:6px;">
+          <div class="hub-quota-label"><span>Full Month</span><span style="color:#e84545;">June 2026</span></div>
+          <div class="hub-quota-track" style="margin-top:4px;"><div class="hub-quota-fill" style="width:100%;background:#e84545;"></div></div>
+        </div>
+        <div class="trend-bar-wrap">
+          <div class="trend-bar" style="height:38%;background:#e84545;"></div><div class="trend-bar" style="height:45%;background:#e84545;"></div>
+          <div class="trend-bar" style="height:40%;background:#e84545;"></div><div class="trend-bar" style="height:50%;background:#e84545;"></div>
+          <div class="trend-bar" style="height:46%;background:#e84545;"></div><div class="trend-bar" style="height:55%;background:#e84545;"></div>
+          <div class="trend-bar" style="height:52%;background:#e84545;"></div><div class="trend-bar" style="height:60%;background:#e84545;"></div>
+        </div>
+      </div>
+      <div class="month-cta">View June Report <span class="cta-arrow">→</span></div>
     </button>
   </div>
 
@@ -572,6 +599,30 @@
     <div class="month-cta" style="color:#6366f1;">View Q1 Year-Over-Year Report <span class="cta-arrow">→</span></div>
   </button>
 
+  <button class="yoy-hub-card" onclick="switchView('yoy2')" style="margin-bottom:48px;">
+    <span class="month-num" style="color:#6366f1;opacity:0.15;">↕</span>
+    <div class="month-top">
+      <div>
+        <div class="month-name">Q2 YoY Comparison</div>
+        <div class="month-year">Q2 2025 vs Q2 2026</div>
+      </div>
+      <span class="month-tag" style="background:rgba(99,102,241,0.15);color:#6366f1;border-color:rgba(99,102,241,0.3);">YoY</span>
+    </div>
+    <div class="yoy-hub-split">
+      <div class="yoy-hub-half growth">
+        <div class="yoy-hub-half-label" style="color:#3dd68c;">↑ Growth</div>
+        <div class="yoy-hub-half-val" style="color:#3dd68c;" id="hubGrowthTotal2">—</div>
+        <div class="yoy-hub-half-sub" id="hubGrowthCount2">customers grew</div>
+      </div>
+      <div class="yoy-hub-half decline">
+        <div class="yoy-hub-half-label" style="color:#ff4d4d;">↓ Decline</div>
+        <div class="yoy-hub-half-val" style="color:#ff4d4d;" id="hubDeclineTotal2">—</div>
+        <div class="yoy-hub-half-sub" id="hubDeclineCount2">customers declined</div>
+      </div>
+    </div>
+    <div class="month-cta" style="color:#6366f1;">View Q2 Year-Over-Year Report <span class="cta-arrow">→</span></div>
+  </button>
+
   <div class="section-label">Q1 2026 Cumulative</div>
   <div class="quick-stats">
     <div class="qs-card"><div class="qs-label">Total SO Value (Q1)</div><div class="qs-value">$4.09M</div><div class="qs-sub">Jan + Feb + Mar combined</div></div>
@@ -580,21 +631,29 @@
     <div class="qs-card"><div class="qs-label">Avg Monthly SO</div><div class="qs-value">$1.36M</div><div class="qs-sub"><span class="qs-up">↑ +45%</span> vs Q1 2025 est.</div></div>
   </div>
 
-  <div class="section-label">Rep Performance — April 2026 (Latest)</div>
+  <div class="section-label">Q2 2026 Cumulative</div>
+  <div class="quick-stats">
+    <div class="qs-card"><div class="qs-label">Total SO Value (Q2)</div><div class="qs-value">$3.79M</div><div class="qs-sub">Apr + May + Jun combined</div></div>
+    <div class="qs-card"><div class="qs-label">Total Invoiced (Q2)</div><div class="qs-value">$4.54M</div><div class="qs-sub">All billing across Q2</div></div>
+    <div class="qs-card"><div class="qs-label">Total Orders (Q2)</div><div class="qs-value">7,031</div><div class="qs-sub">Sales orders placed</div></div>
+    <div class="qs-card"><div class="qs-label">Avg Monthly SO</div><div class="qs-value">$1.26M</div><div class="qs-sub"><span style="color:#e84545;font-weight:700;">↓ −7%</span> vs Q1 2026 avg</div></div>
+  </div>
+
+  <div class="section-label">Rep Performance — April 2026 (latest month with quotas set)</div>
   <div class="rep-summary-wrap">
     <div class="rep-summary-header">
       <span class="rep-summary-title">Sales Rep Overview · Quota vs. Actual</span>
       <span style="font-size:11px;color:var(--text-muted);">Click a month card above to dive deeper</span>
     </div>
     <table class="rep-summary-table rst">
-      <thead><tr><th>Rep</th><th class="right">Quota</th><th class="right">April SO</th><th class="right">Attainment</th><th class="right">April Invoiced</th><th class="right">Outstanding A/R</th><th class="right">Orders</th><th class="right">Trend</th></tr></thead>
+      <thead><tr><th>Rep</th><th class="right">Quota</th><th class="right">April SO</th><th class="right">Attainment</th><th class="right">April Invoiced</th><th class="right">Orders</th><th class="right">Trend</th></tr></thead>
       <tbody>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#4fa3ff;"></span>Joe Braaksma</div></td><td class="mono" style="color:var(--text-muted);">$527,816</td><td class="mono">$682,491</td><td class="mono" style="color:var(--hit);font-weight:700;">129%</td><td class="mono">$915,375</td><td class="mono" style="color:var(--accent4);">$625,808</td><td class="mono">1,433</td><td><div class="trend-mini"><div class="tm-bar" style="height:55%;background:#4fa3ff;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#4fa3ff;opacity:0.6;"></div><div class="tm-bar" style="height:80%;background:#4fa3ff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#4fa3ff;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#00d4aa;"></span>Rhonda Harvey</div></td><td class="mono" style="color:var(--text-muted);">$274,415</td><td class="mono">$267,256</td><td class="mono" style="color:var(--partial);font-weight:700;">97%</td><td class="mono">$287,757</td><td class="mono" style="color:var(--accent4);">$306,862</td><td class="mono">400</td><td><div class="trend-mini"><div class="tm-bar" style="height:60%;background:#00d4aa;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#00d4aa;opacity:0.6;"></div><div class="tm-bar" style="height:85%;background:#00d4aa;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#00d4aa;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#b06aff;"></span>Michelle Gable</div></td><td class="mono" style="color:var(--text-muted);">$199,003</td><td class="mono">$197,409</td><td class="mono" style="color:var(--partial);font-weight:700;">99%</td><td class="mono">$246,898</td><td class="mono" style="color:var(--accent4);">$178,951</td><td class="mono">406</td><td><div class="trend-mini"><div class="tm-bar" style="height:58%;background:#b06aff;opacity:0.4;"></div><div class="tm-bar" style="height:68%;background:#b06aff;opacity:0.6;"></div><div class="tm-bar" style="height:82%;background:#b06aff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#b06aff;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff9f43;"></span>William Burgess</div></td><td class="mono" style="color:var(--text-muted);">$80,000</td><td class="mono">$49,554</td><td class="mono" style="color:var(--miss);font-weight:700;">62%</td><td class="mono">$21,008</td><td class="mono" style="color:var(--accent4);">$18,187</td><td class="mono">99</td><td><div class="trend-mini"><div class="tm-bar" style="height:50%;background:#ff9f43;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#ff9f43;opacity:0.6;"></div><div class="tm-bar" style="height:88%;background:#ff9f43;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff9f43;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ffd166;"></span>Kyle Miller</div></td><td class="mono" style="color:var(--text-muted);">$62,537</td><td class="mono">$66,529</td><td class="mono" style="color:var(--hit);font-weight:700;">106%</td><td class="mono">$194,653</td><td class="mono" style="color:var(--accent4);">$52,549</td><td class="mono">64</td><td><div class="trend-mini"><div class="tm-bar" style="height:48%;background:#ffd166;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#ffd166;opacity:0.6;"></div><div class="tm-bar" style="height:84%;background:#ffd166;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ffd166;"></div></div></td></tr>
-        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff6b6b;"></span>Randi Headley</div></td><td class="mono" style="color:var(--text-dim);">—</td><td class="mono">$8,320</td><td class="mono" style="color:var(--text-dim);">No quota</td><td class="mono">$7,786</td><td class="mono" style="color:var(--accent4);">$1,419</td><td class="mono">11</td><td><div class="trend-mini"><div class="tm-bar" style="height:40%;background:#ff6b6b;opacity:0.4;"></div><div class="tm-bar" style="height:58%;background:#ff6b6b;opacity:0.6;"></div><div class="tm-bar" style="height:75%;background:#ff6b6b;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff6b6b;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#4fa3ff;"></span>Joe Braaksma</div></td><td class="mono" style="color:var(--text-muted);">$527,816</td><td class="mono">$682,491</td><td class="mono" style="color:var(--hit);font-weight:700;">129%</td><td class="mono">$915,375</td><td class="mono">1,433</td><td><div class="trend-mini"><div class="tm-bar" style="height:55%;background:#4fa3ff;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#4fa3ff;opacity:0.6;"></div><div class="tm-bar" style="height:80%;background:#4fa3ff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#4fa3ff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#00d4aa;"></span>Rhonda Harvey</div></td><td class="mono" style="color:var(--text-muted);">$274,415</td><td class="mono">$267,256</td><td class="mono" style="color:var(--partial);font-weight:700;">97%</td><td class="mono">$287,757</td><td class="mono">400</td><td><div class="trend-mini"><div class="tm-bar" style="height:60%;background:#00d4aa;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#00d4aa;opacity:0.6;"></div><div class="tm-bar" style="height:85%;background:#00d4aa;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#00d4aa;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#b06aff;"></span>Michelle Gable</div></td><td class="mono" style="color:var(--text-muted);">$199,003</td><td class="mono">$197,409</td><td class="mono" style="color:var(--partial);font-weight:700;">99%</td><td class="mono">$246,898</td><td class="mono">406</td><td><div class="trend-mini"><div class="tm-bar" style="height:58%;background:#b06aff;opacity:0.4;"></div><div class="tm-bar" style="height:68%;background:#b06aff;opacity:0.6;"></div><div class="tm-bar" style="height:82%;background:#b06aff;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#b06aff;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff9f43;"></span>William Burgess</div></td><td class="mono" style="color:var(--text-muted);">$80,000</td><td class="mono">$49,554</td><td class="mono" style="color:var(--miss);font-weight:700;">62%</td><td class="mono">$21,008</td><td class="mono">99</td><td><div class="trend-mini"><div class="tm-bar" style="height:50%;background:#ff9f43;opacity:0.4;"></div><div class="tm-bar" style="height:72%;background:#ff9f43;opacity:0.6;"></div><div class="tm-bar" style="height:88%;background:#ff9f43;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff9f43;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ffd166;"></span>Kyle Miller</div></td><td class="mono" style="color:var(--text-muted);">$62,537</td><td class="mono">$66,529</td><td class="mono" style="color:var(--hit);font-weight:700;">106%</td><td class="mono">$194,653</td><td class="mono">64</td><td><div class="trend-mini"><div class="tm-bar" style="height:48%;background:#ffd166;opacity:0.4;"></div><div class="tm-bar" style="height:65%;background:#ffd166;opacity:0.6;"></div><div class="tm-bar" style="height:84%;background:#ffd166;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ffd166;"></div></div></td></tr>
+        <tr><td><div class="rep-name-cell"><span class="rep-dot" style="background:#ff6b6b;"></span>Randi Headley</div></td><td class="mono" style="color:var(--text-dim);">—</td><td class="mono">$8,320</td><td class="mono" style="color:var(--text-dim);">No quota</td><td class="mono">$7,786</td><td class="mono">11</td><td><div class="trend-mini"><div class="tm-bar" style="height:40%;background:#ff6b6b;opacity:0.4;"></div><div class="tm-bar" style="height:58%;background:#ff6b6b;opacity:0.6;"></div><div class="tm-bar" style="height:75%;background:#ff6b6b;opacity:0.8;"></div><div class="tm-bar" style="height:100%;background:#ff6b6b;"></div></div></td></tr>
       </tbody>
     </table>
   </div>
@@ -639,7 +698,7 @@
     <div class="kpi-card"><div class="kpi-label">Sales Order Value</div><div class="kpi-value" id="kpiSO">—</div><div class="kpi-sub">Gross booked</div></div>
     <div class="kpi-card"><div class="kpi-label">Month Quota (Total)</div><div class="kpi-value" id="kpiQuota">—</div><div class="kpi-sub" id="kpiQuotaAttain">vs. SO value</div></div>
     <div class="kpi-card"><div class="kpi-label">Total Invoiced</div><div class="kpi-value" id="kpiInv">—</div><div class="kpi-sub">Incl. prior orders shipped</div></div>
-    <div class="kpi-card"><div class="kpi-label">Outstanding A/R</div><div class="kpi-value" id="kpiAR" style="color:var(--accent4);">—</div><div class="kpi-sub">Unpaid invoices</div></div>
+
     <div class="kpi-card"><div class="kpi-label">Top Rep</div><div class="kpi-value" style="font-size:18px;" id="kpiTop">—</div><div class="kpi-sub" id="kpiTopAmt">—</div></div>
   </div>
 
@@ -815,6 +874,110 @@
 </div><!-- /view-yoy -->
 
 <!-- ═══════════════════════════════════════════
+     VIEW: Q2 YOY COMPARISON
+════════════════════════════════════════════ -->
+<div class="view" id="view-yoy2">
+<div class="month-bg">
+  <div class="blob" style="width:500px;height:500px;background:#6366f1;top:-100px;left:-100px;opacity:0.05;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+  <div class="blob" style="width:400px;height:400px;background:#3dd68c;bottom:0;right:0;opacity:0.04;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+  <div class="blob" style="width:300px;height:300px;background:#ff4d4d;top:40%;left:40%;opacity:0.04;filter:blur(90px);position:absolute;border-radius:50%;"></div>
+</div>
+<div class="yoy-main">
+
+  <div style="margin-bottom:24px;">
+    <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Q2 Year-Over-Year Comparison</div>
+    <div style="font-size:13px;color:var(--text-muted);">GYC Uniforms · Q2 2025 (Apr 1 – Jun 30) vs Q2 2026 (Apr 1 – Jun 30) · Source: NetSuite</div>
+  </div>
+
+  <!-- Toggle -->
+  <div class="yoy-toggle-bar">
+    <button class="yoy-toggle-btn growth active" id="yoyGrowthBtn2" onclick="yoySwitch2('growth')">↑ Growth Customers</button>
+    <button class="yoy-toggle-btn decline" id="yoyDeclineBtn2" onclick="yoySwitch2('decline')">↓ Decline Customers</button>
+  </div>
+
+  <!-- GROWTH PANEL -->
+  <div class="yoy-panel active" id="yoyPanelGrowth2">
+    <div class="yoy-stats-row" id="yoyGrowthStats2"></div>
+    <div class="yoy-note yoy-note-info">✅ <strong>Note:</strong> Accounts showing $0 in Q2 2025 are new customers with no prior Q2 sales history — these represent net new business wins.</div>
+    <div class="yoy-section-title">Sales Rep Overview — click to filter</div>
+    <div class="yoy-rep-grid" id="yoyGrowthRepGrid2"></div>
+    <div class="yoy-section-title">Customer Growth Detail</div>
+    <div class="yoy-filter-bar">
+      <span class="yoy-filter-label">Rep:</span>
+      <select class="yoy-filter-select" id="yoyGrowthRepFilter2"></select>
+      <span class="yoy-filter-label">Min $ growth:</span>
+      <select class="yoy-filter-select" id="yoyGrowthMinFilter2">
+        <option value="0">Any</option><option value="5000">$5K+</option>
+        <option value="10000">$10K+</option><option value="25000">$25K+</option>
+        <option value="50000">$50K+</option>
+      </select>
+      <span class="yoy-filter-label">Show:</span>
+      <select class="yoy-filter-select" id="yoyGrowthNewFilter2">
+        <option value="all">All</option>
+        <option value="existing">Existing Only</option>
+        <option value="new">New Accounts Only</option>
+      </select>
+      <span class="yoy-filter-label">Sort:</span>
+      <select class="yoy-filter-select" id="yoyGrowthSort2">
+        <option value="diff">$ Growth</option>
+        <option value="pct">% Growth</option>
+        <option value="q2_2026">Q2 2026 Sales</option>
+        <option value="customer">Customer</option>
+      </select>
+      <span class="yoy-result-count" id="yoyGrowthCount2"></span>
+    </div>
+    <div class="yoy-table-wrap">
+      <table class="yoy-table">
+        <thead><tr><th>Customer</th><th>Rep</th><th class="num">Q2 2025</th><th class="num">Q2 2026</th><th class="num">$ Change</th><th>% Change</th></tr></thead>
+        <tbody id="yoyGrowthBody2"></tbody>
+      </table>
+    </div>
+    <div class="yoy-pagination" id="yoyGrowthPagination2"></div>
+    <div class="yoy-footer" id="yoyGrowthFooter2"></div>
+  </div>
+
+  <!-- DECLINE PANEL -->
+  <div class="yoy-panel" id="yoyPanelDecline2">
+    <div class="yoy-stats-row" id="yoyDeclineStats2"></div>
+    <div class="yoy-section-title">Sales Rep Overview — click to filter</div>
+    <div class="yoy-rep-grid" id="yoyDeclineRepGrid2"></div>
+    <div class="yoy-section-title">Customer Decline Detail</div>
+    <div class="yoy-filter-bar">
+      <span class="yoy-filter-label">Rep:</span>
+      <select class="yoy-filter-select" id="yoyDeclineRepFilter2"></select>
+      <span class="yoy-filter-label">Min $ decline:</span>
+      <select class="yoy-filter-select" id="yoyDeclineMinFilter2">
+        <option value="0">Any</option><option value="5000">$5K+</option>
+        <option value="10000">$10K+</option><option value="25000">$25K+</option>
+        <option value="50000">$50K+</option>
+      </select>
+      <span class="yoy-filter-label">Sort:</span>
+      <select class="yoy-filter-select" id="yoyDeclineSort2">
+        <option value="diff">$ Decline</option>
+        <option value="pct">% Decline</option>
+        <option value="q2_2025">Q2 2025 Sales</option>
+        <option value="customer">Customer</option>
+      </select>
+      <span class="yoy-result-count" id="yoyDeclineCount2"></span>
+    </div>
+    <div class="yoy-table-wrap">
+      <table class="yoy-table">
+        <thead><tr><th>Customer</th><th>Rep</th><th class="num">Q2 2025</th><th class="num">Q2 2026</th><th class="num">$ Change</th><th>% Change</th></tr></thead>
+        <tbody id="yoyDeclineBody2"></tbody>
+      </table>
+    </div>
+    <div class="yoy-pagination" id="yoyDeclinePagination2"></div>
+    <div class="yoy-footer">Generated from NetSuite · Got You Covered · 405 customers with YoY decline · 868 total customers tracked · Apr 1 – Jun 30</div>
+  </div>
+
+</div><!-- /yoy-main -->
+<div class="footer">
+  <div class="footer-left"><span class="live-dot" style="width:6px;height:6px;"></span> Q2 2025 vs Q2 2026 · NetSuite · Got You Covered</div>
+  <div class="footer-right">GYC Uniforms · Internal Use Only</div>
+</div>
+</div><!-- /view-yoy2 -->
+
+<!-- ═══════════════════════════════════════════
      JAVASCRIPT — ALL DATA + LOGIC
 ════════════════════════════════════════════ -->
 <script>
@@ -867,6 +1030,14 @@ const QUOTA_DATA = {
     'William Burgess': null,
     'Randi Headley':  null,
   },
+  jun: {
+    'Joe Braaksma':   null,
+    'Rhonda Harvey':  null,
+    'Michelle Gable': null,
+    'Kyle Miller':    null,
+    'William Burgess': null,
+    'Randi Headley':  null,
+  },
 };
 
 // ─── ALL MONTHLY DATA ─────────────────────────────────────────────────────────
@@ -882,12 +1053,12 @@ const MONTH_DATA = {
       {rep:'Randi Headley',  orders:0,   total:0.00},
     ],
     inv: [
-      {rep:'Joe Braaksma',   invoices:2190,total:963306.55,outstanding:498220.10},
-      {rep:'Rhonda Harvey',  invoices:412, total:447998.97,outstanding:234180.60},
-      {rep:'Michelle Gable', invoices:338, total:306806.81,outstanding:148710.45},
-      {rep:'Kyle Miller',    invoices:88,  total:152855.49,outstanding:42110.35},
-      {rep:'William Burgess',invoices:0,   total:0.00,     outstanding:0.00},
-      {rep:'Randi Headley',  invoices:0,   total:0.00,     outstanding:0.00},
+      {rep:'Joe Braaksma',   invoices:2190,total:963306.55},
+      {rep:'Rhonda Harvey',  invoices:412, total:447998.97},
+      {rep:'Michelle Gable', invoices:338, total:306806.81},
+      {rep:'Kyle Miller',    invoices:88,  total:152855.49},
+      {rep:'William Burgess',invoices:0,   total:0.00},
+      {rep:'Randi Headley',  invoices:0,   total:0.00},
     ],
     customers: [
       {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:36,total:52440.18},
@@ -945,12 +1116,12 @@ const MONTH_DATA = {
       {rep:'Randi Headley',  orders:0,   total:0.00},
     ],
     inv: [
-      {rep:'Joe Braaksma',   invoices:2340,total:751281.64,outstanding:540110.80},
-      {rep:'Rhonda Harvey',  invoices:468, total:352200.52,outstanding:261440.30},
-      {rep:'Michelle Gable', invoices:372, total:158689.88,outstanding:162880.60},
-      {rep:'Kyle Miller',    invoices:98,  total:105129.88,outstanding:46880.20},
-      {rep:'William Burgess',invoices:0,   total:0.00,     outstanding:0.00},
-      {rep:'Randi Headley',  invoices:0,   total:0.00,     outstanding:0.00},
+      {rep:'Joe Braaksma',   invoices:2340,total:751281.64},
+      {rep:'Rhonda Harvey',  invoices:468, total:352200.52},
+      {rep:'Michelle Gable', invoices:372, total:158689.88},
+      {rep:'Kyle Miller',    invoices:98,  total:105129.88},
+      {rep:'William Burgess',invoices:0,   total:0.00},
+      {rep:'Randi Headley',  invoices:0,   total:0.00},
     ],
     customers: [
       {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:39,total:57880.44},
@@ -1008,12 +1179,12 @@ const MONTH_DATA = {
       {rep:'Randi Headley',  orders:0,   total:0.00},
     ],
     inv: [
-      {rep:'Joe Braaksma',   invoices:2488,total:626403.36,outstanding:592880.10},
-      {rep:'Rhonda Harvey',  invoices:524, total:284486.91,outstanding:288880.44},
-      {rep:'Michelle Gable', invoices:404, total:250576.91,outstanding:172880.30},
-      {rep:'Kyle Miller',    invoices:108, total:119279.93,outstanding:49880.10},
-      {rep:'William Burgess',invoices:80,  total:4552.47,  outstanding:16880.30},
-      {rep:'Randi Headley',  invoices:0,   total:0.00,     outstanding:0.00},
+      {rep:'Joe Braaksma',   invoices:2488,total:626403.36},
+      {rep:'Rhonda Harvey',  invoices:524, total:284486.91},
+      {rep:'Michelle Gable', invoices:404, total:250576.91},
+      {rep:'Kyle Miller',    invoices:108, total:119279.93},
+      {rep:'William Burgess',invoices:80,  total:4552.47},
+      {rep:'Randi Headley',  invoices:0,   total:0.00},
     ],
     customers: [
       {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:41, total:61880.44},
@@ -1071,12 +1242,12 @@ const MONTH_DATA = {
       {rep:'Randi Headley',  orders:11,  total:8319.83},
     ],
     inv: [
-      {rep:'Joe Braaksma',   invoices:2624,total:915375.16,outstanding:625807.92},
-      {rep:'Rhonda Harvey',  invoices:551, total:287756.60,outstanding:306861.95},
-      {rep:'Michelle Gable', invoices:431, total:246897.71,outstanding:178951.49},
-      {rep:'Kyle Miller',    invoices:116, total:194652.54,outstanding:52548.67},
-      {rep:'William Burgess',invoices:87,  total:21008.23, outstanding:18186.95},
-      {rep:'Randi Headley',  invoices:15,  total:7785.98,  outstanding:1418.61},
+      {rep:'Joe Braaksma',   invoices:2624,total:915375.16},
+      {rep:'Rhonda Harvey',  invoices:551, total:287756.60},
+      {rep:'Michelle Gable', invoices:431, total:246897.71},
+      {rep:'Kyle Miller',    invoices:116, total:194652.54},
+      {rep:'William Burgess',invoices:87,  total:21008.23},
+      {rep:'Randi Headley',  invoices:15,  total:7785.98},
     ],
     customers: [
       {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",orders:44, total:66679.86},
@@ -1124,70 +1295,145 @@ const MONTH_DATA = {
     ]
   },
   may: {
-    label: 'May 2026', period: 'May 1 – 12, 2026 · Partial month',
+    label: 'May 2026', period: 'May 1 – 31, 2026',
     so: [
-      {rep:'Joe Braaksma',   orders:465, total:241717.79},
-      {rep:'Michelle Gable', orders:198, total:208934.62},
-      {rep:'Rhonda Harvey',  orders:180, total:83882.45},
-      {rep:'William Burgess',orders:32,  total:7633.19},
-      {rep:'Kyle Miller',    orders:15,  total:16833.50},
+      {rep:'Joe Braaksma',   orders:1376,total:691719.98},
+      {rep:'Michelle Gable', orders:411, total:329792.64},
+      {rep:'Rhonda Harvey',  orders:449, total:255373.29},
+      {rep:'William Burgess',orders:90,  total:106518.31},
+      {rep:'Kyle Miller',    orders:42,  total:28602.59},
       {rep:'Randi Headley',  orders:4,   total:0.00},
     ],
     inv: [
-      {rep:'Joe Braaksma',   invoices:1378,total:139531.24,outstanding:0},
-      {rep:'Michelle Gable', invoices:342, total:35245.67, outstanding:0},
-      {rep:'Rhonda Harvey',  invoices:320, total:23177.34, outstanding:0},
-      {rep:'Kyle Miller',    invoices:66,  total:16812.81, outstanding:0},
-      {rep:'William Burgess',invoices:172, total:16709.90, outstanding:0},
-      {rep:'Randi Headley',  invoices:1,   total:363.76,   outstanding:0},
+      {rep:'Joe Braaksma',   invoices:8448,total:805689.63},
+      {rep:'Michelle Gable', invoices:2274,total:254668.87},
+      {rep:'Rhonda Harvey',  invoices:2031,total:221511.04},
+      {rep:'Kyle Miller',    invoices:518, total:81456.86},
+      {rep:'William Burgess',invoices:423, total:43857.96},
+      {rep:'Randi Headley',  invoices:3,   total:533.85},
     ],
     customers: [
-      {rep:'Joe Braaksma',   customer:'Houston ISD Police Department',                orders:3,  total:42726.40},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                       orders:9,  total:75834.31},
+      {rep:'Joe Braaksma',   customer:'Houston ISD Police Department',                 orders:4,  total:42527.52},
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",     orders:29, total:36606.93},
+      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',       orders:39, total:35149.96},
       {rep:'Joe Braaksma',   customer:"Bell County Sheriff's Office",                  orders:1,  total:25452.92},
-      {rep:'Joe Braaksma',   customer:'Cypress Fairbanks ISD Police Department',       orders:11, total:15792.91},
-      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",     orders:12, total:14375.95},
-      {rep:'Joe Braaksma',   customer:'Lamar Consolidated (LCISD) Police Department', orders:5,  total:11185.85},
-      {rep:'Joe Braaksma',   customer:'MCHD - Montgomery County Hospital District',    orders:16, total:9703.78},
-      {rep:'Joe Braaksma',   customer:'Harris County ESD 48',                          orders:8,  total:9019.54},
-      {rep:'Joe Braaksma',   customer:'HCEC - Harris County Emergency Corps',          orders:16, total:7664.06},
-      {rep:'Joe Braaksma',   customer:'UT System Administration',                      orders:2,  total:3923.43},
-      {rep:'Joe Braaksma',   customer:'Conroe Police Department',                      orders:15, total:3552.83},
+      {rep:'Joe Braaksma',   customer:'Tyler Police Department',                       orders:6,  total:18259.79},
+      {rep:'Joe Braaksma',   customer:'Texas A&M Police Department',                   orders:12, total:17630.20},
+      {rep:'Joe Braaksma',   customer:'MCHD - Montgomery County Hospital District',    orders:36, total:16710.98},
+      {rep:'Joe Braaksma',   customer:'Conroe ISD Police Department',                  orders:1,  total:15396.37},
+      {rep:'Joe Braaksma',   customer:'Lamar Consolidated (LCISD) Police Department', orders:7,  total:15232.56},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',                  orders:31, total:79409.22},
       {rep:'Rhonda Harvey',  customer:'Tarrant County College Police Department',      orders:2,  total:17723.81},
       {rep:'Rhonda Harvey',  customer:'Group Services, Inc. - Fort Worth',             orders:16, total:14869.91},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                      orders:29, total:12378.97},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',        orders:118,total:10647.20},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                       orders:22, total:9454.31},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems Police Department',    orders:9,  total:6916.20},
       {rep:'Rhonda Harvey',  customer:'Levelland Fire Department',                     orders:2,  total:6806.44},
-      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems Police Department',    orders:5,  total:6423.48},
-      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',        orders:56, total:5683.63},
-      {rep:'Rhonda Harvey',  customer:'Justin Fire Department',                        orders:1,  total:4763.80},
-      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                      orders:11, total:4252.74},
-      {rep:'Rhonda Harvey',  customer:'Roanoke Fire Department',                       orders:1,  total:3913.64},
-      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                       orders:12, total:3580.48},
-      {rep:'Rhonda Harvey',  customer:'BNSF Railway Police Department',                orders:3,  total:1931.47},
-      {rep:'Michelle Gable', customer:'Arlington Fire Department',                     orders:40, total:96925.69},
-      {rep:'Michelle Gable', customer:"Navarro County Sheriff's Department",           orders:1,  total:17009.89},
-      {rep:'Michelle Gable', customer:'Irving Inspection Department',                  orders:1,  total:9342.18},
+      {rep:'Rhonda Harvey',  customer:'Kermit Police Department',                      orders:2,  total:6054.89},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department',                  orders:6,  total:5608.99},
+      {rep:'Michelle Gable', customer:'Arlington Fire Department',                     orders:46, total:98558.53},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',               orders:33, total:19637.86},
+      {rep:'Michelle Gable', customer:"Navarro County Sheriff's Department",           orders:2,  total:17009.89},
+      {rep:'Michelle Gable', customer:'DeSoto Fire Department',                        orders:9,  total:14438.88},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",                orders:27, total:12730.61},
+      {rep:'Michelle Gable', customer:'Lewisville ISD Police Department',              orders:4,  total:10429.70},
+      {rep:'Michelle Gable', customer:'Irving Inspection Department',                  orders:1,  total:10390.98},
+      {rep:'Michelle Gable', customer:'Midlothian Police Department',                  orders:14, total:9727.78},
       {rep:'Michelle Gable', customer:'Henderson Police Department',                   orders:9,  total:7763.56},
-      {rep:'Michelle Gable', customer:"Hunt County Sheriff's Office",                  orders:6,  total:6615.98},
-      {rep:'Michelle Gable', customer:'UT Southwestern Police Department - Dallas',    orders:7,  total:5245.13},
-      {rep:'Michelle Gable', customer:'Dallas College Police - North Lake',            orders:9,  total:5238.29},
-      {rep:'Michelle Gable', customer:'Hurst Police Department',                       orders:6,  total:4419.02},
-      {rep:'Michelle Gable', customer:'Lake Worth Police Department',                  orders:6,  total:4026.59},
-      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',               orders:10, total:3956.16},
-      {rep:'Kyle Miller',    customer:'Roanoke Police Department',                     orders:4,  total:5982.98},
+      {rep:'Michelle Gable', customer:"Hunt County Sheriff's Office",                  orders:10, total:7616.20},
+      {rep:'Kyle Miller',    customer:'Roanoke Police Department',                     orders:5,  total:6206.52},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',                   orders:19, total:5005.72},
       {rep:'Kyle Miller',    customer:'Region IV Education Service Center',            orders:2,  total:3938.48},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',                  orders:4,  total:2593.37},
       {rep:'Kyle Miller',    customer:'Arlington Code Compliance',                     orders:2,  total:1478.03},
-      {rep:'Kyle Miller',    customer:'Arlington Police Department',                   orders:5,  total:954.45},
-      {rep:'Kyle Miller',    customer:'Union Gospel Mission Of Tarrant County',        orders:1,  total:492.00},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission Of Tarrant County',        orders:4,  total:997.50},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                      orders:1,  total:174.38},
       {rep:'Kyle Miller',    customer:'San Angelo Fire Department',                    orders:1,  total:134.79},
-      {rep:'William Burgess',customer:"Bosque County Sheriff's Office",                orders:1,  total:1627.46},
-      {rep:'William Burgess',customer:'Lacy Lakeview Police Department',               orders:2,  total:1181.79},
-      {rep:'William Burgess',customer:'Waco ISD Police Department',                    orders:1,  total:1133.90},
-      {rep:'William Burgess',customer:"Hays County ESD #5 - Kyle Fire",                orders:6,  total:860.81},
-      {rep:'William Burgess',customer:'Pantego Fire Department',                       orders:2,  total:848.81},
-      {rep:'William Burgess',customer:'Hays County ESD 9',                             orders:2,  total:588.75},
-      {rep:'William Burgess',customer:'Killeen ISD Police Department',                 orders:3,  total:514.02},
-      {rep:'William Burgess',customer:'San Marcos Fire Department',                    orders:1,  total:293.27},
-      {rep:'William Burgess',customer:"Guadalupe County Sheriff's Office",             orders:1,  total:173.06},
+      {rep:'William Burgess',customer:'Leander ISD Police Department',                 orders:1,  total:52502.40},
+      {rep:'William Burgess',customer:"Coryell County Sheriff's Office",               orders:3,  total:10278.80},
+      {rep:'William Burgess',customer:'Marble Falls Police Department',                orders:6,  total:7982.10},
+      {rep:'William Burgess',customer:'BASTROP COUNTY ESD #3',                         orders:5,  total:7854.36},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                             orders:7,  total:5971.38},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                    orders:2,  total:3296.22},
+      {rep:'William Burgess',customer:'Killeen ISD Police Department',                 orders:5,  total:2176.88},
+      {rep:'William Burgess',customer:"Hays County ESD #5 - Kyle Fire",                orders:14, total:1871.12},
+      {rep:'William Burgess',customer:'Pantego Fire Department',                       orders:3,  total:1866.53},
+      {rep:'William Burgess',customer:"Bosque County Sheriff's Office",                orders:3,  total:1840.36},
       {rep:'Randi Headley',  customer:'Mansfield ISD Police Department',               orders:4,  total:0.00},
+    ]
+  },
+  jun: {
+    label: 'June 2026', period: 'June 1 – 30, 2026',
+    so: [
+      {rep:'Joe Braaksma',   orders:1344,total:640198.61},
+      {rep:'Rhonda Harvey',  orders:440, total:202146.80},
+      {rep:'Michelle Gable', orders:323, total:157111.88},
+      {rep:'William Burgess',orders:96,  total:72337.35},
+      {rep:'Kyle Miller',    orders:22,  total:24543.90},
+      {rep:'Randi Headley',  orders:21,  total:6846.58},
+    ],
+    inv: [
+      {rep:'Joe Braaksma',   invoices:7969,total:781107.74},
+      {rep:'Rhonda Harvey',  invoices:2297,total:337549.70},
+      {rep:'Michelle Gable', invoices:2095,total:241923.46},
+      {rep:'William Burgess',invoices:695, total:66669.96},
+      {rep:'Kyle Miller',    invoices:106, total:26469.15},
+      {rep:'Randi Headley',  invoices:51,  total:4536.52},
+    ],
+    customers: [
+      {rep:'Joe Braaksma',   customer:"MCSO - Montgomery County Sheriff's Office",     orders:28, total:51976.21},
+      {rep:'Joe Braaksma',   customer:'Cy-Fair Fire Department',                       orders:107,total:42693.81},
+      {rep:'Joe Braaksma',   customer:'Mission Fire Department',                       orders:7,  total:19830.98},
+      {rep:'Joe Braaksma',   customer:'Prairie View A&M University Police Department', orders:18, total:18418.81},
+      {rep:'Joe Braaksma',   customer:'UT Health East Texas EMS',                      orders:2,  total:17464.50},
+      {rep:'Joe Braaksma',   customer:'MCHD - Montgomery County Hospital District',    orders:19, total:17378.01},
+      {rep:'Joe Braaksma',   customer:'Baytown Fire Department',                       orders:4,  total:16783.95},
+      {rep:'Joe Braaksma',   customer:'College Of The Mainland',                       orders:5,  total:16771.18},
+      {rep:'Joe Braaksma',   customer:'Montgomery County constable PCT 5',             orders:3,  total:16602.37},
+      {rep:'Joe Braaksma',   customer:"Smith County Sheriff's Office",                 orders:16, total:15568.71},
+      {rep:'Rhonda Harvey',  customer:'Lubbock Fire Department',                       orders:30, total:24318.11},
+      {rep:'Rhonda Harvey',  customer:'Fort Worth Police Department - Taxable',        orders:151,total:19511.23},
+      {rep:'Rhonda Harvey',  customer:'Texas Health Police Security',                  orders:17, total:18274.41},
+      {rep:'Rhonda Harvey',  customer:"Rockwall County Sheriff's Office",              orders:10, total:15304.36},
+      {rep:'Rhonda Harvey',  customer:'Roanoke Fire Department',                       orders:3,  total:11321.80},
+      {rep:'Rhonda Harvey',  customer:'Reeves County ESD 1 & 2',                      orders:22, total:8235.11},
+      {rep:'Rhonda Harvey',  customer:'Denison Police Department',                     orders:7,  total:7368.22},
+      {rep:'Rhonda Harvey',  customer:'Abilene Fire Department',                       orders:2,  total:6988.92},
+      {rep:'Rhonda Harvey',  customer:'Rockwall Police Department',                    orders:9,  total:6849.19},
+      {rep:'Rhonda Harvey',  customer:'Methodist Health Systems Police Department',    orders:12, total:6819.70},
+      {rep:'Michelle Gable', customer:'Grand Prairie Police Department',               orders:30, total:22095.82},
+      {rep:'Michelle Gable', customer:'AZLE FIRE DEPARTMENT',                          orders:2,  total:8667.02},
+      {rep:'Michelle Gable', customer:'Saginaw Fire Department',                       orders:2,  total:7939.60},
+      {rep:'Michelle Gable', customer:"Collin County Sheriff's Office",                orders:19, total:6877.84},
+      {rep:'Michelle Gable', customer:'Hopkins County EMS',                            orders:1,  total:6269.55},
+      {rep:'Michelle Gable', customer:'UT Southwestern Police Department - Dallas',    orders:14, total:6115.84},
+      {rep:'Michelle Gable', customer:'Haltom City Police Department',                 orders:16, total:6077.67},
+      {rep:'Michelle Gable', customer:"Navarro County Sheriff's Department",           orders:9,  total:5070.17},
+      {rep:'Michelle Gable', customer:'Forney ISD Police',                             orders:5,  total:5066.53},
+      {rep:'Michelle Gable', customer:'Red Oak Fire Department',                       orders:1,  total:4043.13},
+      {rep:'Kyle Miller',    customer:'Gun Barrel Fire Department',                    orders:1,  total:1731.70},
+      {rep:'Kyle Miller',    customer:'San Angelo Police Department',                  orders:5,  total:1372.78},
+      {rep:'Kyle Miller',    customer:'Union Gospel Mission Of Tarrant County',        orders:4,  total:514.00},
+      {rep:'Kyle Miller',    customer:'Texas State Technical College Police Department',orders:1, total:312.24},
+      {rep:'Kyle Miller',    customer:'Sanger Police Department',                      orders:1,  total:302.26},
+      {rep:'Kyle Miller',    customer:'Arlington Police Department',                   orders:3,  total:296.28},
+      {rep:'Kyle Miller',    customer:'Dalworthington Gardens DPS',                    orders:2,  total:292.62},
+      {rep:'Kyle Miller',    customer:'Coryell Memorial Health Care',                  orders:1,  total:139.57},
+      {rep:'William Burgess',customer:'BASTROP COUNTY ESD #3',                         orders:11, total:32120.02},
+      {rep:'William Burgess',customer:'Hays County ESD 9',                             orders:6,  total:8352.49},
+      {rep:'William Burgess',customer:'San Marcos Fire Department',                    orders:3,  total:6230.96},
+      {rep:'William Burgess',customer:'Guadalupe County Sheriff\u2019s Office',         orders:1,  total:4054.55},
+      {rep:'William Burgess',customer:'Woodway Police Department',                     orders:4,  total:3114.85},
+      {rep:'William Burgess',customer:'GRANITE SHOALS POLICE DEPARTMENT',              orders:3,  total:2371.13},
+      {rep:'William Burgess',customer:"Hays County ESD #5 - Kyle Fire",                orders:12, total:2155.32},
+      {rep:'William Burgess',customer:'Weslaco Police Department',                     orders:1,  total:1682.61},
+      {rep:'William Burgess',customer:'Lorena Police Department',                      orders:3,  total:1630.16},
+      {rep:'William Burgess',customer:"Tom Green County Sheriff's Office",             orders:1,  total:1056.92},
+      {rep:'Randi Headley',  customer:'Arlington Police Department',                   orders:18, total:5124.42},
+      {rep:'Randi Headley',  customer:'Roanoke Police Department',                     orders:1,  total:1376.77},
+      {rep:'Randi Headley',  customer:'Mansfield ISD Police Department - Taxable',     orders:2,  total:345.39},
     ]
   }
 };
@@ -1198,8 +1444,8 @@ let activeReps = new Set(Object.keys(REP_COLORS));
 let showAllCustomers = false;
 
 // ─── VIEW SWITCHER ────────────────────────────────────────────────────────────
-const BADGE_LABELS = {hub:'Hub View',jan:'January 2026',feb:'February 2026',mar:'March 2026',apr:'April 2026',may:'May 2026 · thru 12th',yoy:'Q1 YoY'};
-const TAB_BUTTONS  = ['hub','jan','feb','mar','apr','may','yoy'];
+const BADGE_LABELS = {hub:'Hub View',jan:'January 2026',feb:'February 2026',mar:'March 2026',apr:'April 2026',may:'May 2026',jun:'June 2026',yoy:'Q1 YoY',yoy2:'Q2 YoY'};
+const TAB_BUTTONS  = ['hub','jan','feb','mar','apr','may','jun','yoy','yoy2'];
 
 function switchView(key) {
   document.body.setAttribute('data-month', key);
@@ -1208,8 +1454,9 @@ function switchView(key) {
   });
   document.getElementById('headerBadge').textContent = BADGE_LABELS[key] || 'Hub View';
   document.getElementById('view-hub').style.display   = key === 'hub' ? 'block' : 'none';
-  document.getElementById('view-month').style.display = (key !== 'hub' && key !== 'yoy') ? 'block' : 'none';
+  document.getElementById('view-month').style.display = (key !== 'hub' && key !== 'yoy' && key !== 'yoy2') ? 'block' : 'none';
   document.getElementById('view-yoy').style.display   = key === 'yoy' ? 'block' : 'none';
+  document.getElementById('view-yoy2').style.display  = key === 'yoy2' ? 'block' : 'none';
   window.scrollTo({top: 0, behavior: 'smooth'});
 
   if (key === 'yoy') return; // yoy already rendered at init
@@ -1228,7 +1475,7 @@ function switchView(key) {
     document.getElementById('tagBar').textContent = lbl;
     document.getElementById('quotaMonthTag').textContent = lbl;
     document.getElementById('footerPeriod').textContent = MONTH_DATA[key].period;
-    const pb = document.getElementById('partialBanner'); if (pb) pb.style.display = key === 'may' ? 'flex' : 'none';
+    const pb = document.getElementById('partialBanner'); if (pb) pb.style.display = 'none';
     document.getElementById('barNote').textContent = `Invoiced totals include orders placed in prior months and billed in ${lbl.split(' ')[0]}.`;
     const cs = document.getElementById('custSearch');
     if(cs) cs.value = '';
@@ -1294,7 +1541,6 @@ function render(){
   const totalOrders = fSO.reduce((s,x)=>s+x.orders,0);
   const totalSO     = fSO.reduce((s,x)=>s+x.total,0);
   const totalInv    = fInv.reduce((s,x)=>s+x.total,0);
-  const totalAR     = fInv.reduce((s,x)=>s+x.outstanding,0);
   const avgOrder    = totalOrders>0 ? totalSO/totalOrders : 0;
   const topRep      = fSO[0];
 
@@ -1308,7 +1554,6 @@ function render(){
   document.getElementById('kpiOrders').textContent = totalOrders.toLocaleString();
   document.getElementById('kpiSO').textContent = fmt(totalSO);
   document.getElementById('kpiInv').textContent = fmt(totalInv);
-  document.getElementById('kpiAR').textContent = fmt(totalAR);
 
   // Quota KPI
   if(totalQuota > 0) {
@@ -1807,8 +2052,254 @@ function yoyRenderPages(elId, curr, pages, fnName) {
 function yoyGoGrowthPage(p){yoyGrowthPage=p;renderYoyGrowthTable();}
 function yoyGoDeclinePage(p){yoyDeclinePage=p;renderYoyDeclineTable();}
 
+
+// ═══════════════════════════════════════════
+// Q2 YOY COMPARISON — DATA & LOGIC
+// ═══════════════════════════════════════════
+
+const YOY2_RAW_GROWTH = [{"customer":"Fort Worth Fire Department","rep":"Rhonda Harvey","q2_2025":1867.46,"q2_2026":211046.62},{"customer":"Navarro County Sheriff's Department","rep":"Michelle Gable","q2_2025":855.25,"q2_2026":77149.23},{"customer":"Houston ISD Police Department","rep":"Joe Braaksma","q2_2025":24327.52,"q2_2026":78897.22},{"customer":"MCSO - Montgomery County Sheriff's Office","rep":"Joe Braaksma","q2_2025":65533.11,"q2_2026":116041.83},{"customer":"Ector County ISD Police","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":41840.82},{"customer":"MCHD - Montgomery County Hospital District","rep":"Joe Braaksma","q2_2025":31752.79,"q2_2026":72715.72},{"customer":"Cy-Fair Fire Department","rep":"Joe Braaksma","q2_2025":72091.46,"q2_2026":112177.0},{"customer":"Reeves County ESD 1 & 2","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":38348.82},{"customer":"Cypress Fairbanks ISD Police Department","rep":"Joe Braaksma","q2_2025":18282.51,"q2_2026":55248.26},{"customer":"Bryan Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":34814.42},{"customer":"Beaumont Fire Rescue","rep":"Joe Braaksma","q2_2025":2286.55,"q2_2026":34981.5},{"customer":"Matagorda County Sheriff's Office","rep":"Joe Braaksma","q2_2025":777.0,"q2_2026":32105.9},{"customer":"Spring Fire - (Harris County ESD 7)","rep":"Joe Braaksma","q2_2025":24598.71,"q2_2026":55465.8},{"customer":"Dallas College Police - North Lake","rep":"Michelle Gable","q2_2025":6085.23,"q2_2026":36792.13},{"customer":"Baytown Fire Department","rep":"Joe Braaksma","q2_2025":35848.94,"q2_2026":63594.51},{"customer":"Smith County Sheriff's Office","rep":"Joe Braaksma","q2_2025":38047.89,"q2_2026":64414.67},{"customer":"Pearland Fire Department","rep":"Joe Braaksma","q2_2025":58266.37,"q2_2026":84064.29},{"customer":"Mission Fire Department","rep":"Joe Braaksma","q2_2025":122.86,"q2_2026":25321.08},{"customer":"Fulshear Simonton Fire Department","rep":"Joe Braaksma","q2_2025":6339.99,"q2_2026":31265.39},{"customer":"Texas A&M Police Department","rep":"Joe Braaksma","q2_2025":33493.13,"q2_2026":57594.96},{"customer":"Tyler Police Department","rep":"Joe Braaksma","q2_2025":22489.15,"q2_2026":45961.9},{"customer":"Port Arthur Fire Department","rep":"Joe Braaksma","q2_2025":16534.96,"q2_2026":39448.62},{"customer":"Abilene Fire Department","rep":"Rhonda Harvey","q2_2025":19033.7,"q2_2026":41223.38},{"customer":"Prairie View A&M University Police Department","rep":"Joe Braaksma","q2_2025":1924.18,"q2_2026":23668.34},{"customer":"UT Southwestern Police Department - Dallas","rep":"Michelle Gable","q2_2025":5278.97,"q2_2026":26838.47},{"customer":"Lumberton Fire & EMS (Hardin County ESD #2)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":21080.34},{"customer":"Washington County Sheriff","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":20888.93},{"customer":"Round Rock Fire & Emergency","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":19869.26},{"customer":"Hays County ESD 9","rep":"William Burgess","q2_2025":0.0,"q2_2026":19706.77},{"customer":"Tarrant County College Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":19032.36},{"customer":"Lubbock ISD Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":18352.6},{"customer":"BNSF Railway Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":17726.11},{"customer":"Melissa Fire Department","rep":"Michelle Gable","q2_2025":6556.86,"q2_2026":23524.36},{"customer":"San Marcos Fire Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":16893.18},{"customer":"Lubbock Fire Department","rep":"Rhonda Harvey","q2_2025":5235.28,"q2_2026":21975.0},{"customer":"Pasadena Fire Department","rep":"Joe Braaksma","q2_2025":10737.39,"q2_2026":27024.12},{"customer":"Irving Fire Department","rep":"Michelle Gable","q2_2025":5444.07,"q2_2026":21479.55},{"customer":"College Of The Mainland","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":13934.03},{"customer":"Roanoke Police Department","rep":"Kyle Miller","q2_2025":7589.69,"q2_2026":21030.27},{"customer":"Shelby County Sheriff","rep":"Michelle Gable","q2_2025":11918.9,"q2_2026":24933.56},{"customer":"Grand Prairie Police Department","rep":"Michelle Gable","q2_2025":55966.75,"q2_2026":68776.25},{"customer":"Group Services, Inc. - Fort Worth","rep":"Rhonda Harvey","q2_2025":424.17,"q2_2026":12697.19},{"customer":"San Marcos Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":11788.27},{"customer":"Richmond Fire Department","rep":"Joe Braaksma","q2_2025":136.88,"q2_2026":11875.24},{"customer":"Jasper ISD Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":11124.37},{"customer":"Woodway Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":10865.51},{"customer":"Killeen Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":10764.39},{"customer":"Lufkin Police Department","rep":"Joe Braaksma","q2_2025":7708.74,"q2_2026":18470.49},{"customer":"Pasadena ISD Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":10748.7},{"customer":"Smith County Texas Financial Crimes FCIC","rep":"Michelle Gable","q2_2025":78.23,"q2_2026":10800.58},{"customer":"Nacogdoches Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":10664.36},{"customer":"Wharton County Sheriff's Office","rep":"Joe Braaksma","q2_2025":2503.98,"q2_2026":12948.1},{"customer":"Irving Inspection Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":10297.48},{"customer":"Forney ISD Police","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":10049.6},{"customer":"Texas State Technical College Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":9951.61},{"customer":"Angelo State University Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":9584.28},{"customer":"Northlake Police Department","rep":"Rhonda Harvey","q2_2025":3885.16,"q2_2026":13439.23},{"customer":"Waller-Harris ESD 200","rep":"Joe Braaksma","q2_2025":17757.82,"q2_2026":26830.44},{"customer":"West University Place Fire Department","rep":"Joe Braaksma","q2_2025":674.01,"q2_2026":9725.73},{"customer":"Arlington Code Compliance","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":9034.43},{"customer":"Humble ISD Police Department","rep":"Joe Braaksma","q2_2025":13842.01,"q2_2026":22567.62},{"customer":"Coryell County Sheriff's Office","rep":"William Burgess","q2_2025":0.0,"q2_2026":8478.69},{"customer":"Goose Creek ISD Police Department","rep":"Joe Braaksma","q2_2025":6389.56,"q2_2026":14780.35},{"customer":"Harker Heights Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":8234.05},{"customer":"Rusk County Sheriff's Office","rep":"Michelle Gable","q2_2025":3791.04,"q2_2026":11645.82},{"customer":"Conroe Fire Department","rep":"Joe Braaksma","q2_2025":7248.83,"q2_2026":14938.24},{"customer":"Richmond Police Department","rep":"Joe Braaksma","q2_2025":2182.95,"q2_2026":9808.31},{"customer":"Mansfield ISD Police Department","rep":"Randi Headley","q2_2025":0.0,"q2_2026":7624.64},{"customer":"Waller Police Department","rep":"Joe Braaksma","q2_2025":-1600.91,"q2_2026":6006.05},{"customer":"Wood County Sheriff Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":6968.31},{"customer":"Roanoke Fire Department","rep":"Rhonda Harvey","q2_2025":2453.4,"q2_2026":9334.86},{"customer":"BASTROP COUNTY ESD #3","rep":"William Burgess","q2_2025":0.0,"q2_2026":6772.52},{"customer":"Nacogdoches Police Department","rep":"Joe Braaksma","q2_2025":2811.25,"q2_2026":9516.06},{"customer":"Hays County ESD #5 - Kyle Fire","rep":"William Burgess","q2_2025":0.0,"q2_2026":6682.55},{"customer":"South Montgomery County Fire Department","rep":"Joe Braaksma","q2_2025":10010.36,"q2_2026":16690.85},{"customer":"Tier One Security","rep":"Rhonda Harvey","q2_2025":378.22,"q2_2026":6973.42},{"customer":"Tomball Fire Department","rep":"Joe Braaksma","q2_2025":8131.03,"q2_2026":14647.66},{"customer":"Splendora ISD Police Department","rep":"Joe Braaksma","q2_2025":307.92,"q2_2026":6776.38},{"customer":"Seguin Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":6417.07},{"customer":"Lone Star College Cy Fair Fire/EMS Academy - Taxable","rep":"Joe Braaksma","q2_2025":7926.52,"q2_2026":14329.94},{"customer":"Brenham Fire Department","rep":"Joe Braaksma","q2_2025":454.43,"q2_2026":6847.48},{"customer":"Montgomery County constable PCT 5","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":6275.45},{"customer":"Channelview Fire Department","rep":"Joe Braaksma","q2_2025":6304.17,"q2_2026":12441.36},{"customer":"Rockwall County Sheriff's Office","rep":"Rhonda Harvey","q2_2025":12238.15,"q2_2026":18375.26},{"customer":"Kilgore Police Department","rep":"Michelle Gable","q2_2025":4629.06,"q2_2026":10689.68},{"customer":"Krum Fire Department","rep":"Michelle Gable","q2_2025":1759.88,"q2_2026":7797.0},{"customer":"Spring Branch ISD Police Department","rep":"Joe Braaksma","q2_2025":5461.38,"q2_2026":11471.57},{"customer":"Troup Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":5997.98},{"customer":"San Jacinto College Police Department","rep":"Joe Braaksma","q2_2025":5083.09,"q2_2026":11061.55},{"customer":"Eagle Lake Police Department","rep":"Joe Braaksma","q2_2025":870.03,"q2_2026":6831.19},{"customer":"Tarrant County ESD 1","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":5946.71},{"customer":"Reagan County Sheriff","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":5919.31},{"customer":"Justin Fire Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":5893.92},{"customer":"La Porte Police Department","rep":"Joe Braaksma","q2_2025":1482.24,"q2_2026":7346.32},{"customer":"Angelina County Sheriff's Office","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":5847.29},{"customer":"Greenville Police Department","rep":"Michelle Gable","q2_2025":17147.9,"q2_2026":22982.95},{"customer":"Midlothian Police Department","rep":"Michelle Gable","q2_2025":7507.19,"q2_2026":13171.73},{"customer":"Hamilton Healthcare System","rep":"Rhonda Harvey","q2_2025":3451.24,"q2_2026":9048.29},{"customer":"Seguin Fire Department","rep":"Joe Braaksma","q2_2025":11676.04,"q2_2026":17263.54},{"customer":"Trophy Club Police Department","rep":"Rhonda Harvey","q2_2025":739.74,"q2_2026":6301.37},{"customer":"Balch Springs Fire Department","rep":"Michelle Gable","q2_2025":1951.72,"q2_2026":7470.82},{"customer":"Marble Falls Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":5512.69},{"customer":"Wharton Police Department","rep":"Joe Braaksma","q2_2025":1057.89,"q2_2026":6510.3},{"customer":"WILLIAMSON COUNTY FIRE MARSHAL","rep":"William Burgess","q2_2025":0.0,"q2_2026":5244.17},{"customer":"Prairie View A&M University - Parking","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":5232.71},{"customer":"Harris County ESD 48","rep":"Joe Braaksma","q2_2025":21143.76,"q2_2026":26348.27},{"customer":"Champions Fire - Harris County ESD 29","rep":"Joe Braaksma","q2_2025":4874.25,"q2_2026":10038.68},{"customer":"Alief ISD Police Department","rep":"Joe Braaksma","q2_2025":2582.09,"q2_2026":7660.9},{"customer":"Polk County Sheriff","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":5021.82},{"customer":"Bryan Police Department","rep":"Joe Braaksma","q2_2025":6324.42,"q2_2026":11268.14},{"customer":"Longview ISD Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":4931.38},{"customer":"Sam Houston State University Police Department","rep":"Joe Braaksma","q2_2025":2632.61,"q2_2026":7560.86},{"customer":"Region IV Education Service Center","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":4772.8},{"customer":"Ellis County Sheriff","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":4704.5},{"customer":"Memorial Villages Police Department","rep":"Joe Braaksma","q2_2025":5535.9,"q2_2026":10217.51},{"customer":"Mansfield Police Department","rep":"Michelle Gable","q2_2025":6235.23,"q2_2026":10916.55},{"customer":"Porter Fire Department - Montgomery County ESD 6","rep":"Joe Braaksma","q2_2025":5184.16,"q2_2026":9820.37},{"customer":"Hurst Police Department","rep":"Michelle Gable","q2_2025":8669.96,"q2_2026":13291.6},{"customer":"Katy ISD Police Department","rep":"Joe Braaksma","q2_2025":11801.68,"q2_2026":16423.2},{"customer":"Lindale Police Department","rep":"Michelle Gable","q2_2025":1169.61,"q2_2026":5738.91},{"customer":"Euless Police Department","rep":"Michelle Gable","q2_2025":9445.56,"q2_2026":13870.09},{"customer":"Arlington Police Department","rep":"Randi Headley","q2_2025":0.0,"q2_2026":4362.47},{"customer":"Colorado County EMS","rep":"Joe Braaksma","q2_2025":1504.92,"q2_2026":5844.59},{"customer":"Kimbell Art Museum","rep":"Rhonda Harvey","q2_2025":62.95,"q2_2026":4365.41},{"customer":"Lacy Lakeview Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":4203.16},{"customer":"Midlothian Fire Department","rep":"Michelle Gable","q2_2025":1193.15,"q2_2026":5336.14},{"customer":"McLennan County Constable PCT 1","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":4103.03},{"customer":"Bell County Sheriff's Office","rep":"Joe Braaksma","q2_2025":21593.45,"q2_2026":25688.42},{"customer":"Center Police Department","rep":"Michelle Gable","q2_2025":1808.39,"q2_2026":5886.01},{"customer":"Fresno Fire - (Fort Bend ESD 7)","rep":"Joe Braaksma","q2_2025":2030.25,"q2_2026":6059.22},{"customer":"Titus County Sheriff Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":3948.76},{"customer":"Southlake Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":3930.87},{"customer":"Texas City Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":3906.0},{"customer":"Rockport Police Department","rep":"Joe Braaksma","q2_2025":3056.0,"q2_2026":6948.46},{"customer":"Cypress Creek Fire - Harris County ESD 13","rep":"Joe Braaksma","q2_2025":4830.12,"q2_2026":8688.23},{"customer":"Keller Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":3835.31},{"customer":"Denison Police Department","rep":"Rhonda Harvey","q2_2025":4152.3,"q2_2026":7982.76},{"customer":"Bedford Fire Department","rep":"Michelle Gable","q2_2025":2729.99,"q2_2026":6559.68},{"customer":"Missouri City Police Department","rep":"Joe Braaksma","q2_2025":10240.24,"q2_2026":14040.33},{"customer":"Ponderosa Volunteer Fire Association","rep":"Joe Braaksma","q2_2025":4740.42,"q2_2026":8486.85},{"customer":"Bridge City Police Department","rep":"Joe Braaksma","q2_2025":1295.97,"q2_2026":4979.27},{"customer":"Port Arthur Police Department","rep":"Joe Braaksma","q2_2025":13741.06,"q2_2026":17406.81},{"customer":"Kennedale Fire Department","rep":"Michelle Gable","q2_2025":879.72,"q2_2026":4295.43},{"customer":"Keller Police Department","rep":"Michelle Gable","q2_2025":7789.92,"q2_2026":11114.6},{"customer":"University of Texas at Houston (MD Anderson Ctr.)","rep":"Joe Braaksma","q2_2025":5078.08,"q2_2026":8320.0},{"customer":"Harris County Constable PCT 2","rep":"Joe Braaksma","q2_2025":4306.31,"q2_2026":7535.42},{"customer":"Haslet Fire Department","rep":"Michelle Gable","q2_2025":147.18,"q2_2026":3358.0},{"customer":"Guadalupe County Sheriff\u2019s Office","rep":"William Burgess","q2_2025":0.0,"q2_2026":3154.65},{"customer":"City of Graham Police Department","rep":"Rhonda Harvey","q2_2025":2962.05,"q2_2026":6110.27},{"customer":"El Campo EMS","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":3112.0},{"customer":"Red Oak ISD Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":3101.94},{"customer":"Jersey Village Fire Department","rep":"Joe Braaksma","q2_2025":6596.89,"q2_2026":9679.98},{"customer":"Smith County Constable PCT 5","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":3051.76},{"customer":"Montgomery Police Department","rep":"Joe Braaksma","q2_2025":199.77,"q2_2026":3222.71},{"customer":"UT System Administration","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2956.74},{"customer":"City of Aledo","rep":"Kyle Miller","q2_2025":1435.03,"q2_2026":4389.92},{"customer":"Waco ISD Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":2952.67},{"customer":"Angelina College Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2875.04},{"customer":"Alabama-Coushatta Tribal Police Department","rep":"Joe Braaksma","q2_2025":1817.86,"q2_2026":4658.13},{"customer":"Eastex Fire - Harris County ESD 10","rep":"Joe Braaksma","q2_2025":13904.82,"q2_2026":16686.8},{"customer":"Lone Star College Montgomery EMS Academy - Taxable","rep":"Joe Braaksma","q2_2025":12274.78,"q2_2026":15055.54},{"customer":"Sansom Park Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":2774.5},{"customer":"Kilgore College Police Department","rep":"Michelle Gable","q2_2025":1407.87,"q2_2026":4120.62},{"customer":"Collin County Juvenile Probation","rep":"Michelle Gable","q2_2025":118.95,"q2_2026":2816.7},{"customer":"Euless Fire Department","rep":"Michelle Gable","q2_2025":60.0,"q2_2026":2734.62},{"customer":"Killeen ISD Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":2633.84},{"customer":"University of Texas at Austin Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2633.48},{"customer":"Yoakum Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2579.9},{"customer":"Lake Bridgeport Volunteer Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":2528.07},{"customer":"Ellis County Sheriff - Taxable","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":2487.62},{"customer":"Cleveland ISD Police Department","rep":"Joe Braaksma","q2_2025":3312.09,"q2_2026":5798.14},{"customer":"Webster Police Department","rep":"Joe Braaksma","q2_2025":2118.97,"q2_2026":4555.46},{"customer":"Harker Heights Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":2392.47},{"customer":"Harrison County Sheriff","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":2373.81},{"customer":"Coldspring ISD PD","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2325.17},{"customer":"Richland Hills Fire Department","rep":"Rhonda Harvey","q2_2025":3509.59,"q2_2026":5831.94},{"customer":"Magnolia ISD","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2289.58},{"customer":"Houston City College Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":2276.55},{"customer":"Utility, Inc. - M","rep":"Joe Braaksma","q2_2025":23.0,"q2_2026":2252.95},{"customer":"Valley Mills ISD Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":2208.88},{"customer":"Pantego Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":2193.03},{"customer":"LOCKHART POLICE DEPARTMENT","rep":"William Burgess","q2_2025":0.0,"q2_2026":2143.77},{"customer":"Lacy Lakeview Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":2069.12},{"customer":"Angelo State University Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":2049.8},{"customer":"Cy-Fair Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":1146.3,"q2_2026":3127.35},{"customer":"Pasadena Police Department - Taxable","rep":"Joe Braaksma","q2_2025":686.04,"q2_2026":2640.85},{"customer":"Waller County Fire Marshal","rep":"Joe Braaksma","q2_2025":122.7,"q2_2026":2071.53},{"customer":"River Oaks Fire Department","rep":"Rhonda Harvey","q2_2025":556.66,"q2_2026":2477.45},{"customer":"Port Lavaca Police Department","rep":"Joe Braaksma","q2_2025":1769.42,"q2_2026":3681.59},{"customer":"Plano Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1902.45},{"customer":"Highland Park ISD Police Department","rep":"Michelle Gable","q2_2025":1745.7,"q2_2026":3641.25},{"customer":"Shenandoah Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1890.24},{"customer":"Robinson Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":1879.52},{"customer":"Travis County ESD 8 (Pedernales Fire)","rep":"William Burgess","q2_2025":0.0,"q2_2026":1878.74},{"customer":"Crockett Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1858.91},{"customer":"Liberty Hill Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":1838.26},{"customer":"La Porte Fire Department","rep":"Joe Braaksma","q2_2025":1763.33,"q2_2026":3549.99},{"customer":"Cuero Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1778.65},{"customer":"Nassau Bay Police Department","rep":"Joe Braaksma","q2_2025":467.48,"q2_2026":2224.95},{"customer":"Copperas Cove Fire Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":1750.02},{"customer":"Gun Barrel Fire Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":1731.7},{"customer":"Justin Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":1680.8},{"customer":"Robinson Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":1651.64},{"customer":"Lakeside Police Department","rep":"Rhonda Harvey","q2_2025":955.28,"q2_2026":2588.26},{"customer":"Pantego Police Department","rep":"Michelle Gable","q2_2025":604.02,"q2_2026":2188.17},{"customer":"Corsicana ISD Police Department","rep":"Michelle Gable","q2_2025":111.9,"q2_2026":1675.78},{"customer":"Pasadena Fire Marshal","rep":"Joe Braaksma","q2_2025":6075.06,"q2_2026":7633.84},{"customer":"Longview Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1555.9},{"customer":"Lorena Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":1554.52},{"customer":"Copperas Cove Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":1496.81},{"customer":"Willowfork Fire - Fort Bend ESD 2","rep":"Joe Braaksma","q2_2025":11186.09,"q2_2026":12677.99},{"customer":"China Spring ISD Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1437.32},{"customer":"Round Rock Fire & Emergency","rep":"William Burgess","q2_2025":0.0,"q2_2026":1436.02},{"customer":"La Porte EMS","rep":"Joe Braaksma","q2_2025":4596.67,"q2_2026":6023.92},{"customer":"Bullard Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1399.67},{"customer":"Wharton County Constable PCT 4","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1397.9},{"customer":"Rosenberg Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1361.99},{"customer":"Diboll Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1359.52},{"customer":"Central Heights ISD Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1356.56},{"customer":"Upshur County Sheriff","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1311.62},{"customer":"Nacogdoches County Sheriff's Office","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1295.97},{"customer":"Potter County Fire Department","rep":"Rhonda Harvey","q2_2025":463.3,"q2_2026":1749.62},{"customer":"Walker County EMS","rep":"Joe Braaksma","q2_2025":3625.24,"q2_2026":4908.83},{"customer":"Lake Jackson EMS","rep":"Joe Braaksma","q2_2025":1503.94,"q2_2026":2757.68},{"customer":"Stephen F. Austin State University Police Department","rep":"Joe Braaksma","q2_2025":340.01,"q2_2026":1576.3},{"customer":"Melissa Police Department","rep":"Rhonda Harvey","q2_2025":4663.34,"q2_2026":5896.44},{"customer":"Harris County Constable PCT 2 - Taxable","rep":"Joe Braaksma","q2_2025":565.64,"q2_2026":1764.99},{"customer":"Huffman Fire Department - Harris County ESD 4","rep":"Joe Braaksma","q2_2025":3093.21,"q2_2026":4287.52},{"customer":"Lake Worth Police Department","rep":"Michelle Gable","q2_2025":4614.77,"q2_2026":5800.97},{"customer":"Methodist Health Systems Police Department","rep":"Rhonda Harvey","q2_2025":24293.0,"q2_2026":25445.67},{"customer":"Seagoville Fire Department","rep":"Rhonda Harvey","q2_2025":-186.79,"q2_2026":958.26},{"customer":"Conroe ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":255.37,"q2_2026":1398.19},{"customer":"Palestine Police Department","rep":"Michelle Gable","q2_2025":139.08,"q2_2026":1281.7},{"customer":"Bay City ISD Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1112.64},{"customer":"North Hood County VFD","rep":"Rhonda Harvey","q2_2025":809.74,"q2_2026":1914.89},{"customer":"Texarkana Fire Department","rep":"Michelle Gable","q2_2025":163.8,"q2_2026":1265.8},{"customer":"GRANITE SHOALS POLICE DEPARTMENT","rep":"William Burgess","q2_2025":0.0,"q2_2026":1092.16},{"customer":"Union Gospel Mission Of Tarrant County","rep":"Kyle Miller","q2_2025":1890.5,"q2_2026":2973.5},{"customer":"City of Whitesboro Fire Department","rep":"Rhonda Harvey","q2_2025":1617.1,"q2_2026":2660.69},{"customer":"Crowley Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":1034.34},{"customer":"Northwest Volunteer Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":1010.0},{"customer":"Texas State Technical College Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":1004.88},{"customer":"Granbury ISD Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":990.0},{"customer":"Big Spring Fire Department","rep":"Rhonda Harvey","q2_2025":2924.65,"q2_2026":3906.76},{"customer":"LIBERTY HILL ISD POLICE","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":959.98},{"customer":"Clute Police Department","rep":"Joe Braaksma","q2_2025":2781.56,"q2_2026":3735.77},{"customer":"LIBERTY HILL ISD POLICE","rep":"William Burgess","q2_2025":0.0,"q2_2026":948.91},{"customer":"Baylor Scott & White EMS","rep":"Joe Braaksma","q2_2025":3524.4,"q2_2026":4468.71},{"customer":"Wharton Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":941.72},{"customer":"Wise County ESD 1 - Boyd Fire Department","rep":"Rhonda Harvey","q2_2025":3660.81,"q2_2026":4595.62},{"customer":"Hedwig Village Police Department - Taxable","rep":"Joe Braaksma","q2_2025":231.11,"q2_2026":1165.84},{"customer":"Newton County Sheriff's Office","rep":"Joe Braaksma","q2_2025":408.85,"q2_2026":1338.43},{"customer":"Marble Falls Fire Rescue","rep":"William Burgess","q2_2025":0.0,"q2_2026":924.28},{"customer":"Needville ISD Police Department","rep":"Joe Braaksma","q2_2025":1560.9,"q2_2026":2484.15},{"customer":"Whitehouse Police Department","rep":"Michelle Gable","q2_2025":-73.94,"q2_2026":848.76},{"customer":"Randall County Fire Department","rep":"Rhonda Harvey","q2_2025":3077.08,"q2_2026":3986.25},{"customer":"Dalworthington Gardens DPS","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":877.55},{"customer":"Meadows Place Police Department","rep":"Joe Braaksma","q2_2025":659.98,"q2_2026":1537.33},{"customer":"Texas A&M Police Department - (Taxable)","rep":"Joe Braaksma","q2_2025":108.8,"q2_2026":981.72},{"customer":"New Boston Police Department","rep":"Michelle Gable","q2_2025":733.71,"q2_2026":1605.58},{"customer":"Port Arthur Fire Marshal","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":870.51},{"customer":"Mansfield ISD Police Department - Taxable","rep":"Randi Headley","q2_2025":0.0,"q2_2026":869.24},{"customer":"Rockwall Fire Department","rep":"Rhonda Harvey","q2_2025":4914.39,"q2_2026":5776.45},{"customer":"Tarleton State University Police Department","rep":"Rhonda Harvey","q2_2025":434.29,"q2_2026":1292.63},{"customer":"FORT BEND COUNTY CONSTABLE PCT 4 - TAXABLE","rep":"Joe Braaksma","q2_2025":49.73,"q2_2026":883.06},{"customer":"Pasadena City Marshal","rep":"Joe Braaksma","q2_2025":409.9,"q2_2026":1238.75},{"customer":"Jonestown Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":825.81},{"customer":"Tarrant County Medical Examiner","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":824.75},{"customer":"Montgomery County constable PCT 5 - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":818.11},{"customer":"Tarrant County Constable PCT 7","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":816.31},{"customer":"Angelina College Fire Academy","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":814.2},{"customer":"Smith County Constable PCT 1","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":808.78},{"customer":"Smith County Community Supervision and Corrections Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":804.0},{"customer":"Waller-Harris ESD200 Taxable","rep":"Joe Braaksma","q2_2025":839.58,"q2_2026":1628.7},{"customer":"Magnolia Fire - Montgomery County ESD 10 - Taxable","rep":"Joe Braaksma","q2_2025":721.72,"q2_2026":1504.71},{"customer":"Hopkins County Fire","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":760.33},{"customer":"Belton Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":756.78},{"customer":"Tarrant County Sheriff's Office","rep":"Rhonda Harvey","q2_2025":239.78,"q2_2026":980.35},{"customer":"Skellytown Volunteer Fire Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":739.92},{"customer":"Tom Green County Sheriff's Office","rep":"William Burgess","q2_2025":0.0,"q2_2026":738.28},{"customer":"Coryell Memorial Health Care","rep":"William Burgess","q2_2025":0.0,"q2_2026":726.38},{"customer":"Northeast Fort Bend County Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":721.19},{"customer":"University of Texas Arlington Police Department","rep":"Michelle Gable","q2_2025":2100.39,"q2_2026":2821.42},{"customer":"Tarrant Regional Auto Crimes Task Force","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":717.38},{"customer":"Plum Grove Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":683.4},{"customer":"Sachse Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":666.82},{"customer":"S & S Consolidated ISD Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":631.47},{"customer":"Lufkin Animal Services","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":610.0},{"customer":"Woodway Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":606.64},{"customer":"Rio Vista Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":601.7},{"customer":"Mount Vernon Fire Department","rep":"Michelle Gable","q2_2025":412.48,"q2_2026":1009.28},{"customer":"Harris County Constable PCT 1 - Taxable","rep":"Joe Braaksma","q2_2025":32.45,"q2_2026":628.92},{"customer":"La Vega ISD Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":590.64},{"customer":"Calallen ISD Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":578.79},{"customer":"Oak Ridge Police Department - Houston - Taxable","rep":"Joe Braaksma","q2_2025":160.62,"q2_2026":739.17},{"customer":"Hallettsville Police Department","rep":"Joe Braaksma","q2_2025":3099.24,"q2_2026":3672.0},{"customer":"Houston Police Department - Taxable","rep":"Joe Braaksma","q2_2025":1051.1,"q2_2026":1617.92},{"customer":"Fort Worth Marshal Office/Main - Taxable","rep":"Rhonda Harvey","q2_2025":474.9,"q2_2026":1040.61},{"customer":"Kilgore Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":556.06},{"customer":"Lubbock County Sheriff's Office","rep":"Rhonda Harvey","q2_2025":220.92,"q2_2026":772.02},{"customer":"Jamaica Beach Police Department","rep":"Joe Braaksma","q2_2025":490.06,"q2_2026":1040.37},{"customer":"Cresson Volunteer Fire Dept","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":533.89},{"customer":"Pineywoods Community Academy","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":518.0},{"customer":"Double Oak Police Department","rep":"Rhonda Harvey","q2_2025":1466.49,"q2_2026":1981.71},{"customer":"Washington County Constable PCT 2","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":505.19},{"customer":"Lone Star College Police Department - Taxable","rep":"Joe Braaksma","q2_2025":838.22,"q2_2026":1340.02},{"customer":"Rice University EMS","rep":"Joe Braaksma","q2_2025":306.98,"q2_2026":808.74},{"customer":"River Oaks Patrol","rep":"Joe Braaksma","q2_2025":1031.73,"q2_2026":1528.21},{"customer":"ROCKDALE POLICE DEPARTMENT","rep":"William Burgess","q2_2025":0.0,"q2_2026":493.54},{"customer":"Travis County ESD 1","rep":"William Burgess","q2_2025":0.0,"q2_2026":489.24},{"customer":"Mineral Wells Police Department - Taxable","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":479.52},{"customer":"Tarrant County Constable PCT 5","rep":"Rhonda Harvey","q2_2025":770.95,"q2_2026":1245.53},{"customer":"University Of Houston - Downtown","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":468.31},{"customer":"Santa Fe Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":443.0},{"customer":"Pecan Grove Vol. Fire Department - (Taxable)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":442.42},{"customer":"Alvin EMS","rep":"Joe Braaksma","q2_2025":1132.92,"q2_2026":1575.2},{"customer":"Sugar Land Fire Marshal","rep":"Joe Braaksma","q2_2025":75.0,"q2_2026":510.18},{"customer":"Liberty County Courthouse","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":425.97},{"customer":"Weatherford ISD Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":425.0},{"customer":"LIBERTY HILL ISD POLICE - TAXABLE","rep":"William Burgess","q2_2025":0.0,"q2_2026":423.0},{"customer":"Spring Valley Village Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":422.57},{"customer":"City of Arlington Animal Services","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":410.18},{"customer":"Nacogdoches ISD Police Department","rep":"Joe Braaksma","q2_2025":1597.34,"q2_2026":2006.98},{"customer":"NWCH - Harris County ESD 8","rep":"Joe Braaksma","q2_2025":4303.51,"q2_2026":4712.62},{"customer":"Bosque County Sheriff's Office","rep":"William Burgess","q2_2025":0.0,"q2_2026":376.32},{"customer":"Brazoria County Constable PCT 4 - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":372.71},{"customer":"Mineral Wells Fire Department","rep":"Rhonda Harvey","q2_2025":4126.95,"q2_2026":4497.66},{"customer":"Lampasas Fire Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":364.96},{"customer":"Leander ISD Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":364.7},{"customer":"Brazosport College Law Enforcement Academy","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":363.43},{"customer":"Daingerfield Police Department","rep":"Michelle Gable","q2_2025":13.5,"q2_2026":368.0},{"customer":"Lake Jackson Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":343.65},{"customer":"Travis County ESD 8 (Pedernales Fire)","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":339.02},{"customer":"Harris County Constable PCT 5","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":335.82},{"customer":"Johnson County Constable  PCT 1","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":328.62},{"customer":"Port Arthur Police Department - Taxable","rep":"Joe Braaksma","q2_2025":480.41,"q2_2026":804.15},{"customer":"Bryan Fire Department - taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":319.65},{"customer":"Atascocita Fire Department - Harris County ESD 46 - Taxable","rep":"Joe Braaksma","q2_2025":360.28,"q2_2026":671.86},{"customer":"Ector County Constable Pct 1","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":308.14},{"customer":"Jersey Village Police Dept - Taxable","rep":"Joe Braaksma","q2_2025":25.94,"q2_2026":330.06},{"customer":"University of Texas at Houston","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":302.28},{"customer":"Gregg County constable PCT 1","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":301.42},{"customer":"Arlington Police Department SWAT","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":297.5},{"customer":"Venus Fire Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":295.0},{"customer":"Brazos County PCT 3 Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":294.06},{"customer":"Tarrant County Constable PCT 3","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":290.02},{"customer":"Joshua ISD Police Department - Taxable","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":287.1},{"customer":"McLennan County Constable PCT 1","rep":"William Burgess","q2_2025":0.0,"q2_2026":285.0},{"customer":"Kennedale Community Development","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":283.78},{"customer":"Chambers County EMS Fire Marshal","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":282.53},{"customer":"Sugar Land Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":124.97,"q2_2026":405.43},{"customer":"Sanger Police Department","rep":"Kyle Miller","q2_2025":3416.96,"q2_2026":3695.86},{"customer":"Beverly Hills Police Department","rep":"William Burgess","q2_2025":0.0,"q2_2026":272.66},{"customer":"Tyler ISD Police","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":265.2},{"customer":"Bellaire Fire Department - (Taxable)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":265.14},{"customer":"Southlake Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":261.06},{"customer":"Santa Fe Police Department","rep":"Joe Braaksma","q2_2025":1751.73,"q2_2026":2005.61},{"customer":"Trinity Metro -  Main","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":240.24},{"customer":"Alpine Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":236.65},{"customer":"Alabama-Coushatta Tribal Police Department - Taxable","rep":"Joe Braaksma","q2_2025":238.0,"q2_2026":471.22},{"customer":"Watauga Police Department","rep":"Michelle Gable","q2_2025":5465.09,"q2_2026":5697.6},{"customer":"Duncanville Police Department - Taxable","rep":"Rhonda Harvey","q2_2025":62.63,"q2_2026":288.65},{"customer":"Lake Jackson Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":225.18},{"customer":"Jefferson County Constable PCT 1 - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":216.73},{"customer":"Spring ISD Police Department","rep":"Joe Braaksma","q2_2025":9582.28,"q2_2026":9797.66},{"customer":"Reno Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":209.08},{"customer":"Waller County EMS","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":209.08},{"customer":"IEC Dallas","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":208.0},{"customer":"Champions Fire - Harris County ESD 29 - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":206.0},{"customer":"Michelle Gable - Sample Account","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":205.09},{"customer":"Fort Worth Emergency Management and Communications","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":203.68},{"customer":"Harris County Sheriff's Office - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":202.74},{"customer":"Matagorda County Sheriff's Office - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":202.59},{"customer":"Kemah Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":202.19},{"customer":"Central EMS","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":200.79},{"customer":"Lubbock Christian University Police Department","rep":"Rhonda Harvey","q2_2025":86.05,"q2_2026":286.73},{"customer":"LOCKHART POLICE DEPARTMENT","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":195.99},{"customer":"Roanoke Police Department - Taxable","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":192.88},{"customer":"BURNET POLICE DEPARTMENT","rep":"William Burgess","q2_2025":0.0,"q2_2026":187.78},{"customer":"Schulenburg Police Department","rep":"Joe Braaksma","q2_2025":215.89,"q2_2026":398.73},{"customer":"Gainesville Police Department","rep":"Michelle Gable","q2_2025":285.68,"q2_2026":468.18},{"customer":"Harker Heights Police Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":181.89},{"customer":"Coldspring ISD PD - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":178.78},{"customer":"Sugar Land Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":169.81},{"customer":"Brookshire Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":168.29},{"customer":"City of Hewitt","rep":"William Burgess","q2_2025":0.0,"q2_2026":160.14},{"customer":"Addison Fire Department","rep":"Rhonda Harvey","q2_2025":448.99,"q2_2026":607.13},{"customer":"Missouri City Police Department - Taxable","rep":"Joe Braaksma","q2_2025":140.64,"q2_2026":297.73},{"customer":"Jersey Village Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":154.38},{"customer":"Meadows Place Police Department - Taxable","rep":"Joe Braaksma","q2_2025":70.35,"q2_2026":224.36},{"customer":"Houston Community College - Taxable","rep":"Joe Braaksma","q2_2025":139.32,"q2_2026":289.03},{"customer":"Channelview Fire-Taxable","rep":"Joe Braaksma","q2_2025":45.13,"q2_2026":193.96},{"customer":"Marisol Trevino","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":148.72},{"customer":"Fort Bend County Sheriff-Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":141.35},{"customer":"Pantego Fire Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":138.44},{"customer":"Port Arthur Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":1.06,"q2_2026":136.46},{"customer":"Comanche County Sheriff's Office","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":134.28},{"customer":"Village Fire Department","rep":"Joe Braaksma","q2_2025":1390.59,"q2_2026":1521.08},{"customer":"Mitchell County Sheriff's Office","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":126.28},{"customer":"AZLE FIRE DEPARTMENT","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":124.84},{"customer":"Prairie View A&M University - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":124.02},{"customer":"Conroe Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":122.33},{"customer":"Humble ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":605.57,"q2_2026":721.83},{"customer":"Clifton Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":116.04},{"customer":"Johnson County Constable  PCT 1","rep":"William Burgess","q2_2025":0.0,"q2_2026":115.5},{"customer":"City of Kingsville Fire Department","rep":"Joe Braaksma","q2_2025":156.08,"q2_2026":270.7},{"customer":"Port Arthur Fire Marshal - (taxable)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":112.19},{"customer":"Mineral Wells Volunteer Fire Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":110.0},{"customer":"Colleyville Fire Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":109.0},{"customer":"Somervell County Fire Department","rep":"Rhonda Harvey","q2_2025":324.73,"q2_2026":433.16},{"customer":"Coryell Memorial Health Care - Taxable","rep":"William Burgess","q2_2025":0.0,"q2_2026":108.16},{"customer":"SAN MARCOS FIRE - TAXABLE","rep":"William Burgess","q2_2025":0.0,"q2_2026":106.72},{"customer":"Spring Fire - (Harris County ESD 7) - taxable","rep":"Joe Braaksma","q2_2025":7.41,"q2_2026":113.55},{"customer":"Kilgore ISD Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":104.54},{"customer":"Irving Code Enforcement","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":103.76},{"customer":"Castleberry ISD Police Department","rep":"Rhonda Harvey","q2_2025":246.05,"q2_2026":343.38},{"customer":"Alief ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":219.69,"q2_2026":316.87},{"customer":"Richland Hills Police Department - Taxable","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":92.7},{"customer":"San Felipe Police Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":91.64},{"customer":"Cleveland ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":122.21,"q2_2026":211.64},{"customer":"Harris County ESD 48 - Taxable","rep":"Joe Braaksma","q2_2025":254.8,"q2_2026":340.75},{"customer":"Montgomery ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":81.6},{"customer":"Harris County Constable PCT 5 - Taxable","rep":"Joe Braaksma","q2_2025":9.78,"q2_2026":87.99},{"customer":"Got You Covered Uniforms","rep":"Joe Braaksma","q2_2025":-97.04,"q2_2026":-21.93},{"customer":"Fulshear Simonton Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":71.61},{"customer":"Lumberton Fire & EMS (Hardin County ESD #2) - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":68.4},{"customer":"Sugar Land Police Department -  (Taxable)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":65.4},{"customer":"Riverside Volunteer Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":64.8},{"customer":"Port Arthur ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":42.49,"q2_2026":104.53},{"customer":"FWBLEO","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":61.95},{"customer":"Brazoria County Sheriff's Office - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":58.95},{"customer":"Joe Braaksma - sample account","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":51.0},{"customer":"Webster Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":50.15},{"customer":"Turnersville Volunteer Fire Department","rep":"Kyle Miller","q2_2025":0.0,"q2_2026":50.0},{"customer":"University of Houston - Downtown - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":49.28},{"customer":"Alvarado ISD Police Department","rep":"Michelle Gable","q2_2025":1038.21,"q2_2026":1086.48},{"customer":"Weatherford Police Department","rep":"Rhonda Harvey","q2_2025":-47.54,"q2_2026":0.0},{"customer":"Nacogdoches Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":47.18},{"customer":"Lubbock Police Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":45.0},{"customer":"Shiner Volunteer Fire Department","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":42.96},{"customer":"MCHD - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":42.39},{"customer":"Reeves County ESD - taxable","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":41.06},{"customer":"Lake Jackson EMS - Taxable","rep":"Joe Braaksma","q2_2025":375.98,"q2_2026":416.23},{"customer":"Missouri City Fire & Rescue - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":36.71},{"customer":"Arcola Police Department - Taxable","rep":"Joe Braaksma","q2_2025":40.46,"q2_2026":74.31},{"customer":"South Houston Police Department","rep":"Joe Braaksma","q2_2025":215.0,"q2_2026":247.0},{"customer":"South Montgomery County Fire Department - Taxable","rep":"Joe Braaksma","q2_2025":147.25,"q2_2026":177.5},{"customer":"City of Aledo","rep":"William Burgess","q2_2025":0.0,"q2_2026":30.0},{"customer":"Stafford Police Department","rep":"Joe Braaksma","q2_2025":7326.25,"q2_2026":7349.38},{"customer":"Donald Harvey","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":20.23},{"customer":"CUS3147","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":19.0},{"customer":"Balch Springs Fire Department - TAXABLE","rep":"William Burgess","q2_2025":0.0,"q2_2026":12.44},{"customer":"Iowa Colony Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":10.35},{"customer":"Ponderosa Volunteer Fire Association - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":9.46},{"customer":"Santa Fe ISD Police Department - Taxable","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":7.92},{"customer":"Walker County EMS - Taxable","rep":"Joe Braaksma","q2_2025":89.32,"q2_2026":95.67},{"customer":"Harker Height Police Department - Taxable","rep":"William Burgess","q2_2025":0.0,"q2_2026":4.86},{"customer":"Waxahachie Fire Department","rep":"Rhonda Harvey","q2_2025":0.0,"q2_2026":4.5},{"customer":"West University Place Fire Department - (Taxable)","rep":"Joe Braaksma","q2_2025":0.0,"q2_2026":4.33},{"customer":"Burleson Police Department","rep":"Michelle Gable","q2_2025":0.0,"q2_2026":1.51}];
+
+const YOY2_GROWTH = [];
+YOY2_RAW_GROWTH.forEach(r => {
+    const diff = r.q2_2026 - r.q2_2025;
+    const pct = r.q2_2025 > 0 ? ((diff / r.q2_2025) * 100) : null;
+    YOY2_GROWTH.push({...r, diff, pct_change: pct});
+});
+
+const YOY2_DECLINE = {"declined":[{"rep":"Rhonda Harvey","customer":"Texas Health Police Security","q2_2025":213349.45,"q2_2026":122761.87,"diff":-90587.58,"pct_change":-42.46},{"rep":"Michelle Gable","customer":"Arlington Fire Department","q2_2025":134830.59,"q2_2026":46625.13,"diff":-88205.46,"pct_change":-65.42},{"rep":"Joe Braaksma","customer":"Harris County ESD 11","q2_2025":75509.96,"q2_2026":29778.84,"diff":-45731.12,"pct_change":-60.56},{"rep":"Rhonda Harvey","customer":"Fort Worth Fire Department - Training","q2_2025":4398.02,"q2_2026":-38030.14,"diff":-42428.16,"pct_change":-964.71},{"rep":"Rhonda Harvey","customer":"Wise County EMS","q2_2025":42481.22,"q2_2026":136.5,"diff":-42344.72,"pct_change":-99.68},{"rep":"Kyle Miller","customer":"San Angelo Police Department","q2_2025":48728.78,"q2_2026":6524.99,"diff":-42203.79,"pct_change":-86.61},{"rep":"Michelle Gable","customer":"Travis County ESD 8 (Pedernales Fire)","q2_2025":36723.23,"q2_2026":0.0,"diff":-36723.23,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Lewisville ISD Police Department","q2_2025":34634.16,"q2_2026":5078.65,"diff":-29555.51,"pct_change":-85.34},{"rep":"Rhonda Harvey","customer":"Fort Worth City of - Property Management","q2_2025":26680.0,"q2_2026":0.0,"diff":-26680.0,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"San Angelo Police Department","q2_2025":31176.4,"q2_2026":4598.62,"diff":-26577.78,"pct_change":-85.25},{"rep":"Rhonda Harvey","customer":"Rockwall Police Department","q2_2025":34002.55,"q2_2026":8587.47,"diff":-25415.08,"pct_change":-74.74},{"rep":"Michelle Gable","customer":"DeSoto Fire Department","q2_2025":36787.3,"q2_2026":12842.03,"diff":-23945.27,"pct_change":-65.09},{"rep":"Joe Braaksma","customer":"Pasadena Police Department","q2_2025":102351.75,"q2_2026":78793.54,"diff":-23558.21,"pct_change":-23.02},{"rep":"Michelle Gable","customer":"Harker Heights Fire Department","q2_2025":22293.45,"q2_2026":0.0,"diff":-22293.45,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"BNSF Railway Police Department (Burlington Northern Santa Fe)","q2_2025":24040.27,"q2_2026":2071.41,"diff":-21968.86,"pct_change":-91.38},{"rep":"Kyle Miller","customer":"Arlington Police Department","q2_2025":35920.85,"q2_2026":15669.82,"diff":-20251.03,"pct_change":-56.38},{"rep":"Joe Braaksma","customer":"Aldine ISD Police Department","q2_2025":45587.16,"q2_2026":26931.93,"diff":-18655.23,"pct_change":-40.92},{"rep":"Joe Braaksma","customer":"Lone Star College Police Department","q2_2025":44038.06,"q2_2026":25697.68,"diff":-18340.38,"pct_change":-41.65},{"rep":"Michelle Gable","customer":"Marble Falls Fire Rescue","q2_2025":16234.96,"q2_2026":0.0,"diff":-16234.96,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Katy Fire Department","q2_2025":24754.66,"q2_2026":9138.7,"diff":-15615.96,"pct_change":-63.08},{"rep":"Joe Braaksma","customer":"Chambers County EMS","q2_2025":16302.34,"q2_2026":1382.49,"diff":-14919.85,"pct_change":-91.52},{"rep":"Rhonda Harvey","customer":"Duncanville Police Department","q2_2025":17821.19,"q2_2026":2932.69,"diff":-14888.5,"pct_change":-83.54},{"rep":"Joe Braaksma","customer":"Fort Bend ISD Police Department","q2_2025":39354.03,"q2_2026":24528.79,"diff":-14825.24,"pct_change":-37.67},{"rep":"Joe Braaksma","customer":"Community Volunteer Fire Department","q2_2025":16290.09,"q2_2026":1879.66,"diff":-14410.43,"pct_change":-88.46},{"rep":"Rhonda Harvey","customer":"Herzog Transit Services, Inc.","q2_2025":14143.55,"q2_2026":0.0,"diff":-14143.55,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Sugar Land Police Department","q2_2025":16060.09,"q2_2026":1935.31,"diff":-14124.78,"pct_change":-87.95},{"rep":"Michelle Gable","customer":"Wise County ESD 3","q2_2025":14011.68,"q2_2026":0.0,"diff":-14011.68,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Willow Park Police Department","q2_2025":15056.41,"q2_2026":1247.94,"diff":-13808.47,"pct_change":-91.71},{"rep":"Rhonda Harvey","customer":"Fort Worth Water Department / Security Division","q2_2025":12975.0,"q2_2026":0.0,"diff":-12975.0,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Round Rock Fire & Emergency","q2_2025":12301.3,"q2_2026":0.0,"diff":-12301.3,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Gregg County Sheriff's Office","q2_2025":15555.35,"q2_2026":3587.31,"diff":-11968.04,"pct_change":-76.94},{"rep":"Rhonda Harvey","customer":"Fort Worth Police Department - Taxable","q2_2025":41851.73,"q2_2026":30536.07,"diff":-11315.66,"pct_change":-27.04},{"rep":"Joe Braaksma","customer":"UT Health East Texas EMS","q2_2025":39550.26,"q2_2026":28241.25,"diff":-11309.01,"pct_change":-28.59},{"rep":"Rhonda Harvey","customer":"Stephenville Fire Department","q2_2025":13862.25,"q2_2026":2578.86,"diff":-11283.39,"pct_change":-81.4},{"rep":"Rhonda Harvey","customer":"The Colony Fire Department","q2_2025":11281.74,"q2_2026":0.0,"diff":-11281.74,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Garza County Sheriff","q2_2025":10836.91,"q2_2026":-80.75,"diff":-10917.66,"pct_change":-100.75},{"rep":"Michelle Gable","customer":"Saginaw Fire Department","q2_2025":11386.24,"q2_2026":501.01,"diff":-10885.23,"pct_change":-95.6},{"rep":"Michelle Gable","customer":"Arlington ISD Security","q2_2025":10853.29,"q2_2026":252.42,"diff":-10600.87,"pct_change":-97.67},{"rep":"Joe Braaksma","customer":"Alvin ISD Police Department","q2_2025":14337.09,"q2_2026":3922.13,"diff":-10414.96,"pct_change":-72.64},{"rep":"Michelle Gable","customer":"Marble Falls Police Department","q2_2025":10227.54,"q2_2026":0.0,"diff":-10227.54,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Conroe ISD Police Department","q2_2025":18935.02,"q2_2026":9219.17,"diff":-9715.85,"pct_change":-51.31},{"rep":"Michelle Gable","customer":"Copperas Cove Fire Department","q2_2025":9594.12,"q2_2026":0.0,"diff":-9594.12,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Klein ISD Police Department","q2_2025":27080.71,"q2_2026":17693.12,"diff":-9387.59,"pct_change":-34.67},{"rep":"Kyle Miller","customer":"AZLE FIRE DEPARTMENT","q2_2025":8882.92,"q2_2026":0.0,"diff":-8882.92,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Hunt County Sheriff's Office","q2_2025":18666.78,"q2_2026":9973.34,"diff":-8693.44,"pct_change":-46.57},{"rep":"Joe Braaksma","customer":"Humble Police Department","q2_2025":9479.69,"q2_2026":854.17,"diff":-8625.52,"pct_change":-90.99},{"rep":"Rhonda Harvey","customer":"Lake Cities Fire Department - City of Corinth","q2_2025":11130.64,"q2_2026":2716.7,"diff":-8413.94,"pct_change":-75.59},{"rep":"Joe Braaksma","customer":"Chambers County Sheriff's Office","q2_2025":31386.94,"q2_2026":22996.0,"diff":-8390.94,"pct_change":-26.73},{"rep":"Michelle Gable","customer":"Collin County Sheriff's Office","q2_2025":37209.73,"q2_2026":29034.93,"diff":-8174.8,"pct_change":-21.97},{"rep":"Joe Braaksma","customer":"Corpus Christi ISD Police Department","q2_2025":20970.87,"q2_2026":12910.37,"diff":-8060.5,"pct_change":-38.44},{"rep":"Michelle Gable","customer":"Hopkins County EMS","q2_2025":8975.51,"q2_2026":1034.4,"diff":-7941.11,"pct_change":-88.48},{"rep":"Joe Braaksma","customer":"Bellaire Police Department","q2_2025":8354.51,"q2_2026":520.21,"diff":-7834.3,"pct_change":-93.77},{"rep":"Joe Braaksma","customer":"Sugar Land Fire Department","q2_2025":21142.02,"q2_2026":13652.15,"diff":-7489.87,"pct_change":-35.43},{"rep":"Rhonda Harvey","customer":"Horizon Fire Department - El Paso County ESD 1","q2_2025":7413.39,"q2_2026":0.0,"diff":-7413.39,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Harris County ESD 21(Spring Creek FD)","q2_2025":7362.74,"q2_2026":0.0,"diff":-7362.74,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Cleburne Fire Department","q2_2025":15769.24,"q2_2026":8531.5,"diff":-7237.74,"pct_change":-45.9},{"rep":"Michelle Gable","customer":"Ovilla Fire Department","q2_2025":8848.93,"q2_2026":1683.14,"diff":-7165.79,"pct_change":-80.98},{"rep":"Joe Braaksma","customer":"Lamar Consolidated (LCISD) Police Department","q2_2025":23991.0,"q2_2026":16856.19,"diff":-7134.81,"pct_change":-29.74},{"rep":"Rhonda Harvey","customer":"Pilot Point Fire Department","q2_2025":7629.71,"q2_2026":950.2,"diff":-6679.51,"pct_change":-87.55},{"rep":"Joe Braaksma","customer":"BSA Health System EMS","q2_2025":8601.93,"q2_2026":2035.4,"diff":-6566.53,"pct_change":-76.34},{"rep":"Joe Braaksma","customer":"Port Arthur ISD Police Department","q2_2025":9197.65,"q2_2026":2853.78,"diff":-6343.87,"pct_change":-68.97},{"rep":"Michelle Gable","customer":"Robinson Police Department","q2_2025":6330.23,"q2_2026":0.0,"diff":-6330.23,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Webster Fire Department","q2_2025":15075.9,"q2_2026":8795.22,"diff":-6280.68,"pct_change":-41.66},{"rep":"Joe Braaksma","customer":"Montgomery ISD Police Department","q2_2025":14599.34,"q2_2026":8453.76,"diff":-6145.58,"pct_change":-42.09},{"rep":"Michelle Gable","customer":"Ferris Police Department","q2_2025":5951.72,"q2_2026":0.0,"diff":-5951.72,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Austin Community College Police Department","q2_2025":5780.0,"q2_2026":0.0,"diff":-5780.0,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Decatur Police Department","q2_2025":5898.84,"q2_2026":132.48,"diff":-5766.36,"pct_change":-97.75},{"rep":"Joe Braaksma","customer":"Washington County EMS","q2_2025":7111.39,"q2_2026":1347.2,"diff":-5764.19,"pct_change":-81.06},{"rep":"Joe Braaksma","customer":"Rice University Police Department","q2_2025":5734.47,"q2_2026":-10.02,"diff":-5744.49,"pct_change":-100.17},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 8","q2_2025":14981.1,"q2_2026":9246.75,"diff":-5734.35,"pct_change":-38.28},{"rep":"Michelle Gable","customer":"Collin County Constable PCT 4","q2_2025":5655.13,"q2_2026":0.0,"diff":-5655.13,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Harker Heights Police Department","q2_2025":5531.26,"q2_2026":0.0,"diff":-5531.26,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Conroe Police Department","q2_2025":36274.55,"q2_2026":30880.79,"diff":-5393.76,"pct_change":-14.87},{"rep":"Rhonda Harvey","customer":"Saginaw Police Department","q2_2025":6229.59,"q2_2026":962.58,"diff":-5267.01,"pct_change":-84.55},{"rep":"Kyle Miller","customer":"Venus Fire Department","q2_2025":5254.76,"q2_2026":0.0,"diff":-5254.76,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Bay City Police Department","q2_2025":7849.57,"q2_2026":2693.25,"diff":-5156.32,"pct_change":-65.69},{"rep":"Rhonda Harvey","customer":"Princeton Fire Department","q2_2025":6998.14,"q2_2026":2004.01,"diff":-4994.13,"pct_change":-71.36},{"rep":"Michelle Gable","customer":"Texas State Technical College Police Department","q2_2025":4821.38,"q2_2026":0.0,"diff":-4821.38,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Tarrant County Constable PCT 8","q2_2025":5134.1,"q2_2026":321.2,"diff":-4812.9,"pct_change":-93.74},{"rep":"Kyle Miller","customer":"Texas State Technical College Police Department","q2_2025":12762.16,"q2_2026":7985.83,"diff":-4776.33,"pct_change":-37.43},{"rep":"Joe Braaksma","customer":"Missouri City Fire & Rescue","q2_2025":15717.14,"q2_2026":10946.63,"diff":-4770.51,"pct_change":-30.35},{"rep":"Michelle Gable","customer":"Killeen ISD Police Department","q2_2025":4657.02,"q2_2026":0.0,"diff":-4657.02,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Montgomery County Constable PCT 3","q2_2025":11181.22,"q2_2026":6537.2,"diff":-4644.02,"pct_change":-41.53},{"rep":"Joe Braaksma","customer":"Lone Star College Montgomery Fire - Taxable","q2_2025":5626.13,"q2_2026":1193.27,"diff":-4432.86,"pct_change":-78.79},{"rep":"Joe Braaksma","customer":"Little York Fire Department - Harris County ESD 17","q2_2025":9849.67,"q2_2026":5430.71,"diff":-4418.96,"pct_change":-44.86},{"rep":"Michelle Gable","customer":"Collin County Constable PCT 3","q2_2025":4401.77,"q2_2026":0.0,"diff":-4401.77,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"City of Hewitt","q2_2025":4398.38,"q2_2026":0.0,"diff":-4398.38,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Waco ISD Police Department","q2_2025":4096.18,"q2_2026":0.0,"diff":-4096.18,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Lavon Fire Department","q2_2025":3959.57,"q2_2026":-0.0,"diff":-3959.57,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Bellaire Fire Department","q2_2025":6679.96,"q2_2026":2826.84,"diff":-3853.12,"pct_change":-57.68},{"rep":"Joe Braaksma","customer":"Montgomery County Fire Marshal","q2_2025":3761.14,"q2_2026":0.0,"diff":-3761.14,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Montgomery County Constable PCT 2","q2_2025":6084.26,"q2_2026":2481.96,"diff":-3602.3,"pct_change":-59.21},{"rep":"Michelle Gable","customer":"Sweetwater Fire Department","q2_2025":3663.93,"q2_2026":137.88,"diff":-3526.05,"pct_change":-96.24},{"rep":"Joe Braaksma","customer":"Calhoun County ISD Police Department","q2_2025":3525.86,"q2_2026":0.0,"diff":-3525.86,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Killeen Fire Department","q2_2025":3504.52,"q2_2026":0.0,"diff":-3504.52,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Duncanville Fire Department","q2_2025":4117.34,"q2_2026":623.44,"diff":-3493.9,"pct_change":-84.86},{"rep":"Rhonda Harvey","customer":"Wise County Sheriff's Office","q2_2025":4131.45,"q2_2026":647.78,"diff":-3483.67,"pct_change":-84.32},{"rep":"Rhonda Harvey","customer":"Bridgeport Fire Department","q2_2025":7398.99,"q2_2026":3961.3,"diff":-3437.69,"pct_change":-46.46},{"rep":"Joe Braaksma","customer":"Montgomery County ESD 3","q2_2025":9339.55,"q2_2026":5903.19,"diff":-3436.36,"pct_change":-36.79},{"rep":"Rhonda Harvey","customer":"Duncanville ISD Police Department","q2_2025":3562.59,"q2_2026":126.99,"diff":-3435.6,"pct_change":-96.44},{"rep":"Michelle Gable","customer":"Waxahachie ISD Police Department","q2_2025":3394.45,"q2_2026":0.0,"diff":-3394.45,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Collin County Constable PCT 2","q2_2025":3381.33,"q2_2026":0.0,"diff":-3381.33,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Smith County Fire Marshal","q2_2025":3293.08,"q2_2026":0.0,"diff":-3293.08,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Fort Worth Police Department","q2_2025":5109.5,"q2_2026":1822.54,"diff":-3286.96,"pct_change":-64.33},{"rep":"Rhonda Harvey","customer":"Levelland Fire Department","q2_2025":11541.94,"q2_2026":8257.84,"diff":-3284.1,"pct_change":-28.45},{"rep":"Joe Braaksma","customer":"Nederland Police Department","q2_2025":3233.02,"q2_2026":0.0,"diff":-3233.02,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Springtown, City Of","q2_2025":4816.12,"q2_2026":1610.35,"diff":-3205.77,"pct_change":-66.56},{"rep":"Kyle Miller","customer":"Waxahachie ISD Police Department","q2_2025":3128.44,"q2_2026":0.0,"diff":-3128.44,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Pasadena Animal Control","q2_2025":3948.25,"q2_2026":841.5,"diff":-3106.75,"pct_change":-78.69},{"rep":"Rhonda Harvey","customer":"Hickory Creek Police Department","q2_2025":3663.54,"q2_2026":752.37,"diff":-2911.17,"pct_change":-79.46},{"rep":"Michelle Gable","customer":"Rusk Police Department","q2_2025":2854.17,"q2_2026":0.0,"diff":-2854.17,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Forest Hill Police Department","q2_2025":12265.29,"q2_2026":9412.47,"diff":-2852.82,"pct_change":-23.26},{"rep":"Rhonda Harvey","customer":"Merkel Police Department","q2_2025":3861.88,"q2_2026":1071.09,"diff":-2790.79,"pct_change":-72.27},{"rep":"Joe Braaksma","customer":"HCEC - Harris County Emergency Corps","q2_2025":28270.48,"q2_2026":25498.11,"diff":-2772.37,"pct_change":-9.81},{"rep":"Rhonda Harvey","customer":"Tarrant County Sheriff - Taxable","q2_2025":4856.59,"q2_2026":2086.4,"diff":-2770.19,"pct_change":-57.04},{"rep":"Joe Braaksma","customer":"Montgomery County Constable PCT 3 - Taxable","q2_2025":3262.6,"q2_2026":517.77,"diff":-2744.83,"pct_change":-84.13},{"rep":"Rhonda Harvey","customer":"Oak Ridge Police Department","q2_2025":3294.7,"q2_2026":624.09,"diff":-2670.61,"pct_change":-81.06},{"rep":"Rhonda Harvey","customer":"Fort Worth Transportation and Public Works","q2_2025":2575.57,"q2_2026":0.0,"diff":-2575.57,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Oak Point Police","q2_2025":3956.3,"q2_2026":1383.75,"diff":-2572.55,"pct_change":-65.02},{"rep":"Rhonda Harvey","customer":"Van Alstyne Police Department","q2_2025":4998.56,"q2_2026":2435.99,"diff":-2562.57,"pct_change":-51.27},{"rep":"Michelle Gable","customer":"Midway ISD Police Department","q2_2025":2550.34,"q2_2026":0.0,"diff":-2550.34,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Temple College Police Department","q2_2025":2535.05,"q2_2026":0.0,"diff":-2535.05,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Richland Hills Police Department","q2_2025":9104.82,"q2_2026":6569.84,"diff":-2534.98,"pct_change":-27.84},{"rep":"Joe Braaksma","customer":"Magnolia Fire - Montgomery County ESD 10","q2_2025":17158.01,"q2_2026":14697.77,"diff":-2460.24,"pct_change":-14.34},{"rep":"Rhonda Harvey","customer":"Denton County Fire and Rescue","q2_2025":2420.58,"q2_2026":0.0,"diff":-2420.58,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Deer Park Police Department","q2_2025":3121.7,"q2_2026":789.59,"diff":-2332.11,"pct_change":-74.71},{"rep":"Rhonda Harvey","customer":"Tarrant Regional Water District","q2_2025":3764.87,"q2_2026":1456.95,"diff":-2307.92,"pct_change":-61.3},{"rep":"Joe Braaksma","customer":"Stafford Fire Marshal","q2_2025":3040.1,"q2_2026":802.25,"diff":-2237.85,"pct_change":-73.61},{"rep":"Michelle Gable","customer":"Hill County Sheriff's Office","q2_2025":2895.42,"q2_2026":665.18,"diff":-2230.24,"pct_change":-77.03},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 3 - Taxable","q2_2025":4192.76,"q2_2026":2004.57,"diff":-2188.19,"pct_change":-52.19},{"rep":"Joe Braaksma","customer":"Harris County ESD 3 (Spring Creek EMS)","q2_2025":3012.7,"q2_2026":826.5,"diff":-2186.2,"pct_change":-72.57},{"rep":"Michelle Gable","customer":"Henderson Police Department","q2_2025":9272.92,"q2_2026":7107.52,"diff":-2165.4,"pct_change":-23.35},{"rep":"Joe Braaksma","customer":"Harris County ESD 5","q2_2025":5720.22,"q2_2026":3573.04,"diff":-2147.18,"pct_change":-37.54},{"rep":"Michelle Gable","customer":"Lorena Police Department","q2_2025":2128.82,"q2_2026":0.0,"diff":-2128.82,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Mineral Wells Police Department","q2_2025":7478.98,"q2_2026":5370.27,"diff":-2108.71,"pct_change":-28.2},{"rep":"Joe Braaksma","customer":"Liberty County District Attorney","q2_2025":2104.35,"q2_2026":0.0,"diff":-2104.35,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Woodway Police Department","q2_2025":2097.68,"q2_2026":0.0,"diff":-2097.68,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"San Angelo Fire Department","q2_2025":2559.0,"q2_2026":487.26,"diff":-2071.74,"pct_change":-80.96},{"rep":"Joe Braaksma","customer":"Splendora Police Department","q2_2025":2033.26,"q2_2026":0.0,"diff":-2033.26,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Hays County ESD #5 - Kyle Fire","q2_2025":0.0,"q2_2026":-1992.08,"diff":-1992.08,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"City Of Friendswood Emergency Services","q2_2025":6015.87,"q2_2026":4038.36,"diff":-1977.51,"pct_change":-32.87},{"rep":"Joe Braaksma","customer":"Atascocita Fire Department - Harris County ESD 46","q2_2025":10829.88,"q2_2026":8877.68,"diff":-1952.2,"pct_change":-18.03},{"rep":"Rhonda Harvey","customer":"Tarrant County Constable - Taxable","q2_2025":2731.07,"q2_2026":837.53,"diff":-1893.54,"pct_change":-69.33},{"rep":"Joe Braaksma","customer":"Hedwig Village Police Department","q2_2025":2608.28,"q2_2026":736.86,"diff":-1871.42,"pct_change":-71.75},{"rep":"Michelle Gable","customer":"White Oak Police Department","q2_2025":1854.69,"q2_2026":0.0,"diff":-1854.69,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Needville Police Department","q2_2025":3336.37,"q2_2026":1506.37,"diff":-1830.0,"pct_change":-54.85},{"rep":"Joe Braaksma","customer":"Groves Fire Department","q2_2025":2021.22,"q2_2026":191.64,"diff":-1829.58,"pct_change":-90.52},{"rep":"Joe Braaksma","customer":"Lavaca County EMS","q2_2025":3324.09,"q2_2026":1505.08,"diff":-1819.01,"pct_change":-54.72},{"rep":"Michelle Gable","customer":"White Settlement Police Department","q2_2025":5023.44,"q2_2026":3208.33,"diff":-1815.11,"pct_change":-36.13},{"rep":"Joe Braaksma","customer":"Harris Central Appraisal District","q2_2025":2377.3,"q2_2026":579.02,"diff":-1798.28,"pct_change":-75.64},{"rep":"Michelle Gable","customer":"Newman International Academy Public Safety","q2_2025":2193.91,"q2_2026":443.37,"diff":-1750.54,"pct_change":-79.79},{"rep":"Michelle Gable","customer":"Tyler Junior College Police Department","q2_2025":1708.2,"q2_2026":0.0,"diff":-1708.2,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Rockwall County District Attorney's Office","q2_2025":1647.0,"q2_2026":0.0,"diff":-1647.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Santa Fe ISD Police Department","q2_2025":2190.56,"q2_2026":546.8,"diff":-1643.76,"pct_change":-75.04},{"rep":"Joe Braaksma","customer":"Del Mar College Police Department","q2_2025":2528.2,"q2_2026":904.4,"diff":-1623.8,"pct_change":-64.23},{"rep":"Kyle Miller","customer":"Coryell Memorial Health Care","q2_2025":2346.23,"q2_2026":756.1,"diff":-1590.13,"pct_change":-67.77},{"rep":"Joe Braaksma","customer":"Pecan Grove Vol. Fire Department","q2_2025":7409.72,"q2_2026":5828.09,"diff":-1581.63,"pct_change":-21.35},{"rep":"Joe Braaksma","customer":"Waller Volunteer Fire Department","q2_2025":1575.42,"q2_2026":0.0,"diff":-1575.42,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Brazos County Constable PCT 1","q2_2025":1789.9,"q2_2026":229.5,"diff":-1560.4,"pct_change":-87.18},{"rep":"Joe Braaksma","customer":"Space Center Houston","q2_2025":1535.1,"q2_2026":0.0,"diff":-1535.1,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Herzog Transit Services - Austin","q2_2025":1525.2,"q2_2026":0.0,"diff":-1525.2,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Southwestern Baptist Theological Seminary","q2_2025":3681.77,"q2_2026":2211.0,"diff":-1470.77,"pct_change":-39.95},{"rep":"Michelle Gable","customer":"City of Whitesboro Police Department","q2_2025":1466.35,"q2_2026":0.0,"diff":-1466.35,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Titus Regional Medical Center","q2_2025":1586.48,"q2_2026":124.1,"diff":-1462.38,"pct_change":-92.18},{"rep":"Joe Braaksma","customer":"Alvin ISD Police Department - Taxable","q2_2025":2289.92,"q2_2026":845.85,"diff":-1444.07,"pct_change":-63.06},{"rep":"Rhonda Harvey","customer":"Frenship ISD Police","q2_2025":1432.48,"q2_2026":0.0,"diff":-1432.48,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Westlake Fire Department","q2_2025":2994.09,"q2_2026":1566.49,"diff":-1427.6,"pct_change":-47.68},{"rep":"Joe Braaksma","customer":"Montgomery County Constable PCT 4","q2_2025":3885.05,"q2_2026":2551.44,"diff":-1333.61,"pct_change":-34.33},{"rep":"Michelle Gable","customer":"White Settlement Fire Department","q2_2025":4780.56,"q2_2026":3463.82,"diff":-1316.74,"pct_change":-27.54},{"rep":"Michelle Gable","customer":"Liberty Hill Police Department","q2_2025":1304.14,"q2_2026":0.0,"diff":-1304.14,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Comanche County Fire Department","q2_2025":1314.97,"q2_2026":19.0,"diff":-1295.97,"pct_change":-98.56},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 3","q2_2025":9360.77,"q2_2026":8073.95,"diff":-1286.82,"pct_change":-13.75},{"rep":"Kyle Miller","customer":"Coryell County Sheriff's Office","q2_2025":1281.43,"q2_2026":0.0,"diff":-1281.43,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Crystal Beach Volunteer Fire Rescue","q2_2025":1252.92,"q2_2026":0.0,"diff":-1252.92,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"North Hays County Fire Rescue ESD #6","q2_2025":1225.02,"q2_2026":0.0,"diff":-1225.02,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Athens Police Department","q2_2025":7608.35,"q2_2026":6387.81,"diff":-1220.54,"pct_change":-16.04},{"rep":"Rhonda Harvey","customer":"Fort Worth Marshal Office/Main","q2_2025":1204.44,"q2_2026":0.0,"diff":-1204.44,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"DFW Security Protective Force","q2_2025":1198.0,"q2_2026":0.0,"diff":-1198.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Arcola Police Department","q2_2025":2723.35,"q2_2026":1532.1,"diff":-1191.25,"pct_change":-43.74},{"rep":"Joe Braaksma","customer":"Weimar Police Department","q2_2025":1183.19,"q2_2026":0.0,"diff":-1183.19,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Boyd Police Department","q2_2025":1172.29,"q2_2026":0.0,"diff":-1172.29,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Titus County Constable PCT 1","q2_2025":1165.07,"q2_2026":0.0,"diff":-1165.07,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Kermit Police Department","q2_2025":2869.34,"q2_2026":1711.92,"diff":-1157.42,"pct_change":-40.34},{"rep":"Rhonda Harvey","customer":"Fort Worth Club","q2_2025":2568.11,"q2_2026":1411.66,"diff":-1156.45,"pct_change":-45.03},{"rep":"Rhonda Harvey","customer":"Rowlett Police Department","q2_2025":1135.2,"q2_2026":0.0,"diff":-1135.2,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Tarrant County Constable PCT 6","q2_2025":1485.89,"q2_2026":369.27,"diff":-1116.62,"pct_change":-75.15},{"rep":"Michelle Gable","customer":"Beverly Hills Police Department","q2_2025":1078.59,"q2_2026":0.0,"diff":-1078.59,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Littlefield Police Department","q2_2025":1074.03,"q2_2026":0.0,"diff":-1074.03,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Gainesville Fire Department","q2_2025":1834.63,"q2_2026":763.48,"diff":-1071.15,"pct_change":-58.39},{"rep":"Rhonda Harvey","customer":"Grandview Police Department","q2_2025":1628.87,"q2_2026":566.02,"diff":-1062.85,"pct_change":-65.25},{"rep":"Joe Braaksma","customer":"Panorama Village Police Department","q2_2025":1267.78,"q2_2026":218.42,"diff":-1049.36,"pct_change":-82.77},{"rep":"Rhonda Harvey","customer":"Van Alstyne Fire Department","q2_2025":1462.84,"q2_2026":415.1,"diff":-1047.74,"pct_change":-71.62},{"rep":"Rhonda Harvey","customer":"City of Fort Worth - Development Services","q2_2025":1018.3,"q2_2026":0.0,"diff":-1018.3,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Patton Village Police Department","q2_2025":1187.9,"q2_2026":171.38,"diff":-1016.52,"pct_change":-85.57},{"rep":"Michelle Gable","customer":"Paris Police Department","q2_2025":999.8,"q2_2026":0.0,"diff":-999.8,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Sherman ISD Police Department","q2_2025":2335.63,"q2_2026":1392.07,"diff":-943.56,"pct_change":-40.4},{"rep":"Michelle Gable","customer":"Mount Pleasant Police Department","q2_2025":3522.27,"q2_2026":2596.72,"diff":-925.55,"pct_change":-26.28},{"rep":"Rhonda Harvey","customer":"Jacksboro Fire Department","q2_2025":916.0,"q2_2026":0.0,"diff":-916.0,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Alvarado Police Department","q2_2025":911.0,"q2_2026":0.0,"diff":-911.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Fort Bend County Constable PCT 4","q2_2025":905.27,"q2_2026":0.0,"diff":-905.27,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Sherman Fire and Rescue","q2_2025":4917.17,"q2_2026":4027.94,"diff":-889.23,"pct_change":-18.08},{"rep":"Michelle Gable","customer":"Aubrey ISD Police Department","q2_2025":1223.13,"q2_2026":369.78,"diff":-853.35,"pct_change":-69.77},{"rep":"Joe Braaksma","customer":"Brazoria County Fire Marshal - Taxable","q2_2025":1114.05,"q2_2026":266.79,"diff":-847.26,"pct_change":-76.05},{"rep":"Joe Braaksma","customer":"Oak Ridge North Police Department","q2_2025":843.5,"q2_2026":0.0,"diff":-843.5,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Greenville Fire Department","q2_2025":841.25,"q2_2026":0.0,"diff":-841.25,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 7","q2_2025":1722.84,"q2_2026":882.15,"diff":-840.69,"pct_change":-48.8},{"rep":"Kyle Miller","customer":"Bosque County Sheriff's Office","q2_2025":831.62,"q2_2026":0.0,"diff":-831.62,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Haltom City Police Department","q2_2025":7374.7,"q2_2026":6589.06,"diff":-785.64,"pct_change":-10.65},{"rep":"Joe Braaksma","customer":"Wharton County Jr College EMS - Taxable","q2_2025":8443.69,"q2_2026":7660.45,"diff":-783.24,"pct_change":-9.28},{"rep":"Michelle Gable","customer":"Jacksonville Police Department","q2_2025":2928.25,"q2_2026":2145.85,"diff":-782.4,"pct_change":-26.72},{"rep":"Joe Braaksma","customer":"Fort Bend County District Attorney","q2_2025":1217.06,"q2_2026":445.51,"diff":-771.55,"pct_change":-63.39},{"rep":"Michelle Gable","customer":"Johnson County Constable PCT 3","q2_2025":771.54,"q2_2026":0.0,"diff":-771.54,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Texas Medical Center Police Department - Taxable","q2_2025":761.73,"q2_2026":0.0,"diff":-761.73,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Tarrant County Auditor's Office","q2_2025":917.68,"q2_2026":159.95,"diff":-757.73,"pct_change":-82.57},{"rep":"Michelle Gable","customer":"Joshua ISD Police Department","q2_2025":1020.0,"q2_2026":263.34,"diff":-756.66,"pct_change":-74.18},{"rep":"Joe Braaksma","customer":"Willis Police Department","q2_2025":3056.61,"q2_2026":2318.03,"diff":-738.58,"pct_change":-24.16},{"rep":"Michelle Gable","customer":"North Richland Hills Police Department","q2_2025":870.28,"q2_2026":144.56,"diff":-725.72,"pct_change":-83.39},{"rep":"Joe Braaksma","customer":"Port Neches Police Department","q2_2025":718.19,"q2_2026":0.0,"diff":-718.19,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Jamaica Beach Police Department - Taxable","q2_2025":697.2,"q2_2026":0.0,"diff":-697.2,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"National Collaboration Security","q2_2025":1178.25,"q2_2026":489.7,"diff":-688.55,"pct_change":-58.44},{"rep":"Kyle Miller","customer":"TRINITY PROTECTION","q2_2025":673.0,"q2_2026":0.0,"diff":-673.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Needham Fire - Montgomery County ESD 4","q2_2025":6091.81,"q2_2026":5424.52,"diff":-667.29,"pct_change":-10.95},{"rep":"Rhonda Harvey","customer":"Tarrant County Constable PCT 4","q2_2025":975.21,"q2_2026":349.77,"diff":-625.44,"pct_change":-64.13},{"rep":"Rhonda Harvey","customer":"Rhome Fire Department","q2_2025":624.72,"q2_2026":0.0,"diff":-624.72,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Cypress Fairbanks ISD Police Department - Taxable","q2_2025":2435.75,"q2_2026":1814.28,"diff":-621.47,"pct_change":-25.51},{"rep":"Rhonda Harvey","customer":"River Oaks Police Department","q2_2025":720.63,"q2_2026":104.54,"diff":-616.09,"pct_change":-85.49},{"rep":"Joe Braaksma","customer":"Beaumont Police Department (Taxable)","q2_2025":612.78,"q2_2026":0.0,"diff":-612.78,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Brazoria County Fire Marshal","q2_2025":602.44,"q2_2026":0.0,"diff":-602.44,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Castleberry ISD Police - Taxable","q2_2025":645.02,"q2_2026":46.31,"diff":-598.71,"pct_change":-92.82},{"rep":"Michelle Gable","customer":"Arp Police Department","q2_2025":1557.14,"q2_2026":965.46,"diff":-591.68,"pct_change":-38.0},{"rep":"Joe Braaksma","customer":"Lavaca Navidad River Authority","q2_2025":1390.43,"q2_2026":807.0,"diff":-583.43,"pct_change":-41.96},{"rep":"Joe Braaksma","customer":"Van Vleck ISD Police Department","q2_2025":572.37,"q2_2026":0.0,"diff":-572.37,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Belton Police Department","q2_2025":570.55,"q2_2026":0.0,"diff":-570.55,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Jefferson County Constable PCT 1","q2_2025":565.83,"q2_2026":0.0,"diff":-565.83,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Aldine ISD Police Department - Taxable","q2_2025":1009.82,"q2_2026":459.17,"diff":-550.65,"pct_change":-54.53},{"rep":"Joe Braaksma","customer":"Village Fire Department - Taxable","q2_2025":538.87,"q2_2026":7.03,"diff":-531.84,"pct_change":-98.7},{"rep":"Michelle Gable","customer":"Melissa ISD Police Department","q2_2025":515.56,"q2_2026":0.0,"diff":-515.56,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Brookshire Police Department","q2_2025":528.47,"q2_2026":15.47,"diff":-513.0,"pct_change":-97.07},{"rep":"Joe Braaksma","customer":"South Lake Houston EMS","q2_2025":2389.45,"q2_2026":1877.72,"diff":-511.73,"pct_change":-21.42},{"rep":"Michelle Gable","customer":"First Responder Protective Services","q2_2025":480.0,"q2_2026":0.0,"diff":-480.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Stafford Fire Department","q2_2025":2713.03,"q2_2026":2261.64,"diff":-451.39,"pct_change":-16.64},{"rep":"Michelle Gable","customer":"Bowie Police Department","q2_2025":634.56,"q2_2026":187.66,"diff":-446.9,"pct_change":-70.43},{"rep":"Joe Braaksma","customer":"Waller Police Department - Taxable","q2_2025":466.85,"q2_2026":27.19,"diff":-439.66,"pct_change":-94.18},{"rep":"Joe Braaksma","customer":"Brazos County Constable PCT 1 - Taxable","q2_2025":437.03,"q2_2026":0.0,"diff":-437.03,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Harris County Fire Chiefs Association","q2_2025":433.2,"q2_2026":0.0,"diff":-433.2,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"San Jacinto College Police Department - Taxable","q2_2025":578.56,"q2_2026":150.02,"diff":-428.54,"pct_change":-74.07},{"rep":"Rhonda Harvey","customer":"DayStar Security","q2_2025":424.05,"q2_2026":0.0,"diff":-424.05,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Jacinto City Police Department","q2_2025":520.14,"q2_2026":97.74,"diff":-422.4,"pct_change":-81.21},{"rep":"Joe Braaksma","customer":"Orange County Constable PCT 3","q2_2025":416.42,"q2_2026":0.0,"diff":-416.42,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Highlands Fire Department","q2_2025":1709.62,"q2_2026":1297.76,"diff":-411.86,"pct_change":-24.09},{"rep":"Joe Braaksma","customer":"HCEC - Harris County Emergency Corps (Taxable)","q2_2025":591.87,"q2_2026":180.26,"diff":-411.61,"pct_change":-69.54},{"rep":"Michelle Gable","customer":"Parker County ESD 6","q2_2025":405.92,"q2_2026":0.0,"diff":-405.92,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Retail/Walk In","q2_2025":3028.48,"q2_2026":2622.84,"diff":-405.64,"pct_change":-13.39},{"rep":"Joe Braaksma","customer":"Bellaire Police Department - taxable","q2_2025":404.84,"q2_2026":0.0,"diff":-404.84,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Houston ISD Police Department - Taxable","q2_2025":3957.63,"q2_2026":3554.74,"diff":-402.89,"pct_change":-10.18},{"rep":"Michelle Gable","customer":"Copperas Cove - Code Compliance","q2_2025":396.77,"q2_2026":0.0,"diff":-396.77,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Fort Worth Fire Department - Taxable","q2_2025":819.58,"q2_2026":430.65,"diff":-388.93,"pct_change":-47.45},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 7 - (Taxable)","q2_2025":384.95,"q2_2026":0.0,"diff":-384.95,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Little York Fire Department - Harris County ESD 17 (Taxable)","q2_2025":380.04,"q2_2026":0.0,"diff":-380.04,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Ponder Volunteer Fire Department","q2_2025":371.5,"q2_2026":0.0,"diff":-371.5,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Conroe Fire Department - Taxable","q2_2025":413.69,"q2_2026":43.47,"diff":-370.22,"pct_change":-89.49},{"rep":"Joe Braaksma","customer":"Chambers County Sheriff's Office - Taxable","q2_2025":659.62,"q2_2026":294.33,"diff":-365.29,"pct_change":-55.38},{"rep":"Rhonda Harvey","customer":"Howe Police Department","q2_2025":362.65,"q2_2026":0.0,"diff":-362.65,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Argyle ISD Police Department","q2_2025":362.0,"q2_2026":0.0,"diff":-362.0,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Gatesville Police Department","q2_2025":359.55,"q2_2026":0.0,"diff":-359.55,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Jourdanton Police Department","q2_2025":354.96,"q2_2026":0.0,"diff":-354.96,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Arlington Fire Department - Taxable","q2_2025":354.17,"q2_2026":0.0,"diff":-354.17,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Hico Police Department","q2_2025":532.52,"q2_2026":189.98,"diff":-342.54,"pct_change":-64.32},{"rep":"Rhonda Harvey","customer":"Somervell County Sheriff's Office","q2_2025":495.16,"q2_2026":155.89,"diff":-339.27,"pct_change":-68.52},{"rep":"Joe Braaksma","customer":"San Felipe Police Department - Taxable","q2_2025":338.66,"q2_2026":0.0,"diff":-338.66,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Alvarado Fire Department","q2_2025":334.05,"q2_2026":0.0,"diff":-334.05,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Retail/Walk In","q2_2025":330.81,"q2_2026":0.0,"diff":-330.81,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Hardeman County Sheriff's Office","q2_2025":314.91,"q2_2026":0.0,"diff":-314.91,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Waller County Fire Marshal - Taxable","q2_2025":299.81,"q2_2026":0.0,"diff":-299.81,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Blinn College Police Department","q2_2025":615.83,"q2_2026":325.29,"diff":-290.54,"pct_change":-47.18},{"rep":"Joe Braaksma","customer":"Cypress Fairbanks - Emergency Management","q2_2025":288.7,"q2_2026":0.0,"diff":-288.7,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Tarrant County Constable PCT 2","q2_2025":288.67,"q2_2026":0.0,"diff":-288.67,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"San Angelo City Marshals","q2_2025":1293.24,"q2_2026":1011.1,"diff":-282.14,"pct_change":-21.82},{"rep":"Michelle Gable","customer":"Hurst Marshal Department","q2_2025":273.5,"q2_2026":0.0,"diff":-273.5,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Collin County Sheriff - Taxable","q2_2025":470.91,"q2_2026":201.98,"diff":-268.93,"pct_change":-57.11},{"rep":"Joe Braaksma","customer":"Huffman ISD Police Department","q2_2025":583.43,"q2_2026":317.92,"diff":-265.51,"pct_change":-45.51},{"rep":"Michelle Gable","customer":"Rio Vista Fire Department","q2_2025":415.05,"q2_2026":152.5,"diff":-262.55,"pct_change":-63.26},{"rep":"Michelle Gable","customer":"Waxahachie Marshal Office","q2_2025":262.38,"q2_2026":0.0,"diff":-262.38,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Cook Childrens Security","q2_2025":254.98,"q2_2026":0.0,"diff":-254.98,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Columbia Brazoria ISD Police Department","q2_2025":254.16,"q2_2026":0.0,"diff":-254.16,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Corpus Christi International Airport DPS","q2_2025":327.8,"q2_2026":75.64,"diff":-252.16,"pct_change":-76.92},{"rep":"Michelle Gable","customer":"Hurst Fire Department","q2_2025":249.34,"q2_2026":0.0,"diff":-249.34,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 4 - Taxable","q2_2025":514.35,"q2_2026":267.4,"diff":-246.95,"pct_change":-48.01},{"rep":"Michelle Gable","customer":"Front Line Mobile Health","q2_2025":622.15,"q2_2026":378.48,"diff":-243.67,"pct_change":-39.17},{"rep":"Joe Braaksma","customer":"Brenham Police Department","q2_2025":2246.97,"q2_2026":2018.13,"diff":-228.84,"pct_change":-10.18},{"rep":"Joe Braaksma","customer":"Groves Fire Department - (Taxable)","q2_2025":237.0,"q2_2026":8.58,"diff":-228.42,"pct_change":-96.38},{"rep":"Michelle Gable","customer":"Copperas Cove Fire Department - Taxable","q2_2025":225.47,"q2_2026":0.0,"diff":-225.47,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Pasadena Code Enforcement","q2_2025":1114.66,"q2_2026":891.64,"diff":-223.02,"pct_change":-20.01},{"rep":"Joe Braaksma","customer":"Stafford Police Department - Taxable","q2_2025":1095.72,"q2_2026":875.58,"diff":-220.14,"pct_change":-20.09},{"rep":"Michelle Gable","customer":"Arlington ISD Security - Taxable","q2_2025":219.99,"q2_2026":0.0,"diff":-219.99,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Goodwill - North Central Texas","q2_2025":218.7,"q2_2026":0.0,"diff":-218.7,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Taylor Fire Department","q2_2025":217.23,"q2_2026":0.0,"diff":-217.23,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Wise County Auditor's Office","q2_2025":215.07,"q2_2026":0.0,"diff":-215.07,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Navarro College Police Department - Corsicana","q2_2025":2516.64,"q2_2026":2301.82,"diff":-214.82,"pct_change":-8.54},{"rep":"Rhonda Harvey","customer":"Maypearl Police Department - Taxable","q2_2025":209.93,"q2_2026":0.0,"diff":-209.93,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Bowie Police Department - Taxable","q2_2025":199.13,"q2_2026":0.0,"diff":-199.13,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Brazos County Constable PCT 2","q2_2025":195.13,"q2_2026":0.0,"diff":-195.13,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Crystal Whitney - Trinity Metro","q2_2025":193.92,"q2_2026":0.0,"diff":-193.92,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Tomball Police Department - Taxable","q2_2025":260.93,"q2_2026":68.15,"diff":-192.78,"pct_change":-73.88},{"rep":"Joe Braaksma","customer":"Jacinto City Police Department - taxable","q2_2025":0.0,"q2_2026":-192.09,"diff":-192.09,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Texas Southern University Police Department - Taxable","q2_2025":191.64,"q2_2026":0.0,"diff":-191.64,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Brazosport ISD Police Department","q2_2025":2059.39,"q2_2026":1869.44,"diff":-189.95,"pct_change":-9.22},{"rep":"Rhonda Harvey","customer":"Roberta Romero - Trinity Metro","q2_2025":189.1,"q2_2026":0.0,"diff":-189.1,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"McLennan College Police Department","q2_2025":188.63,"q2_2026":0.0,"diff":-188.63,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Parker Fire Department","q2_2025":188.4,"q2_2026":0.0,"diff":-188.4,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Katy ISD Police Department - Taxable","q2_2025":194.11,"q2_2026":8.8,"diff":-185.31,"pct_change":-95.47},{"rep":"Joe Braaksma","customer":"Brenham Fire Department - Taxable","q2_2025":434.07,"q2_2026":249.51,"diff":-184.56,"pct_change":-42.52},{"rep":"Joe Braaksma","customer":"Liberty County Constable PCT 3","q2_2025":456.42,"q2_2026":272.91,"diff":-183.51,"pct_change":-40.21},{"rep":"Rhonda Harvey","customer":"Weatherford College Police Department","q2_2025":1559.57,"q2_2026":1376.26,"diff":-183.31,"pct_change":-11.75},{"rep":"Rhonda Harvey","customer":"El Paso Fire Department","q2_2025":180.0,"q2_2026":0.0,"diff":-180.0,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Dalworthington Gardens DPS","q2_2025":666.55,"q2_2026":486.7,"diff":-179.85,"pct_change":-26.98},{"rep":"Joe Braaksma","customer":"Colorado County EMS - Taxable","q2_2025":175.48,"q2_2026":0.0,"diff":-175.48,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Haltom City Fire Department","q2_2025":173.31,"q2_2026":0.0,"diff":-173.31,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Needville Police Department - Taxable","q2_2025":200.88,"q2_2026":27.91,"diff":-172.97,"pct_change":-86.11},{"rep":"Michelle Gable","customer":"Kennedale Police Department","q2_2025":7317.65,"q2_2026":7147.24,"diff":-170.41,"pct_change":-2.33},{"rep":"Joe Braaksma","customer":"Diana Guzman","q2_2025":167.09,"q2_2026":0.0,"diff":-167.09,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Webster Fire Marshal","q2_2025":162.28,"q2_2026":0.0,"diff":-162.28,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Grand Prairie Fire Department","q2_2025":160.65,"q2_2026":0.0,"diff":-160.65,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Mansfield Police Department - Taxable","q2_2025":170.01,"q2_2026":9.99,"diff":-160.02,"pct_change":-94.12},{"rep":"Rhonda Harvey","customer":"Faith Community Health System - Jacksboro","q2_2025":493.0,"q2_2026":333.04,"diff":-159.96,"pct_change":-32.45},{"rep":"Joe Braaksma","customer":"Splendora Police Department - Taxable","q2_2025":196.54,"q2_2026":37.38,"diff":-159.16,"pct_change":-80.98},{"rep":"Michelle Gable","customer":"Euless ESRO Police Department","q2_2025":2792.66,"q2_2026":2636.12,"diff":-156.54,"pct_change":-5.61},{"rep":"Joe Braaksma","customer":"Montgomery County District Attorney's Office","q2_2025":156.4,"q2_2026":0.0,"diff":-156.4,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Spring Branch ISD - Taxable","q2_2025":515.63,"q2_2026":362.05,"diff":-153.58,"pct_change":-29.78},{"rep":"Michelle Gable","customer":"Beverly Hills Fire Department","q2_2025":153.0,"q2_2026":0.0,"diff":-153.0,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Lampasas Fire Department","q2_2025":316.45,"q2_2026":164.47,"diff":-151.98,"pct_change":-48.03},{"rep":"Rhonda Harvey","customer":"Clyde Police Department","q2_2025":149.29,"q2_2026":0.0,"diff":-149.29,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Hill County Emergency Management","q2_2025":143.98,"q2_2026":0.0,"diff":-143.98,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"CUS2472 - Joe Danna","q2_2025":140.99,"q2_2026":0.0,"diff":-140.99,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Needville ISD Police Department - Taxable","q2_2025":158.51,"q2_2026":20.11,"diff":-138.4,"pct_change":-87.31},{"rep":"Rhonda Harvey","customer":"Sherman Police Department","q2_2025":6351.01,"q2_2026":6213.36,"diff":-137.65,"pct_change":-2.17},{"rep":"Rhonda Harvey","customer":"City Center Security","q2_2025":3062.57,"q2_2026":2927.12,"diff":-135.45,"pct_change":-4.42},{"rep":"Joe Braaksma","customer":"Lamar Consolidated (LCISD) Police Department - Taxable","q2_2025":518.09,"q2_2026":383.19,"diff":-134.9,"pct_change":-26.04},{"rep":"Michelle Gable","customer":"Red Oak Fire Department","q2_2025":4008.79,"q2_2026":3876.26,"diff":-132.53,"pct_change":-3.31},{"rep":"Rhonda Harvey","customer":"Tori Chambers - Trinity Metro","q2_2025":131.94,"q2_2026":0.0,"diff":-131.94,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Humble Police Department - Taxable","q2_2025":127.43,"q2_2026":0.0,"diff":-127.43,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Dallas Police Department","q2_2025":125.5,"q2_2026":0.0,"diff":-125.5,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Grand Prairie Police Department - Taxable","q2_2025":128.0,"q2_2026":3.41,"diff":-124.59,"pct_change":-97.34},{"rep":"Joe Braaksma","customer":"Harris County Constable PCT 8 - Taxable","q2_2025":325.69,"q2_2026":201.15,"diff":-124.54,"pct_change":-38.24},{"rep":"Rhonda Harvey","customer":"Oak Ridge Police Department - Houston - Taxable","q2_2025":122.37,"q2_2026":0.0,"diff":-122.37,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"CUS2251","q2_2025":113.99,"q2_2026":0.0,"diff":-113.99,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Parker County Sheriff - Taxable","q2_2025":113.46,"q2_2026":0.0,"diff":-113.46,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Wharton Police Department - Taxable","q2_2025":113.27,"q2_2026":0.0,"diff":-113.27,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Spring ISD Police Department - Taxable","q2_2025":177.21,"q2_2026":66.76,"diff":-110.45,"pct_change":-62.33},{"rep":"Michelle Gable","customer":"Alvarado ISD Police Department - Taxable","q2_2025":133.89,"q2_2026":25.36,"diff":-108.53,"pct_change":-81.06},{"rep":"Michelle Gable","customer":"Groesbeck Police Department","q2_2025":720.89,"q2_2026":615.16,"diff":-105.73,"pct_change":-14.67},{"rep":"Rhonda Harvey","customer":"Fort Worth Code Compliance","q2_2025":369.75,"q2_2026":264.75,"diff":-105.0,"pct_change":-28.4},{"rep":"Joe Braaksma","customer":"Brazosport ISD Police Department - Taxable","q2_2025":103.24,"q2_2026":0.0,"diff":-103.24,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Lone Star Park Security","q2_2025":102.0,"q2_2026":0.0,"diff":-102.0,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Forest Hill Police Department - Taxable","q2_2025":113.85,"q2_2026":23.75,"diff":-90.1,"pct_change":-79.14},{"rep":"Joe Braaksma","customer":"Brazosport College Law Enforcement Academy - Taxable","q2_2025":88.24,"q2_2026":0.0,"diff":-88.24,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Metro Transit Police Department - Taxable","q2_2025":87.39,"q2_2026":0.0,"diff":-87.39,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Sealy Fire Department","q2_2025":1020.9,"q2_2026":933.64,"diff":-87.26,"pct_change":-8.55},{"rep":"Joe Braaksma","customer":"CUS3137","q2_2025":84.99,"q2_2026":0.0,"diff":-84.99,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Patton Village Code Enforcement","q2_2025":80.75,"q2_2026":0.0,"diff":-80.75,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Collin County Constable PCT 1","q2_2025":76.34,"q2_2026":0.0,"diff":-76.34,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Woodway Police Department - Taxable","q2_2025":76.24,"q2_2026":0.0,"diff":-76.24,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Montgomery County ESD 6 (Porter Fire Department) - Taxable","q2_2025":75.66,"q2_2026":0.0,"diff":-75.66,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"DeSoto Police Department","q2_2025":75.0,"q2_2026":0.0,"diff":-75.0,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Runaway Bay Police Department","q2_2025":290.37,"q2_2026":215.88,"diff":-74.49,"pct_change":-25.65},{"rep":"Joe Braaksma","customer":"Texas Association of School Resource Officers","q2_2025":71.14,"q2_2026":0.0,"diff":-71.14,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Emory Police Department","q2_2025":71.07,"q2_2026":0.0,"diff":-71.07,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Ennis Police Department","q2_2025":67.15,"q2_2026":0.0,"diff":-67.15,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Iowa Colony Police Department","q2_2025":81.0,"q2_2026":16.75,"diff":-64.25,"pct_change":-79.32},{"rep":"Joe Braaksma","customer":"Harris County ESD 8 - Taxable","q2_2025":135.99,"q2_2026":72.2,"diff":-63.79,"pct_change":-46.91},{"rep":"Joe Braaksma","customer":"Fort Bend ISD Police Department - Taxable","q2_2025":199.62,"q2_2026":137.5,"diff":-62.12,"pct_change":-31.12},{"rep":"Joe Braaksma","customer":"Willis Police Department - Taxable","q2_2025":57.36,"q2_2026":0.0,"diff":-57.36,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"City of Fort Worth - Taxable","q2_2025":54.31,"q2_2026":0.0,"diff":-54.31,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Hill County Constable","q2_2025":53.55,"q2_2026":0.0,"diff":-53.55,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"University of Texas Arlington Police Department","q2_2025":83.7,"q2_2026":32.9,"diff":-50.8,"pct_change":-60.69},{"rep":"Joe Braaksma","customer":"Fortbend ISD Police Department - Taxable","q2_2025":55.0,"q2_2026":7.99,"diff":-47.01,"pct_change":-85.47},{"rep":"Michelle Gable","customer":"Dallas ISD Police Department - Taxable","q2_2025":45.03,"q2_2026":0.0,"diff":-45.03,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Jersey Village Fire Department - Taxable","q2_2025":80.75,"q2_2026":36.28,"diff":-44.47,"pct_change":-55.07},{"rep":"Joe Braaksma","customer":"Eastex Fire - Harris County ESD 10 - Taxable","q2_2025":102.02,"q2_2026":58.09,"diff":-43.93,"pct_change":-43.06},{"rep":"Michelle Gable","customer":"Lake Worth Police Department - Taxable","q2_2025":43.02,"q2_2026":0.0,"diff":-43.02,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Tomball Fire Dept. - Taxable","q2_2025":43.0,"q2_2026":0.0,"diff":-43.0,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Coryell Memorial Health Care - Taxable","q2_2025":286.36,"q2_2026":244.52,"diff":-41.84,"pct_change":-14.61},{"rep":"Joe Braaksma","customer":"River Oaks Patrol - Taxable","q2_2025":31.88,"q2_2026":0.0,"diff":-31.88,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Harris County Appraisal District - Taxable","q2_2025":31.88,"q2_2026":0.0,"diff":-31.88,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Anne Visser","q2_2025":31.3,"q2_2026":0.0,"diff":-31.3,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Seguin Fire - Taxable","q2_2025":30.27,"q2_2026":0.0,"diff":-30.27,"pct_change":-100.0},{"rep":"Kyle Miller","customer":"Arlington Police Department - Taxable","q2_2025":30.0,"q2_2026":0.0,"diff":-30.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Montgomery County Constable PCT 2 - Taxable","q2_2025":22.95,"q2_2026":0.0,"diff":-22.95,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Westover Hills, City Of","q2_2025":37.75,"q2_2026":16.5,"diff":-21.25,"pct_change":-56.29},{"rep":"Joe Braaksma","customer":"Cypress Creek Fire - Harris County ESD 13 (Taxable)","q2_2025":21.24,"q2_2026":0.0,"diff":-21.24,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Willow Park Police - Taxable","q2_2025":20.0,"q2_2026":0.0,"diff":-20.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Richmond Police Department - Taxable","q2_2025":236.28,"q2_2026":216.44,"diff":-19.84,"pct_change":-8.4},{"rep":"Joe Braaksma","customer":"Tomball Police Department","q2_2025":10619.26,"q2_2026":10599.62,"diff":-19.64,"pct_change":-0.18},{"rep":"Rhonda Harvey","customer":"Levelland Police Department","q2_2025":17.75,"q2_2026":0.0,"diff":-17.75,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Memorial Villages Police Dept.- Taxable","q2_2025":16.99,"q2_2026":0.0,"diff":-16.99,"pct_change":-100.0},{"rep":"Michelle Gable","customer":"Ferris Police Department - Taxable","q2_2025":16.98,"q2_2026":0.0,"diff":-16.98,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Lavaca County Sheriff's Office","q2_2025":15.0,"q2_2026":0.0,"diff":-15.0,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Rice University Police Department - Taxable","q2_2025":14.45,"q2_2026":0.0,"diff":-14.45,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Fresno Fire - (Fort Bend ESD 7) - Taxable","q2_2025":9.07,"q2_2026":0.0,"diff":-9.07,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Pearland Fire Department - Taxable","q2_2025":19.36,"q2_2026":10.56,"diff":-8.8,"pct_change":-45.45},{"rep":"Rhonda Harvey","customer":"Rowlett Fire Department","q2_2025":1207.84,"q2_2026":1199.1,"diff":-8.74,"pct_change":-0.72},{"rep":"Joe Braaksma","customer":"Eagle Lake Police Department - Taxable","q2_2025":7.5,"q2_2026":0.0,"diff":-7.5,"pct_change":-100.0},{"rep":"Rhonda Harvey","customer":"Burkburnett Police Department","q2_2025":4.26,"q2_2026":0.0,"diff":-4.26,"pct_change":-100.0},{"rep":"Joe Braaksma","customer":"Klein ISD Police Department - Taxable","q2_2025":137.84,"q2_2026":134.95,"diff":-2.89,"pct_change":-2.1},{"rep":"Rhonda Harvey","customer":"Ovilla Police Department","q2_2025":1301.64,"q2_2026":1301.23,"diff":-0.41,"pct_change":-0.03}],"rep_summary":{"Kyle Miller":{"q2_2025":146068.67,"q2_2026":145654.45,"count_declined":20},"Rhonda Harvey":{"q2_2025":839064.47,"q2_2026":846615.21,"count_declined":99},"Michelle Gable":{"q2_2025":824112.55,"q2_2026":743490.04,"count_declined":108},"Joe Braaksma":{"q2_2025":1869992.87,"q2_2026":2491636.73,"count_declined":178},"William Burgess":{"q2_2025":0.0,"q2_2026":131536.15,"count_declined":0},"Randi Headley":{"q2_2025":0.0,"q2_2026":12856.35,"count_declined":0}},"total_customers":868,"total_declined":405};
+
+let yoyActiveGrowthRep2 = null;
+let yoyActiveDeclineRep2 = null;
+let yoyGrowthPage2 = 1;
+let yoyDeclinePage2 = 1;
+
+// ─── PANEL SWITCH ─────────────────────────────────────────────────────────────
+function yoySwitch2(panel) {
+  document.getElementById('yoyGrowthBtn2').classList.toggle('active', panel === 'growth');
+  document.getElementById('yoyDeclineBtn2').classList.toggle('active', panel === 'decline');
+  document.getElementById('yoyPanelGrowth2').classList.toggle('active', panel === 'growth');
+  document.getElementById('yoyPanelDecline2').classList.toggle('active', panel === 'decline');
+}
+
+// ─── GROWTH RENDER ────────────────────────────────────────────────────────────
+function renderYoyGrowthStats2() {
+  const total = YOY2_GROWTH.reduce((a, r) => a + r.q2_2026, 0);
+  const prior = YOY2_GROWTH.reduce((a, r) => a + r.q2_2025, 0);
+  const diff = total - prior;
+  const newAcct = YOY2_GROWTH.filter(r => r.q2_2025 <= 0).length;
+  const bigGrowth = YOY2_GROWTH.filter(r => r.diff >= 25000).length;
+  document.getElementById('yoyGrowthStats2').innerHTML = `
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q2 2025 (Growers)</div><div class="yoy-stat-value">${yoyFmt(prior)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q2 2026 (Growers)</div><div class="yoy-stat-value" style="color:#3dd68c">${yoyFmt(total)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Total $ Growth</div><div class="yoy-stat-value" style="color:#3dd68c">${yoyFmtS(diff)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Customers w/ Growth</div><div class="yoy-stat-value" style="color:#3dd68c">${YOY2_GROWTH.length}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Growths >$25K</div><div class="yoy-stat-value" style="color:#34d8b6">${bigGrowth}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">New Accounts</div><div class="yoy-stat-value" style="color:#ffd166">${newAcct}</div></div>
+  `;
+  document.getElementById('hubGrowthTotal2').textContent = yoyFmtS(diff);
+  document.getElementById('hubGrowthCount2').textContent = `${YOY2_GROWTH.length} customers grew`;
+}
+
+function buildYoyGrowthRepSummary2() {
+  const s = {};
+  YOY2_GROWTH.forEach(r => {
+    if (!s[r.rep]) s[r.rep] = { q2_2025: 0, q2_2026: 0, count: 0 };
+    s[r.rep].q2_2025 += r.q2_2025;
+    s[r.rep].q2_2026 += r.q2_2026;
+    s[r.rep].count++;
+  });
+  return Object.entries(s).filter(([rep]) => rep !== 'HOUSE ACCOUNT').sort((a,b) => b[1].q2_2026 - a[1].q2_2026);
+}
+
+function renderYoyGrowthRepGrid2() {
+  const reps = buildYoyGrowthRepSummary2();
+  const maxC = Math.max(...reps.map(([,v]) => v.q2_2026));
+  document.getElementById('yoyGrowthRepGrid2').innerHTML = reps.map(([rep, data]) => {
+    const diff = data.q2_2026 - data.q2_2025;
+    const pct = data.q2_2025 > 0 ? (diff / data.q2_2025 * 100).toFixed(1) : '—';
+    const color = YOY_COLORS[rep] || '#888';
+    const priorPct = (data.q2_2025 / maxC * 100).toFixed(1);
+    const currPct = (data.q2_2026 / maxC * 100).toFixed(1);
+    return `<div class="yoy-rep-card${yoyActiveGrowthRep2 === rep ? ' active' : ''}" onclick="yoyToggleGrowthRep2('${rep.replace(/'/g,"\\'")}')">
+      <div class="yoy-rep-card-header">
+        <div class="yoy-rep-name"><div class="yoy-rep-dot" style="background:${color}"></div>${rep}</div>
+        <div class="yoy-change-pos">${yoyFmtS(diff)} <span style="font-size:11px;opacity:0.7">(${pct}%)</span></div>
+      </div>
+      <div class="yoy-bar-track">
+        <div class="yoy-bar-prior" style="background:${color};width:${priorPct}%"></div>
+        <div class="yoy-bar-curr" style="background:${color};width:${currPct}%"></div>
+      </div>
+      <div class="yoy-rep-meta"><span>Q2 '25: ${yoyFmt(data.q2_2025)}</span><span>${data.count} customers ↑</span><span>Q2 '26: ${yoyFmt(data.q2_2026)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function yoyToggleGrowthRep2(rep) {
+  yoyActiveGrowthRep2 = yoyActiveGrowthRep2 === rep ? null : rep;
+  yoyGrowthPage2 = 1;
+  renderYoyGrowthRepGrid2();
+  renderYoyGrowthTable2();
+}
+
+function getYoyGrowthFiltered2() {
+  const repF = document.getElementById('yoyGrowthRepFilter2').value;
+  const minG = parseInt(document.getElementById('yoyGrowthMinFilter2').value);
+  const newF = document.getElementById('yoyGrowthNewFilter2').value;
+  const sort = document.getElementById('yoyGrowthSort2').value;
+  let data = [...YOY2_GROWTH];
+  if (yoyActiveGrowthRep2) data = data.filter(r => r.rep === yoyActiveGrowthRep2);
+  else if (repF !== 'all') data = data.filter(r => r.rep === repF);
+  if (minG > 0) data = data.filter(r => r.diff >= minG);
+  if (newF === 'existing') data = data.filter(r => r.q2_2025 > 0);
+  if (newF === 'new') data = data.filter(r => r.q2_2025 <= 0);
+  data.sort((a,b) => {
+    if (sort === 'diff') return b.diff - a.diff;
+    if (sort === 'pct') { const pa = a.pct_change === null ? Infinity : a.pct_change; const pb = b.pct_change === null ? Infinity : b.pct_change; return pb - pa; }
+    if (sort === 'q2_2026') return b.q2_2026 - a.q2_2026;
+    if (sort === 'customer') return a.customer.localeCompare(b.customer);
+    return 0;
+  });
+  return data;
+}
+
+function renderYoyGrowthTable2() {
+  const data = getYoyGrowthFiltered2();
+  const total = data.length;
+  const pages = Math.ceil(total / YOY_PAGE);
+  yoyGrowthPage2 = Math.min(yoyGrowthPage2, pages || 1);
+  const slice = data.slice((yoyGrowthPage2-1)*YOY_PAGE, yoyGrowthPage2*YOY_PAGE);
+  document.getElementById('yoyGrowthCount2').textContent = `${total} customers`;
+  document.getElementById('yoyGrowthFooter2').textContent = `Generated from NetSuite · ${YOY2_GROWTH.length} customers with YoY growth · Apr 1 – Jun 30`;
+  document.getElementById('yoyGrowthBody2').innerHTML = slice.map(r => {
+    const color = YOY_COLORS[r.rep] || '#888';
+    const isNew = r.q2_2025 <= 0;
+    const pctCell = isNew
+      ? `<span class="yoy-new-badge">NEW</span>`
+      : (() => { const barW = Math.min((Math.min(r.pct_change,500)/500)*100,100); return `<div class="yoy-pct-bar-wrap"><div class="yoy-pct-bar-bg"><div class="yoy-pct-bar-inner-green" style="width:${barW}%"></div></div><span class="yoy-pct-label-green">+${r.pct_change.toFixed(0)}%</span></div>`; })();
+    const priorCell = isNew ? `<span style="color:var(--text-muted)">—</span>` : `<span class="mono">${yoyFmt(r.q2_2025)}</span>`;
+    return `<tr>
+      <td style="font-weight:500;max-width:260px;">${r.customer}</td>
+      <td><span class="yoy-rep-chip" style="background:${color}22;color:${color};border:1px solid ${color}44">${r.rep.split(' ')[0]}</span></td>
+      <td class="num">${priorCell}</td>
+      <td class="num mono">${yoyFmt(r.q2_2026)}</td>
+      <td class="num mono" style="color:#3dd68c;font-weight:600">${yoyFmtS(r.diff)}</td>
+      <td style="min-width:120px">${pctCell}</td>
+    </tr>`;
+  }).join('');
+  yoyRenderPages('yoyGrowthPagination2', yoyGrowthPage2, pages, 'yoyGoGrowthPage2');
+}
+
+function initYoyGrowthFilters2() {
+  const reps = buildYoyGrowthRepSummary2().map(([r]) => r);
+  document.getElementById('yoyGrowthRepFilter2').innerHTML = '<option value="all">All Reps</option>' + reps.map(r => `<option>${r}</option>`).join('');
+  ['yoyGrowthRepFilter2','yoyGrowthMinFilter2','yoyGrowthNewFilter2','yoyGrowthSort2'].forEach(id =>
+    document.getElementById(id).addEventListener('change', () => { yoyGrowthPage2 = 1; renderYoyGrowthTable2(); }));
+}
+
+// ─── DECLINE RENDER ───────────────────────────────────────────────────────────
+function renderYoyDeclineStats2() {
+  const reps = YOY2_DECLINE.rep_summary;
+  const totalPrior = Object.values(reps).reduce((a,b) => a+b.q2_2025,0);
+  const totalCurr = Object.values(reps).reduce((a,b) => a+b.q2_2026,0);
+  const diff = totalCurr - totalPrior;
+  const pct = (diff/totalPrior*100).toFixed(1);
+  const bigD = YOY2_DECLINE.declined.filter(r => r.diff < -25000).length;
+  const gone = YOY2_DECLINE.declined.filter(r => r.q2_2026 <= 0).length;
+  document.getElementById('yoyDeclineStats2').innerHTML = `
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q2 2025 Revenue</div><div class="yoy-stat-value">${yoyFmt(totalPrior)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Q2 2026 Revenue</div><div class="yoy-stat-value">${yoyFmt(totalCurr)}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">YoY Change</div><div class="yoy-stat-value" style="color:#ff4d4d">${yoyFmtS(diff)} <span style="font-size:14px">(${pct}%)</span></div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Customers w/ Decline</div><div class="yoy-stat-value" style="color:#ff4d4d">${YOY2_DECLINE.total_declined}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Declines >$25K</div><div class="yoy-stat-value" style="color:#ff8c42">${bigD}</div></div>
+    <div class="yoy-stat-card"><div class="yoy-stat-label">Zero / No Q2 2026</div><div class="yoy-stat-value" style="color:#ff4d4d">${gone}</div></div>
+  `;
+  document.getElementById('hubDeclineTotal2').textContent = yoyFmtS(diff);
+  document.getElementById('hubDeclineCount2').textContent = `${YOY2_DECLINE.total_declined} customers declined`;
+}
+
+function renderYoyDeclineRepGrid2() {
+  const reps = Object.entries(YOY2_DECLINE.rep_summary);
+  const maxPrior = Math.max(...reps.map(([,v]) => v.q2_2025));
+  document.getElementById('yoyDeclineRepGrid2').innerHTML = reps.map(([rep, data]) => {
+    const diff = data.q2_2026 - data.q2_2025;
+    const pct = data.q2_2025 > 0 ? (diff / data.q2_2025 * 100).toFixed(1) : '—';
+    const color = YOY_COLORS[rep] || '#888';
+    const priorPct = maxPrior > 0 ? (data.q2_2025 / maxPrior * 100).toFixed(1) : 0;
+    const currPct = maxPrior > 0 ? (data.q2_2026 / maxPrior * 100).toFixed(1) : 0;
+    return `<div class="yoy-rep-card${yoyActiveDeclineRep2 === rep ? ' active' : ''}" onclick="yoyToggleDeclineRep2('${rep.replace(/'/g,"\\'")}')">
+      <div class="yoy-rep-card-header">
+        <div class="yoy-rep-name"><div class="yoy-rep-dot" style="background:${color}"></div>${rep}</div>
+        <div class="yoy-change-neg">${yoyFmtS(diff)} <span style="font-size:11px;opacity:0.7">(${pct}%)</span></div>
+      </div>
+      <div class="yoy-bar-track">
+        <div class="yoy-bar-prior" style="background:${color};width:${priorPct}%"></div>
+        <div class="yoy-bar-curr" style="background:${color};width:${currPct}%"></div>
+      </div>
+      <div class="yoy-rep-meta"><span>Q2 '25: ${yoyFmt(data.q2_2025)}</span><span>${data.count_declined} customers ↓</span><span>Q2 '26: ${yoyFmt(data.q2_2026)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function yoyToggleDeclineRep2(rep) {
+  yoyActiveDeclineRep2 = yoyActiveDeclineRep2 === rep ? null : rep;
+  yoyDeclinePage2 = 1;
+  renderYoyDeclineRepGrid2();
+  renderYoyDeclineTable2();
+}
+
+function getYoyDeclineFiltered2() {
+  const repF = document.getElementById('yoyDeclineRepFilter2').value;
+  const minD = parseInt(document.getElementById('yoyDeclineMinFilter2').value);
+  const sort = document.getElementById('yoyDeclineSort2').value;
+  let data = [...YOY2_DECLINE.declined];
+  if (yoyActiveDeclineRep2) data = data.filter(r => r.rep === yoyActiveDeclineRep2);
+  else if (repF !== 'all') data = data.filter(r => r.rep === repF);
+  if (minD > 0) data = data.filter(r => Math.abs(r.diff) >= minD);
+  data.sort((a,b) => {
+    if (sort === 'diff') return a.diff - b.diff;
+    if (sort === 'pct') return a.pct_change - b.pct_change;
+    if (sort === 'q2_2025') return b.q2_2025 - a.q2_2025;
+    if (sort === 'customer') return a.customer.localeCompare(b.customer);
+    return 0;
+  });
+  return data;
+}
+
+function renderYoyDeclineTable2() {
+  const data = getYoyDeclineFiltered2();
+  const total = data.length;
+  const pages = Math.ceil(total / YOY_PAGE);
+  yoyDeclinePage2 = Math.min(yoyDeclinePage2, pages || 1);
+  const slice = data.slice((yoyDeclinePage2-1)*YOY_PAGE, yoyDeclinePage2*YOY_PAGE);
+  document.getElementById('yoyDeclineCount2').textContent = `${total} customers`;
+  document.getElementById('yoyDeclineBody2').innerHTML = slice.map(r => {
+    const color = YOY_COLORS[r.rep] || '#888';
+    const pctAbs = Math.min(Math.abs(r.pct_change), 100);
+    const currDisplay = r.q2_2026 <= 0 ? `<span class="yoy-zero-badge">${r.q2_2026 < 0 ? yoyFmt(r.q2_2026) : 'ZERO'}</span>` : `<span class="mono">${yoyFmt(r.q2_2026)}</span>`;
+    return `<tr>
+      <td style="font-weight:500;max-width:260px;">${r.customer}</td>
+      <td><span class="yoy-rep-chip" style="background:${color}22;color:${color};border:1px solid ${color}44">${r.rep.split(' ')[0]}</span></td>
+      <td class="num mono">${yoyFmt(r.q2_2025)}</td>
+      <td class="num">${currDisplay}</td>
+      <td class="num mono" style="color:#ff4d4d;font-weight:600">${yoyFmtS(r.diff)}</td>
+      <td style="min-width:120px"><div class="yoy-pct-bar-wrap"><div class="yoy-pct-bar-bg"><div class="yoy-pct-bar-inner-red" style="width:${pctAbs}%"></div></div><span class="yoy-pct-label-red">${r.pct_change.toFixed(0)}%</span></div></td>
+    </tr>`;
+  }).join('');
+  yoyRenderPages('yoyDeclinePagination2', yoyDeclinePage2, pages, 'yoyGoDeclinePage2');
+}
+
+function initYoyDeclineFilters2() {
+  const reps = Object.keys(YOY2_DECLINE.rep_summary);
+  document.getElementById('yoyDeclineRepFilter2').innerHTML = '<option value="all">All Reps</option>' + reps.map(r => `<option>${r}</option>`).join('');
+  ['yoyDeclineRepFilter2','yoyDeclineMinFilter2','yoyDeclineSort2'].forEach(id =>
+    document.getElementById(id).addEventListener('change', () => { yoyDeclinePage2 = 1; renderYoyDeclineTable2(); }));
+}
+
+function yoyGoGrowthPage2(p){yoyGrowthPage2=p;renderYoyGrowthTable2();}
+function yoyGoDeclinePage2(p){yoyDeclinePage2=p;renderYoyDeclineTable2();}
+
 // ─── MONTH BG COLOR UPDATE ────────────────────────────────────────────────────
-const MONTH_COLORS = { jan: '#4fa3ff', feb: '#b06aff', mar: '#ffd166', apr: '#00d4aa' };
+const MONTH_COLORS = { jan: '#4fa3ff', feb: '#b06aff', mar: '#ffd166', apr: '#00d4aa', may: '#ff9f43', jun: '#e84545' };
 function updateMonthBg(month) {
   const color = MONTH_COLORS[month];
   if (!color) return;
@@ -1827,6 +2318,16 @@ renderYoyDeclineStats();
 renderYoyDeclineRepGrid();
 initYoyDeclineFilters();
 renderYoyDeclineTable();
+
+// ─── INIT Q2 YOY ───────────────────────────────────────────────────────────────
+renderYoyGrowthStats2();
+renderYoyGrowthRepGrid2();
+initYoyGrowthFilters2();
+renderYoyGrowthTable2();
+renderYoyDeclineStats2();
+renderYoyDeclineRepGrid2();
+initYoyDeclineFilters2();
+renderYoyDeclineTable2();
 </script>
 </body>
 </html>
